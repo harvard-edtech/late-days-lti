@@ -1,0 +1,9 @@
+{
+  "extends": [
+    "plugin:react/recommended"
+  ],
+  "globals": {
+    "it": false,
+    "describe": false
+  }
+}
