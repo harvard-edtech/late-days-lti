@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+
 class ItemFooter extends Component {
   /**
    * Render ItemFooter
    */
   render() {
-    
     return (
       <div>
         ItemFooter has not been created yet
@@ -15,6 +15,8 @@ class ItemFooter extends Component {
 }
 
 ItemFooter.propTypes = {
+  // The message to display in the footer
+  footerMessage: PropTypes.node.isRequired,
 };
 
 

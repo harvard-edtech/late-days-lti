@@ -5,7 +5,7 @@ class ItemName extends Component {
    * Render ItemName
    */
   render() {
-    
+
     return (
       <div>
         ItemName has not been created yet
@@ -15,6 +15,8 @@ class ItemName extends Component {
 }
 
 ItemName.propTypes = {
+  // TODO: add description
+  name: PropTypes.string.isRequired,
 };
 
 
