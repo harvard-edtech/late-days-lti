@@ -8,14 +8,14 @@ class GetInTouchButton extends Component {
     const {
       onClick,
     } = this.props;
-    
+
     return (
       <div>
         GetInTouchButton has not been created yet
       </div>
     );
+  }
 }
-
 
 GetInTouchButton.propTypes = {
   onClick: PropTypes.func.isRequired,

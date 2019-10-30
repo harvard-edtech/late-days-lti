@@ -11,8 +11,8 @@ class AssignmentOveruseContainer extends Component {
         AssignmentOveruseContainer has not been created yet
       </div>
     );
+  }
 }
-
 
 AssignmentOveruseContainer.propTypes = {
 };

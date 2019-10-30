@@ -14,6 +14,7 @@ class CancelButton extends Component {
         CancelButton has not been created yet
       </div>
     );
+  }
 }
 
 

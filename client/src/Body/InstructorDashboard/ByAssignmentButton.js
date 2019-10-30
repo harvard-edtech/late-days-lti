@@ -8,14 +8,14 @@ class ByAssignmentButton extends Component {
     const {
       onClick,
     } = this.props;
-    
+
     return (
       <div>
         ByAssignmentButton has not been created yet
       </div>
     );
+  }
 }
-
 
 ByAssignmentButton.propTypes = {
   onClick: PropTypes.func.isRequired,

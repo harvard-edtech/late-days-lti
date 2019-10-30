@@ -11,8 +11,8 @@ class ProgressBar extends Component {
         ProgressBar has not been created yet
       </div>
     );
+  }
 }
-
 
 ProgressBar.propTypes = {
 };

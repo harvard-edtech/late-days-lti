@@ -11,8 +11,8 @@ class AssignmentGroupItem extends Component {
         AssignmentGroupItem has not been created yet
       </div>
     );
+  }
 }
-
 
 AssignmentGroupItem.propTypes = {};
 

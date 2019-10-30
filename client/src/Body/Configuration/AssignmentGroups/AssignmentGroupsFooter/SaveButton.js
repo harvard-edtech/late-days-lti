@@ -8,14 +8,14 @@ class SaveButton extends Component {
     const {
       onClick,
     } = this.props;
-    
+
     return (
       <div>
         SaveButton has not been created yet
       </div>
     );
+  }
 }
-
 
 SaveButton.propTypes = {
   onClick: PropTypes.func.isRequired,

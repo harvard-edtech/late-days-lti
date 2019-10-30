@@ -15,8 +15,8 @@ class StudentSummary extends Component {
         StudentSummary has not been created yet
       </div>
     );
+  }
 }
-
 
 StudentSummary.propTypes = {
 };

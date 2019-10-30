@@ -11,6 +11,7 @@ class ProgressInfo extends Component {
         ProgressInfo has not been created yet
       </div>
     );
+  }
 }
 
 

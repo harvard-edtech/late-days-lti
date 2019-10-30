@@ -15,8 +15,8 @@ class AssignmentGroups extends Component {
         AssignmentGroups has not been created yet
       </div>
     );
+  }
 }
-
 
 AssignmentGroups.propTypes = {};
 

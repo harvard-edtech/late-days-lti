@@ -13,8 +13,8 @@ class TotalLateDayProgress extends Component {
         TotalLateDayProgress has not been created yet
       </div>
     );
+  }
 }
-
 
 TotalLateDayProgress.propTypes = {
 };

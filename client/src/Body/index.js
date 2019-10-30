@@ -17,9 +17,8 @@ class Body extends Component {
         Body has not been created yet
       </div>
     );
+  }
 }
-
-
 Body.propTypes = {};
 
 Body.defaultProps = {};

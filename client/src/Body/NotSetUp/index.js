@@ -13,7 +13,7 @@ class NotSetUp extends Component {
         NotSetUp has not been created yet
       </div>
     );
+  }
 }
-
 
 export default NotSetUp;

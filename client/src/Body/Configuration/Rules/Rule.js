@@ -16,6 +16,7 @@ class Rule extends Component {
         Rule has not been created yet
       </div>
     );
+  }
 }
 
 

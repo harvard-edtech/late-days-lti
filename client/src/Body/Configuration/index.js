@@ -14,8 +14,8 @@ class Configuration extends Component {
         Configuration has not been created yet
       </div>
     );
+  }
 }
-
 
 Configuration.propTypes = {};
 

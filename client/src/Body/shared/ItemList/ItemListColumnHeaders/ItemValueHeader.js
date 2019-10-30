@@ -11,8 +11,8 @@ class ItemValueHeader extends Component {
         ItemValueHeader has not been created yet
       </div>
     );
+  }
 }
-
 
 ItemValueHeader.propTypes = {
 };

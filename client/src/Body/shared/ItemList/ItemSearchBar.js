@@ -11,8 +11,8 @@ class ItemSearchBar extends Component {
         ItemSearchBar has not been created yet
       </div>
     );
+  }
 }
-
 
 ItemSearchBar.propTypes = {
 };

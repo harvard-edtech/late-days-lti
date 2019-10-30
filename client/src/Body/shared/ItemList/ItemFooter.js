@@ -11,8 +11,8 @@ class ItemFooter extends Component {
         ItemFooter has not been created yet
       </div>
     );
+  }
 }
-
 
 ItemFooter.propTypes = {
 };

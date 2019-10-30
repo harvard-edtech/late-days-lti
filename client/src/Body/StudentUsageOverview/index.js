@@ -11,8 +11,8 @@ class StudentUsageOverview extends Component {
         StudentUsageOverview has not been created yet
       </div>
     );
+  }
 }
-
 
 StudentUsageOverview.propTypes = {
 };

@@ -11,8 +11,8 @@ class StudentUsageOnAssignment extends Component {
         StudentUsageOnAssignment has not been created yet
       </div>
     );
+  }
 }
-
 
 StudentUsageOnAssignment.propTypes = {
 };

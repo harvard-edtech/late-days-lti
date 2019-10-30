@@ -8,14 +8,14 @@ class ConfigButton extends Component {
     const {
       onClick,
     } = this.props;
-    
+
     return (
       <div>
         ConfigButton has not been created yet
       </div>
     );
+  }
 }
-
 
 ConfigButton.propTypes = {
   onClick: PropTypes.func.isRequired,

@@ -11,7 +11,7 @@ class SetupErrorMessage extends Component {
         SetupErrorMessage has not been created yet
       </div>
     );
+  }
 }
-
 
 export default SetupErrorMessage;

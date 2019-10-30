@@ -15,8 +15,8 @@ class ItemRow extends Component {
         ItemRow has not been created yet
       </div>
     );
+  }
 }
-
 
 ItemRow.propTypes = {
 };

@@ -8,14 +8,14 @@ class ByStudentButton extends Component {
     const {
       onClick,
     } = this.props;
-    
+
     return (
       <div>
         ByStudentButton has not been created yet
       </div>
     );
+  }
 }
-
 
 ByStudentButton.propTypes = {
   onClick: PropTypes.func.isRequired,

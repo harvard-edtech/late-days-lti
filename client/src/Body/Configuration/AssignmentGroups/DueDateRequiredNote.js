@@ -11,6 +11,7 @@ class DueDateRequiredNote extends Component {
         DueDateRequiredNote has not been created yet
       </div>
     );
+  }
 }
 
 export default DueDateRequiredNote;

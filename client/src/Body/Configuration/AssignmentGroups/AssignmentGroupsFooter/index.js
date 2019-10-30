@@ -17,8 +17,8 @@ class AssignmentGroupsFooter extends Component {
         AssignmentGroupsFooter has not been created yet
       </div>
     );
+  }
 }
-
 
 AssignmentGroupsFooter.propTypes = {
 };

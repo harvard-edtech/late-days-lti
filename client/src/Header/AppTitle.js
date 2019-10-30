@@ -11,8 +11,8 @@ class AppTitle extends Component {
         AppTitle has not been created yet
       </div>
     );
+  }
 }
-
 
 AppTitle.propTypes = {};
 

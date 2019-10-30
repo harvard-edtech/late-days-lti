@@ -11,8 +11,8 @@ class ItemDueHeader extends Component {
         ItemDueHeader has not been created yet
       </div>
     );
+  }
 }
-
 
 ItemDueHeader.propTypes = {
 };

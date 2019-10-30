@@ -14,8 +14,8 @@ class Header extends Component {
         Header has not been created yet
       </div>
     );
+  }
 }
-
 
 Header.propTypes = {};
 

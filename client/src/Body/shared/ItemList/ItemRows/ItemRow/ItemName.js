@@ -11,8 +11,8 @@ class ItemName extends Component {
         ItemName has not been created yet
       </div>
     );
+  }
 }
-
 
 ItemName.propTypes = {
 };

@@ -11,6 +11,7 @@ class ItemDue extends Component {
         ItemDue has not been created yet
       </div>
     );
+  }
 }
 
 
