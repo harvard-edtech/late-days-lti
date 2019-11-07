@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 // Import clone function
-import clone from 'fast-clone';
+import clone from 'shallow-clone';
 
 // Import other components
 import ItemRow from './ItemRow';
@@ -81,7 +81,7 @@ class ItemRows extends Component {
       itemsClone.sort(comparator);
     }
 
-    const toRender = itemsClone.map((item) => {
+    const rowElements = itemsClone.map((item) => {
       return (
         <div key={item.name}>
           <div
@@ -97,10 +97,9 @@ class ItemRows extends Component {
       );
     });
 
-
     return (
       <div className="itemrows-container">
-        {toRender}
+        {rowElements}
       </div>
     );
   }

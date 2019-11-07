@@ -4,6 +4,11 @@ import initCACCL from 'caccl/client/cached';
 // Import React
 import React, { Component } from 'react';
 
+import ItemList from './Body/shared/ItemList';
+
+// Import styles
+import './App.css';
+
 // Initialize caccl
 const { api, getStatus } = initCACCL();
 
@@ -73,33 +78,28 @@ class App extends Component {
 
     // Render the component
     return (
-      <div className="App">
-        <header className="App-header">
-          <p>
-            <strong>{message}</strong>
-          </p>
-          <p>
-            This app is not implemented yet!
-          </p>
-
-          Resources:
-          <a
-            className="App-link"
-            href="https://harvard-edtech.github.io/caccl/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            CACCL Docs
-          </a>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div>
+        <ItemList
+          items={[
+            {
+              name: 'Person 1',
+              value: 2,
+              onClick: () => {
+                alert('Person 1 clicked');
+              },
+            },
+            {
+              name: 'Person 2',
+              value: 1,
+              onClick: () => {
+                alert('Person 2 clicked');
+              },
+            },
+          ]}
+          nameHeader="Full Name"
+          valueHeader="Late Days Used"
+          valueDenominator={5}
+        />
       </div>
     );
   }

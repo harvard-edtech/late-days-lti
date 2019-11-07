@@ -9,6 +9,9 @@ import ItemValueHeader from './ItemValueHeader';
 // Import sort types
 import SORT_TYPES from '../SORT_TYPES';
 
+// Import styles
+import './style.css';
+
 class ItemListColumnHeaders extends Component {
   /**
    * Render ItemListColumnHeaders
@@ -19,7 +22,6 @@ class ItemListColumnHeaders extends Component {
     // ItemList.SORT_TYPES.NATURAL
 
     const {
-      hideColumnHeaders,
       nameHeader,
       valueHeader,
       showDueAt,
@@ -28,56 +30,60 @@ class ItemListColumnHeaders extends Component {
       dueAtHeader,
     } = this.props;
 
-    let dueHead;
-    let nameHead;
-    let valueHead;
+    const nameHead = (
+      <div className="itemlistcolumnheaders-namecontainer flex-grow-1">
+        <ItemNameHeader
+          text={nameHeader}
+          sortType={sortType}
+          onClick={() => {
+            onSortTypeChange(
+              (sortType === SORT_TYPES.BY_NAME)
+                ? SORT_TYPES.NATURAL
+                : SORT_TYPES.BY_NAME
+            );
+          }}
+        />
+      </div>
+    );
 
-    if (!hideColumnHeaders) {
-      nameHead = (
-        <div className="itemlistcolumnheaders-namecontainer">
-          <ItemNameHeader
-            text={nameHeader}
-            onClick={
-              onSortTypeChange(
-                (sortType === SORT_TYPES.BY_NAME)
-                  ? SORT_TYPES.NATURAL : SORT_TYPES.BY_NAME
-              )
-            }
-          />
-        </div>
-      );
-      valueHead = (
-        <div className="itemlistcolumnheaders-valuecontainer">
-          <ItemValueHeader
-            text={valueHeader}
-            onClick={
-              onSortTypeChange(
-                (sortType === SORT_TYPES.BY_VALUE)
-                  ? SORT_TYPES.NATURAL : SORT_TYPES.BY_VALUE
-              )
-            }
-          />
-        </div>
-      );
+    const valueHead = (
+      <div className="itemlistcolumnheaders-valuecontainer itemlist-value-column">
+        <ItemValueHeader
+          text={valueHeader}
+          sortType={sortType}
+          onClick={() => {
+            onSortTypeChange(
+              (sortType === SORT_TYPES.BY_VALUE)
+                ? SORT_TYPES.NATURAL
+                : SORT_TYPES.BY_VALUE
+            );
+          }}
+        />
+      </div>
+    );
 
-      if (showDueAt) {
-        dueHead = (
-          <div className="itemlistcolumnheaders-duecontainer">
+    const dueHead = (
+      showDueAt
+        ? (
+          <div className="itemlistcolumnheaders-duecontainer itemlist-due-column">
             <ItemDueHeader
               text={dueAtHeader}
-              onClick={
+              sortType={sortType}
+              onClick={() => {
                 onSortTypeChange(
                   (sortType === SORT_TYPES.BY_DUE_AT)
-                    ? SORT_TYPES.NATURAL : SORT_TYPES.BY_DUE_AT
-                )
-              }
+                    ? SORT_TYPES.NATURAL
+                    : SORT_TYPES.BY_DUE_AT
+                );
+              }}
             />
           </div>
-        );
-      }
-    }
+        )
+        : null
+    );
+
     return (
-      <div className="itemlistcolumnheaders-container">
+      <div className="itemlistcolumnheaders-container d-flex mt-3">
         {nameHead}
         {dueHead}
         {valueHead}
@@ -87,8 +93,6 @@ class ItemListColumnHeaders extends Component {
 }
 
 ItemListColumnHeaders.propTypes = {
-  // If true, the header row is not shown
-  hideColumnHeaders: PropTypes.bool.isRequired,
   // The header text above the item name column
   nameHeader: PropTypes.string.isRequired,
   // The header text above the item value column

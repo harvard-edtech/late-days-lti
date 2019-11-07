@@ -1,0 +1,5 @@
+/* Button that has all its button characteristics stripped */
+.btn-stripped {
+  padding: 0 !important;
+  margin: 0 !important;
+}

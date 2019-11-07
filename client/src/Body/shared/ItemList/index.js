@@ -10,6 +10,9 @@ import ItemSearchBar from './ItemSearchBar';
 // Import sort types
 import SORT_TYPES from './SORT_TYPES';
 
+// Import styles
+import './style.css';
+
 class ItemList extends Component {
   constructor(props) {
     super(props);
@@ -64,46 +67,55 @@ class ItemList extends Component {
       footerMessage,
     } = this.props;
 
-
     const {
       searchQuery,
       sortType,
     } = this.state;
 
-    let searchBarElem;
-    let footerElem;
+    /* ------------------- Create Search Bar Elem ------------------- */
+    const searchBarElem = (
+      hideSearchBar
+        ? null
+        : (
+          <ItemSearchBar
+            query={searchQuery}
+            onQueryChange={this.onQueryChange}
+          />
+        )
+    );
 
+    /* ----------------------- Create Headers ----------------------- */
+    const headerElem = (
+      hideColumnHeaders
+        ? null
+        : (
+          <ItemListColumnHeaders
+            nameHeader={nameHeader}
+            valueHeader={valueHeader}
+            showDueAt={showDueAt}
+            onSortTypeChange={this.onSortTypeChange}
+            sortType={sortType}
+            dueAtHeader={dueAtHeader}
+          />
+        )
+    );
 
-    if (!hideSearchBar) {
-      searchBarElem = (
-        <ItemSearchBar
-          query={searchQuery}
-          onQueryChange={this.onQueryChange}
-        />
-      );
-    }
+    /* --------------------- Create Footer Elem --------------------- */
+    const footerElem = (
+      footerMessage
+        ? (
+          <ItemFooter
+            footerMessage={footerMessage}
+          />
+        )
+        : null
+    );
 
-    if (footerMessage) {
-      footerElem = (
-        <ItemFooter
-          footerMessage={footerMessage}
-        />
-      );
-    }
+    /* ----------------------- Render ItemList ---------------------- */
     return (
-      <div className="itemlist-container">
+      <div className="itemlist-container m-3">
         {searchBarElem}
-
-        <ItemListColumnHeaders
-          hideColumnHeaders={hideColumnHeaders}
-          nameHeader={nameHeader}
-          valueHeader={valueHeader}
-          showDueAt={showDueAt}
-          onSortTypeChange={this.onSortTypeChange}
-          sortType={sortType}
-          dueAtHeader={dueAtHeader}
-        />
-
+        {headerElem}
         <ItemRows
           items={items}
           valueDenominator={valueDenominator}

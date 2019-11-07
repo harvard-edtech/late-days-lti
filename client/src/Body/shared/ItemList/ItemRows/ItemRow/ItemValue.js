@@ -12,7 +12,11 @@ class ItemValue extends Component {
       valueSuffix,
     } = this.props;
 
-    const concatVal = `${value}/${valueDenominator} ${valueSuffix}`;
+    let concatVal = `${value}/${valueDenominator}`;
+    if (valueSuffix) {
+      concatVal += ` ${valueSuffix}`;
+    }
+
     return (
       <div className="itemvalue-container">
         {concatVal}

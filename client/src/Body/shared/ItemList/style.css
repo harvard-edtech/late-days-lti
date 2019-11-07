@@ -1,0 +1,11 @@
+.itemlist-due-column {
+  display: inline-block;
+  width: 200px;
+  text-align: left;
+}
+
+.itemlist-value-column {
+  display: inline-block;
+  width: 200px;
+  text-align: left;
+}
