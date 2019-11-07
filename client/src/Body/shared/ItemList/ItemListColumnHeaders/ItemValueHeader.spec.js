@@ -21,7 +21,7 @@ describe('client > src > shared > ItemList > ItemListColumnHeaders > ItemValueHe
 
     // checks button exists
     assert(driver.elementExists('#valueheader-button'), 'Item Value Header button absent');
-    // checks that button says "Toekns Used"
+    // checks that button says "Tokens Used"
     assert.equal(
       driver.getText('#valueheader-button'),
       'Tokens Used',

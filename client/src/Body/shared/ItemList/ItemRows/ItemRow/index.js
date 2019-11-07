@@ -59,6 +59,7 @@ class ItemRow extends Component {
       toRender = (
         <button
           type="button"
+          id="itemrow-button"
           className="btn btn-outline-secondary"
           onClick={onClick}
         >

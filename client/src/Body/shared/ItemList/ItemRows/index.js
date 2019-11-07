@@ -12,13 +12,14 @@ import SORT_TYPES from '../SORT_TYPES';
 
 // Sort comparators
 const byDueAt = (a, b) => {
+  // Sorts by most recent due date at top
   if (a.dueAt && b.dueAt) {
     const aValue = a.dueAt.getTime();
     const bValue = b.dueAt.getTime();
-    if (aValue < bValue) {
+    if (aValue > bValue) {
       return -1;
     }
-    if (aValue > bValue) {
+    if (aValue < bValue) {
       return 1;
     }
   }
