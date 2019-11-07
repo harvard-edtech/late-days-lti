@@ -14,6 +14,7 @@ class ItemValueHeader extends Component {
       <div className="itemvalueheader-container">
         <button
           type="button"
+          id="valueheader-button"
           className="btn btn-outline-secondary p-0"
           onClick={onClick}
         >

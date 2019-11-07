@@ -9,10 +9,10 @@ describe('client > src > shared > ItemList > ItemListColumnHeaders > ItemNameHea
     // keep track of button clicks
     let clicked = false;
 
-    // initializes the driver with the due header button
+    // initializes the driver with the name header button
     const driver = new Driver(
       <ItemNameHeader
-        text="Due At"
+        text="Assignments"
         onClick={() => {
           clicked = true;
         }}
@@ -20,15 +20,15 @@ describe('client > src > shared > ItemList > ItemListColumnHeaders > ItemNameHea
     );
 
     // checks button exists
-    assert(driver.elementExists('#dueheader-button'), 'Item Due Header button absent');
-    // checks that button says "Due At"
+    assert(driver.elementExists('#nameheader-button'), 'Item name Header button absent');
+    // checks that button says "Assignments"
     assert.equal(
-      driver.getText('#dueheader-button'),
-      'Due At',
+      driver.getText('#nameheader-button'),
+      'Assignments',
       'Text on Due button does not match expected'
     );
     // simulate a click
-    driver.click('#dueheader-button');
+    driver.click('#nameheader-button');
     // makes sure button is clicked
     assert(clicked, 'Button did not handle the click');
   });

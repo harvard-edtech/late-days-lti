@@ -12,7 +12,7 @@ describe('client > src > shared > ItemList > ItemListColumnHeaders > ItemValueHe
     // initializes the driver with the due header button
     const driver = new Driver(
       <ItemValueHeader
-        text="Due At"
+        text="Tokens Used"
         onClick={() => {
           clicked = true;
         }}
@@ -20,15 +20,15 @@ describe('client > src > shared > ItemList > ItemListColumnHeaders > ItemValueHe
     );
 
     // checks button exists
-    assert(driver.elementExists('#dueheader-button'), 'Item Due Header button absent');
-    // checks that button says "Due At"
+    assert(driver.elementExists('#valueheader-button'), 'Item Value Header button absent');
+    // checks that button says "Toekns Used"
     assert.equal(
-      driver.getText('#dueheader-button'),
-      'Due At',
-      'Text on Due button does not match expected'
+      driver.getText('#valueheader-button'),
+      'Tokens Used',
+      'Text on value button does not match expected'
     );
     // simulate a click
-    driver.click('#dueheader-button');
+    driver.click('#valueheader-button');
     // makes sure button is clicked
     assert(clicked, 'Button did not handle the click');
   });
