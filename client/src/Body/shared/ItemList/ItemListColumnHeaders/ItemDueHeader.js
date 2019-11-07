@@ -14,6 +14,7 @@ class ItemDueHeader extends Component {
       <div className="itemdueheader-container">
         <button
           type="button"
+          id="dueheader-button"
           className="btn btn-outline-secondary p-0"
           onClick={onClick}
         >

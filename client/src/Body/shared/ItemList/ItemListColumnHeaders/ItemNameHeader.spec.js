@@ -2,16 +2,16 @@ import React from 'react';
 import Driver from 'dce-enzyme';
 import assert from 'assert';
 
-import ItemDueHeader from './ItemDueHeader';
+import ItemNameHeader from './ItemNameHeader';
 
-describe('client > src > shared > ItemList > ItemListColumnHeaders > ItemDueHeader', () => {
+describe('client > src > shared > ItemList > ItemListColumnHeaders > ItemNameHeader', () => {
   it('Handles a click', async () => {
     // keep track of button clicks
     let clicked = false;
 
     // initializes the driver with the due header button
     const driver = new Driver(
-      <ItemDueHeader
+      <ItemNameHeader
         text="Due At"
         onClick={() => {
           clicked = true;
