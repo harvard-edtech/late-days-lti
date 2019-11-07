@@ -6,9 +6,26 @@ class ItemSearchBar extends Component {
    * Render ItemSearchBar
    */
   render() {
+    const {
+      query,
+      onQueryChange,
+    } = this.props;
+
+
     return (
-      <div>
-        ItemSearchBar has not been created yet
+      <div className="itemsearchbar-container">
+        <div className="input-group">
+          <input
+            id="itemsearchbar-input"
+            type="text"
+            value={query}
+            placeholder="Search"
+            onChange={(e) => {
+              onQueryChange(e.target.value);
+            }}
+            className="form-control"
+          />
+        </div>
       </div>
     );
   }

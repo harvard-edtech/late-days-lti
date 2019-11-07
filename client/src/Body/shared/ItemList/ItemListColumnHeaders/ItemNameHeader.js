@@ -6,18 +6,28 @@ class ItemNameHeader extends Component {
    * Render ItemNameHeader
    */
   render() {
+    const {
+      text,
+      onClick,
+    } = this.props;
     return (
-      <div>
-        ItemNameHeader has not been created yet
+      <div className="itemnameheader-container">
+        <button
+          type="button"
+          className="btn btn-outline-secondary p-0"
+          onClick={onClick}
+        >
+          {text}
+        </button>
       </div>
     );
   }
 }
 
 ItemNameHeader.propTypes = {
-  // TODO: add description
+  // The item name type to be displayed
   text: PropTypes.string.isRequired,
-  // TODO: add description
+  // Sorts the items by name when clicked
   onClick: PropTypes.func.isRequired,
 };
 

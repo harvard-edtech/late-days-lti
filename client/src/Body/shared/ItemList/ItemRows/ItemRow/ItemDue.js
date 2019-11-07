@@ -6,9 +6,18 @@ class ItemDue extends Component {
    * Render ItemDue
    */
   render() {
+    const { dueAt } = this.props;
+    const date = dueAt.toLocaleDateString();
+    const time = dueAt.toLocaleTimeString();
+
     return (
-      <div>
-        ItemDue has not been created yet
+      <div className="itemdue-container">
+        <div className="itemdue-date">
+          {date}
+        </div>
+        <div className="itemdue-time">
+          {time}
+        </div>
       </div>
     );
   }
@@ -16,8 +25,8 @@ class ItemDue extends Component {
 
 
 ItemDue.propTypes = {
-  // TODO: add description
-  dueAt: PropTypes.instanceOf(Date),
+  // Date a certain assignment is due
+  dueAt: PropTypes.instanceOf(Date).isRequired,
 };
 
 

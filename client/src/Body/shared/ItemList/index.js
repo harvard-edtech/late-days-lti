@@ -32,7 +32,9 @@ class ItemList extends Component {
    * @param {string} newSortType - the new sort type
    */
   onSortTypeChange(newSortType) {
-    // TODO: implement
+    this.setState({
+      sortType: newSortType,
+    });
   }
 
   /**
@@ -40,35 +42,95 @@ class ItemList extends Component {
    * @param {string} newQuery - the new query string
    */
   onQueryChange(newQuery) {
-    // TODO: implement
+    this.setState({
+      searchQuery: newQuery,
+    });
   }
 
   /**
    * Render ItemList
    */
   render() {
+    const {
+      items,
+      valueDenominator,
+      hideColumnHeaders,
+      nameHeader,
+      dueAtHeader,
+      valueHeader,
+      valueSuffix,
+      showDueAt,
+      hideSearchBar,
+      footerMessage,
+    } = this.props;
+
+
+    const {
+      searchQuery,
+      sortType,
+    } = this.state;
+
+    let searchBarElem;
+    let footerElem;
+
+
+    if (!hideSearchBar) {
+      searchBarElem = (
+        <ItemSearchBar
+          query={searchQuery}
+          onQueryChange={this.onQueryChange}
+        />
+      );
+    }
+
+    if (footerMessage) {
+      footerElem = (
+        <ItemFooter
+          footerMessage={footerMessage}
+        />
+      );
+    }
     return (
-      <div>
-        ItemList has not been created yet
+      <div className="itemlist-container">
+        {searchBarElem}
+
+        <ItemListColumnHeaders
+          hideColumnHeaders={hideColumnHeaders}
+          nameHeader={nameHeader}
+          valueHeader={valueHeader}
+          showDueAt={showDueAt}
+          onSortTypeChange={this.onSortTypeChange}
+          sortType={sortType}
+          dueAtHeader={dueAtHeader}
+        />
+
+        <ItemRows
+          items={items}
+          valueDenominator={valueDenominator}
+          valueSuffix={valueSuffix}
+          sortType={sortType}
+        />
+
+        {footerElem}
       </div>
     );
   }
 }
 
 ItemList.propTypes = {
-  // TODO: add description
+  // The array of items to display
   items: PropTypes.arrayOf(
     PropTypes.shape({
-      // TODO: add description
+      // the name of an item
       name: PropTypes.string.isRequired,
-      // TODO: add description
+      // item's value (number of tokens used)
       value: PropTypes.number.isRequired,
-      // TODO: add description
+      // optional function that allows a item to be clicked for more detail
       onClick: PropTypes.func,
-      // TODO: add description
+      // optional due date of item
       dueAt: PropTypes.instanceOf(Date),
     })
-  ).isRequired, // TODO: copy/paste this elsewhere once descriptions are added
+  ).isRequired,
   // The denominator to show below the value
   valueDenominator: PropTypes.number.isRequired,
   // If true, the header row is not shown
@@ -83,26 +145,26 @@ ItemList.propTypes = {
   valueSuffix: PropTypes.string,
   // If true, the dueAt column is shown
   showDueAt: PropTypes.bool,
-  // TODO: add description
+  // If true, search bar is shown
   hideSearchBar: PropTypes.bool,
   // The message to display in the footer
   footerMessage: PropTypes.node,
 };
 
 ItemList.defaultProps = {
-  // TODO: add description
+  // By default, column headers is shown
   hideColumnHeaders: false,
-  // TODO: add description
+  // Initial name in header
   nameHeader: 'No Header Name!',
-  // TODO: add description
+  // Initial due at title in header
   dueAtHeader: 'Due At',
-  // TODO: add description
+  // Initial value title in header
   valueHeader: 'No Header Name!',
-  // TODO: add description
+  // Initial suffix is empty
   valueSuffix: '',
-  // TODO: add description
+  // By default, due at column is shown
   showDueAt: false,
-  // TODO: add description
+  // By default, search bar is shown
   hideSearchBar: false,
   // By default, no footer is shown
   footerMessage: null,

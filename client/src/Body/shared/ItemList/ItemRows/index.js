@@ -12,12 +12,32 @@ import SORT_TYPES from '../SORT_TYPES';
 
 // Sort comparators
 const byDueAt = (a, b) => {
-  // TODO: implement
-  // Note: use date.getTime() IF there is a date. If there's no date in either object, a and b are equal (return 0)
+  if (a.dueAt && b.dueAt) {
+    const aValue = a.dueAt.getTime();
+    const bValue = b.dueAt.getTime();
+    if (aValue < bValue) {
+      return -1;
+    }
+    if (aValue > bValue) {
+      return 1;
+    }
+  }
+
+  return 0;
 };
+
 const byName = (a, b) => {
-  // TODO: implement
+  const aValue = a.name;
+  const bValue = b.name;
+  if (aValue < bValue) {
+    return -1;
+  }
+  if (aValue > bValue) {
+    return 1;
+  }
+  return 0;
 };
+
 const byValue = (a, b) => {
   const aValue = a.value;
   const bValue = b.value;
@@ -37,6 +57,7 @@ class ItemRows extends Component {
    */
   render() {
     const {
+      items,
       sortType,
       valueDenominator,
       valueSuffix,
@@ -44,7 +65,7 @@ class ItemRows extends Component {
 
     // Sort the items
     // > Clone the item list
-    const items = clone(this.props.items);
+    const itemsClone = clone(items);
     // > Choose the right comparator
     let comparator;
     if (sortType === SORT_TYPES.BY_NAME) {
@@ -56,20 +77,48 @@ class ItemRows extends Component {
     }
     // > Sort if there is a comparator
     if (comparator) {
-      items.sort(comparator);
+      itemsClone.sort(comparator);
     }
 
+    const toRender = itemsClone.map((item) => {
+      return (
+        <div key={item.name}>
+          <div
+            className="itemrows-elem"
+          >
+            <ItemRow
+              item={item}
+              valueDenominator={valueDenominator}
+              valueSuffix={valueSuffix}
+            />
+          </div>
+        </div>
+      );
+    });
+
+
     return (
-      <div>
-        ItemRows has not been created yet
+      <div className="itemrows-container">
+        {toRender}
       </div>
     );
   }
 }
 
 ItemRows.propTypes = {
-  // TODO: add description
-  items: /* fill in once descriptions are made */.isRequired,
+  // The array of items to display
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      // the name of an item
+      name: PropTypes.string.isRequired,
+      // item's value (number of tokens used)
+      value: PropTypes.number.isRequired,
+      // optional function that allows a item to be clicked for more detail
+      onClick: PropTypes.func,
+      // optional due date of item
+      dueAt: PropTypes.instanceOf(Date),
+    })
+  ).isRequired,
   // The denominator to show below the value
   valueDenominator: PropTypes.number.isRequired,
   // String to display after the value fraction

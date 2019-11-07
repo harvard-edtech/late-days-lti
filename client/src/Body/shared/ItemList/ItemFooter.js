@@ -6,9 +6,10 @@ class ItemFooter extends Component {
    * Render ItemFooter
    */
   render() {
+    const { footerMessage } = this.props;
     return (
-      <div>
-        ItemFooter has not been created yet
+      <div className="itemfooter-container">
+        {footerMessage}
       </div>
     );
   }

@@ -1,21 +1,22 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+
 class ItemName extends Component {
   /**
    * Render ItemName
    */
   render() {
-
+    const { name } = this.props;
     return (
-      <div>
-        ItemName has not been created yet
+      <div className="itemname-container">
+        {name}
       </div>
     );
   }
 }
 
 ItemName.propTypes = {
-  // TODO: add description
+  // Name of assignment or person
   name: PropTypes.string.isRequired,
 };
 

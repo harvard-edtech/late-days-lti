@@ -6,18 +6,25 @@ class ItemValue extends Component {
    * Render ItemValue
    */
   render() {
+    const {
+      value,
+      valueDenominator,
+      valueSuffix,
+    } = this.props;
+
+    const concatVal = `${value}/${valueDenominator} ${valueSuffix}`;
     return (
-      <div>
-        ItemValue has not been created yet
+      <div className="itemvalue-container">
+        {concatVal}
       </div>
     );
   }
 }
 
 ItemValue.propTypes = {
-  // TODO: add description
+  // number of tokens used
   value: PropTypes.number.isRequired,
-  // The denominator to show below the value
+  // number of tokens available
   valueDenominator: PropTypes.number.isRequired,
   // String to display after the value fraction
   valueSuffix: PropTypes.string.isRequired,

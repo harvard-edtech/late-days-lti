@@ -9,24 +9,84 @@ import ItemValueHeader from './ItemValueHeader';
 // Import sort types
 import SORT_TYPES from '../SORT_TYPES';
 
-class ItemRow extends Component {
+class ItemListColumnHeaders extends Component {
   /**
-   * Render ItemRow
+   * Render ItemListColumnHeaders
    */
   render() {
     // If you click a header, call onSortTypeChange with the new sort type
     // AND if that is already the sort type, call onSortTypeChange with
     // ItemList.SORT_TYPES.NATURAL
 
+    const {
+      hideColumnHeaders,
+      nameHeader,
+      valueHeader,
+      showDueAt,
+      onSortTypeChange,
+      sortType,
+      dueAtHeader,
+    } = this.props;
+
+    let dueHead;
+    let nameHead;
+    let valueHead;
+
+    if (!hideColumnHeaders) {
+      nameHead = (
+        <div className="itemlistcolumnheaders-namecontainer">
+          <ItemNameHeader
+            text={nameHeader}
+            onClick={
+              onSortTypeChange(
+                (sortType === SORT_TYPES.BY_NAME)
+                  ? SORT_TYPES.NATURAL : SORT_TYPES.BY_NAME
+              )
+            }
+          />
+        </div>
+      );
+      valueHead = (
+        <div className="itemlistcolumnheaders-valuecontainer">
+          <ItemValueHeader
+            text={valueHeader}
+            onClick={
+              onSortTypeChange(
+                (sortType === SORT_TYPES.BY_VALUE)
+                  ? SORT_TYPES.NATURAL : SORT_TYPES.BY_VALUE
+              )
+            }
+          />
+        </div>
+      );
+
+      if (showDueAt) {
+        dueHead = (
+          <div className="itemlistcolumnheaders-duecontainer">
+            <ItemDueHeader
+              text={dueAtHeader}
+              onClick={
+                onSortTypeChange(
+                  (sortType === SORT_TYPES.BY_DUE_AT)
+                    ? SORT_TYPES.NATURAL : SORT_TYPES.BY_DUE_AT
+                )
+              }
+            />
+          </div>
+        );
+      }
+    }
     return (
-      <div>
-        ItemRow has not been created yet
+      <div className="itemlistcolumnheaders-container">
+        {nameHead}
+        {dueHead}
+        {valueHead}
       </div>
     );
   }
 }
 
-ItemRow.propTypes = {
+ItemListColumnHeaders.propTypes = {
   // If true, the header row is not shown
   hideColumnHeaders: PropTypes.bool.isRequired,
   // The header text above the item name column
@@ -43,9 +103,9 @@ ItemRow.propTypes = {
   dueAtHeader: PropTypes.string,
 };
 
-ItemRow.defaultProps = {
+ItemListColumnHeaders.defaultProps = {
   // By default, no header here
   dueAtHeader: 'ERROR',
 };
 
-export default ItemRow;
+export default ItemListColumnHeaders;

@@ -6,18 +6,28 @@ class ItemDueHeader extends Component {
    * Render ItemDueHeader
    */
   render() {
+    const {
+      text,
+      onClick,
+    } = this.props;
     return (
-      <div>
-        ItemDueHeader has not been created yet
+      <div className="itemdueheader-container">
+        <button
+          type="button"
+          className="btn btn-outline-secondary p-0"
+          onClick={onClick}
+        >
+          {text}
+        </button>
       </div>
     );
   }
 }
 
 ItemDueHeader.propTypes = {
-  // TODO: add description
+  // text for Due At column header
   text: PropTypes.string.isRequired,
-  // TODO: add description
+  // function that sorts by dueAt date or natural
   onClick: PropTypes.func.isRequired,
 };
 
