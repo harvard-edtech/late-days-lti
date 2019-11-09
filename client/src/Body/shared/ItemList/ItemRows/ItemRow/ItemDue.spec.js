@@ -4,7 +4,7 @@ import assert from 'assert';
 
 import ItemDue from './ItemDue';
 
-describe.only('client > src > Body > shared > ItemList > ItemRows > ItemRow > ItemDue', () => {
+describe('client > src > Body > shared > ItemList > ItemRows > ItemRow > ItemDue', () => {
   it('Checks Date object parsed correctly', async () => {
     // Creates a date object to test with
     const testDate = new Date('November 6 2019 05:35:32');
