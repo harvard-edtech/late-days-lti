@@ -90,7 +90,7 @@ class App extends Component {
               onClick: () => {
                 alert('Person 1 clicked');
               },
-              //dueAt: testDateOne,
+              dueAt: testDateOne,
             },
             {
               name: 'Person 2',
@@ -98,7 +98,7 @@ class App extends Component {
               onClick: () => {
                 alert('Person 2 clicked');
               },
-              //dueAt: testDateTwo,
+              dueAt: testDateTwo,
             },
           ]}
           nameHeader="Full Name"

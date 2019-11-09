@@ -62,6 +62,7 @@ class ItemRows extends Component {
       sortType,
       valueDenominator,
       valueSuffix,
+      showDueAt,
     } = this.props;
 
     // Sort the items
@@ -91,6 +92,7 @@ class ItemRows extends Component {
               item={item}
               valueDenominator={valueDenominator}
               valueSuffix={valueSuffix}
+              showDueAt={showDueAt}
             />
           </div>
         </div>
@@ -125,6 +127,8 @@ ItemRows.propTypes = {
   valueSuffix: PropTypes.string.isRequired,
   // Type of sort
   sortType: PropTypes.string.isRequired,
+  // If true, the dueAt column is shown
+  showDueAt: PropTypes.bool,
 };
 
 

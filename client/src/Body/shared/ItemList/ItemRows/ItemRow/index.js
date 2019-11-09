@@ -18,6 +18,7 @@ class ItemRow extends Component {
       item,
       valueDenominator,
       valueSuffix,
+      showDueAt
     } = this.props;
 
     const {
@@ -29,7 +30,7 @@ class ItemRow extends Component {
 
     const dueOver = (value > valueDenominator);
     const dueAtItem = (
-      dueAt
+      showDueAt
         ? (
           <div className="itemrow-dueAt itemlist-due-column">
             <ItemDue
@@ -94,6 +95,8 @@ ItemRow.propTypes = {
   valueDenominator: PropTypes.number.isRequired,
   // String to display after the value fraction
   valueSuffix: PropTypes.string.isRequired,
+  // If true, the dueAt column is shown
+  showDueAt: PropTypes.bool,
 };
 
 export default ItemRow;
