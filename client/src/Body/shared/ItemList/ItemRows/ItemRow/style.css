@@ -1,6 +1,12 @@
-.itemrow-name {
-  background-color: gray;
+/* Styling for general item */
+.itemrow-item {
   height: 60px;
+}
+
+/* Styling for the item name */
+.itemrow-name {
+  /* Coloring for name column */ 
+  background-color: gray;
 
   /* Center Text Vertically */
   display: flex;
@@ -12,7 +18,9 @@
   border-bottom-left-radius: 5px;
 }
 
+/* Styling for the item row */
 .itemrow-value  {
+  /* Coloring for value column */ 
   background-color: lightgray;
   text-align: center;
 
@@ -28,8 +36,8 @@
 }
 
 .itemrow-dueAt {
+  /* Coloring for dueAt column */ 
   background-color: #585858;
-  height: 60px;
   text-align: center;
   color: white;
 
@@ -37,13 +45,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /*padding-left: 20px; */
 }
 
+/* Sets different color if used too many tokens */
 .itemrow-overname {
   background-color: brown;
 }
 
+/* Sets different color for value if used too many tokens */
 .itemrow-overvalue {
   background-color: lightcoral;
 }

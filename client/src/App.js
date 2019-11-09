@@ -105,6 +105,7 @@ class App extends Component {
           valueHeader="Late Days Used"
           dueAtHeader="Due At"
           valueDenominator={5}
+          valueSuffix="Used"
           //showDueAt
           footerMessage="Click a student for their assignment breakdown"
         />

@@ -8,6 +8,7 @@ class ItemName extends Component {
   render() {
     const { name, onClick } = this.props;
 
+    // Make item clickable if given a onClick function
     if (onClick) {
       return (
         <button

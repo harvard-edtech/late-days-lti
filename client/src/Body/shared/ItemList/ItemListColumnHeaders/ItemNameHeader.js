@@ -19,6 +19,7 @@ class ItemNameHeader extends Component {
       onClick,
     } = this.props;
 
+    // Highlights this column header if clicked
     const highlighted = (sortType === SORT_TYPES.BY_NAME);
 
     return (

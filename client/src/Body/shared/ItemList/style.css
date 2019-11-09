@@ -1,9 +1,11 @@
+/* Styling for the dueAt column */
 .itemlist-due-column {
   display: inline-block;
   width: 200px;
   text-align: left;
 }
 
+/* Styling for the value column */
 .itemlist-value-column {
   display: inline-block;
   width: 200px;

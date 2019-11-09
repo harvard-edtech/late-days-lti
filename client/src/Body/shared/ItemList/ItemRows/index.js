@@ -82,6 +82,7 @@ class ItemRows extends Component {
       itemsClone.sort(comparator);
     }
 
+    // Creates ItemRow object for each item in items
     const rowElements = itemsClone.map((item) => {
       return (
         <div key={item.name}>

@@ -28,7 +28,10 @@ class ItemRow extends Component {
       dueAt,
     } = item;
 
+    // Checks if the item used too many tokens
     const dueOver = (value > valueDenominator);
+
+    // Checks whether to display the dueAt column
     const dueAtItem = (
       showDueAt
         ? (
