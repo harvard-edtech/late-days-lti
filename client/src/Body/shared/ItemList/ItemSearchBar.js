@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+// Import FontAwesome Icons
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 class ItemSearchBar extends Component {
   /**
    * Render ItemSearchBar
@@ -11,6 +14,12 @@ class ItemSearchBar extends Component {
       onQueryChange,
     } = this.props;
 
+    const searchIcon = (
+      <FontAwesomeIcon
+        icon={faSearch}
+        className="ml-1"
+      />
+    );
 
     return (
       <div className="itemsearchbar-container">

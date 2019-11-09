@@ -28,7 +28,7 @@ class ItemValueHeader extends Component {
         <button
           type="button"
           id="valueheader-button"
-          className={`btn p-0 btn-lg font-weight-bold ${highlighted ? 'text-primary' : ''}`}
+          className={`btn p-0 btn-lg shadow-none font-weight-bold ${highlighted ? 'text-primary' : ''}`}
           onClick={onClick}
         >
           {text}
