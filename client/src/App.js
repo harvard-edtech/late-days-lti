@@ -76,6 +76,9 @@ class App extends Component {
     // Deconstruct the state
     const { message } = this.state;
 
+    const testDateOne = new Date('November 8 2019 05:35:32');
+    const testDateTwo = new Date('November 7 2019 05:35:32');
+
     // Render the component
     return (
       <div>
@@ -87,6 +90,7 @@ class App extends Component {
               onClick: () => {
                 alert('Person 1 clicked');
               },
+              dueAt: testDateOne,
             },
             {
               name: 'Person 2',
@@ -94,11 +98,14 @@ class App extends Component {
               onClick: () => {
                 alert('Person 2 clicked');
               },
+              dueAt: testDateTwo,
             },
           ]}
           nameHeader="Full Name"
           valueHeader="Late Days Used"
+          dueAtHeader="Due At"
           valueDenominator={5}
+          showDueAt
         />
       </div>
     );

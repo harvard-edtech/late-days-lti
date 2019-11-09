@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import '../../style.css';
+
 class ItemDue extends Component {
   /**
    * Render ItemDue
@@ -11,7 +13,7 @@ class ItemDue extends Component {
     const time = dueAt.toLocaleTimeString();
 
     return (
-      <div className="itemdue-container">
+      <div className="itemdue-container font-weight-bold">
         <div className="itemdue-date">
           {date}
         </div>

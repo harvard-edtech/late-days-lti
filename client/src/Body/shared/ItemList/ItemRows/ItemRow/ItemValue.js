@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import '../../style.css';
+
 class ItemValue extends Component {
   /**
    * Render ItemValue
@@ -18,7 +20,7 @@ class ItemValue extends Component {
     }
 
     return (
-      <div className="itemvalue-container">
+      <div className="itemvalue-container font-weight-bold">
         {concatVal}
       </div>
     );

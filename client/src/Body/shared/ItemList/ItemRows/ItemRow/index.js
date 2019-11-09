@@ -6,6 +6,9 @@ import ItemDue from './ItemDue';
 import ItemName from './ItemName';
 import ItemValue from './ItemValue';
 
+import '../../style.css';
+import './style.css'
+
 class ItemRow extends Component {
   /**
    * Render ItemRow
@@ -27,9 +30,11 @@ class ItemRow extends Component {
     const dueAtItem = (
       dueAt
         ? (
-          <ItemDue
-            dueAt={dueAt}
-          />
+          <div className="itemrow-dueAt itemlist-due-column">
+            <ItemDue
+              dueAt={dueAt}
+            />
+          </div>
         )
         : null
     );
@@ -39,7 +44,7 @@ class ItemRow extends Component {
     return (
       <div className="itemrow-container">
         <div
-          className="itemrow-item"
+          className="itemrow-item d-flex mt-3"
           onClick={(event) => {
             // Only fire onClick if the button wasn't clicked
             // (don't want to double-fire onClick)
@@ -51,16 +56,14 @@ class ItemRow extends Component {
             cursor: onClick ? 'pointer' : undefined,
           }}
         >
-          <div className="itemrow-name">
+          <div className="itemrow-name flex-grow-1">
             <ItemName
               name={name}
               onClick={onClick}
             />
           </div>
-          <div className="itemrow-dueAt">
             {dueAtItem}
-          </div>
-          <div className="itemrow-value">
+          <div className="itemrow-value itemlist-value-column">
             <ItemValue
               value={value}
               valueDenominator={valueDenominator}

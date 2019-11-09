@@ -28,7 +28,7 @@ class ItemDueHeader extends Component {
         <button
           type="button"
           id="dueheader-button"
-          className={`btn p-0 font-weight-bold ${highlighted ? 'text-primary' : ''}`}
+          className={`btn p-0 btn-lg font-weight-bold ${highlighted ? 'text-primary' : ''}`}
           onClick={onClick}
         >
           {text}
