@@ -5,37 +5,20 @@ import assert from 'assert';
 import ItemRows from './index';
 
 describe('client > src > Body > shared > ItemList > ItemRows', () => {
-  it('Checks ItemRows object exists and sorts by Due At date', async () => {
-    // Creates a date object to test with
-    const testDateOne = new Date('November 8 2019 05:35:32');
-    const testDateTwo = new Date('November 7 2019 05:35:32');
-    const testDateThree = new Date('November 1 2019 05:35:32');
-
-    let clickedOne = false;
-    let clickedThree = false;
-
+  it('Checks ItemRows object exists with correct number of items', async () => {
     const itemOne = {
       name: 'Assignment 1',
       value: 1,
-      onClick: () => {
-        clickedOne = true;
-      },
-      dueAt: testDateOne,
     };
 
     const itemTwo = {
-      name: 'Assignment 1',
+      name: 'Assignment 2',
       value: 1,
-      dueAt: testDateTwo,
     };
 
     const itemThree = {
-      name: 'Assignment 1',
+      name: 'Assignment 3',
       value: 1,
-      onClick: () => {
-        clickedThree = true;
-      },
-      dueAt: testDateThree,
     };
 
     const items = [itemOne, itemTwo, itemThree];
@@ -43,9 +26,9 @@ describe('client > src > Body > shared > ItemList > ItemRows', () => {
     const driver = new Driver(
       <ItemRows
         items={items}
-        valueDenomintaor={3}
+        valueDenominator={3}
         valueSuffix="Used"
-        sorType="by-due-at"
+        sortType="by-due-at"
       />
     );
 

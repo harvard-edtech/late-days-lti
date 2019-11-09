@@ -81,11 +81,12 @@ class ItemRows extends Component {
     if (comparator) {
       itemsClone.sort(comparator);
     }
-
+    let counter = 0;
     // Creates ItemRow object for each item in items
     const rowElements = itemsClone.map((item) => {
+      counter += 1;
       return (
-        <div key={item.name}>
+        <div key={`${item.name}-${counter}`}>
           <div
             className="itemrows-elem"
           >
@@ -132,5 +133,9 @@ ItemRows.propTypes = {
   showDueAt: PropTypes.bool,
 };
 
+ItemRows.defaultProps = {
+  // By default, due at column is shown
+  showDueAt: false,
+};
 
 export default ItemRows;
