@@ -4,7 +4,7 @@ import assert from 'assert';
 
 import ItemDue from './ItemDue';
 
-describe('client > src > Body > shared > ItemList > ItemRows > ItemRow > ItemDue', () => {
+describe.only('client > src > Body > shared > ItemList > ItemRows > ItemRow > ItemDue', () => {
   it('Checks Date object parsed correctly', async () => {
     // Creates a date object to test with
     const testDate = new Date('November 6 2019 05:35:32');
@@ -27,7 +27,7 @@ describe('client > src > Body > shared > ItemList > ItemRows > ItemRow > ItemDue
     );
     assert.equal(
       driver.getText('.itemdue-time'),
-      '05:35:32',
+      '5:35:32 AM',
       'time text was incorrect'
     );
   });
