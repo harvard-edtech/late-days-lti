@@ -21,8 +21,6 @@ class ItemDueHeader extends Component {
 
     const highlighted = (sortType === SORT_TYPES.BY_DUE_AT);
 
-    // TODO: if highlighted, add title and aria-label "Stop sorting by ${text}"
-    // TODO: if not highlighted, add title and aria-label "Sort by ${text}"
     return (
       <div className="itemdueheader-container">
         <button
@@ -30,6 +28,7 @@ class ItemDueHeader extends Component {
           id="dueheader-button"
           className={`btn p-0 btn-lg shadow-none font-weight-bold ${highlighted ? 'text-primary' : ''}`}
           onClick={onClick}
+          aria-label={highlighted ? `Stop sorting by ${text}` : `Sort by ${text}`}
         >
           {text}
           <FontAwesomeIcon

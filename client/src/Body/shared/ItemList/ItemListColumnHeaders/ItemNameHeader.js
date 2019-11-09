@@ -21,8 +21,6 @@ class ItemNameHeader extends Component {
 
     const highlighted = (sortType === SORT_TYPES.BY_NAME);
 
-    // NOTE: Should not look like a button
-    // TODO: add downward triangle
     return (
       <div className="itemnameheader-container">
         <button
@@ -30,6 +28,7 @@ class ItemNameHeader extends Component {
           id="nameheader-button"
           className={`btn p-0 btn-lg shadow-none font-weight-bold ${highlighted ? 'text-primary' : ''}`}
           onClick={onClick}
+          aria-label={highlighted ? `Stop sorting by ${text}` : `Sort by ${text}`}
         >
           {text}
           <FontAwesomeIcon
