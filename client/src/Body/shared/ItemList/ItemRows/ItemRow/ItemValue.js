@@ -15,7 +15,7 @@ class ItemValue extends Component {
     } = this.props;
 
     let concatVal = `${value}/${valueDenominator}`;
-    if (valueSuffix) {
+    if (valueSuffix !== '') {
       concatVal += ` ${valueSuffix}`;
     }
 

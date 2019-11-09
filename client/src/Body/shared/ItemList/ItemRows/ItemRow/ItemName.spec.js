@@ -4,7 +4,7 @@ import assert from 'assert';
 
 import ItemName from './ItemName';
 
-describe.only('client > src > Body > shared > ItemList > ItemRows > ItemRow > ItemName', () => {
+describe('client > src > Body > shared > ItemList > ItemRows > ItemRow > ItemName', () => {
   it('Checks ItemName object exists with correct name', async () => {
     // Initializes driver with ItemName object
     const driver = new Driver(
