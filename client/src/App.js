@@ -90,22 +90,22 @@ class App extends Component {
               onClick: () => {
                 alert('Person 1 clicked');
               },
-              dueAt: testDateOne,
+              //dueAt: testDateOne,
             },
             {
               name: 'Person 2',
-              value: 1,
+              value: 6,
               onClick: () => {
                 alert('Person 2 clicked');
               },
-              dueAt: testDateTwo,
+              //dueAt: testDateTwo,
             },
           ]}
           nameHeader="Full Name"
           valueHeader="Late Days Used"
           dueAtHeader="Due At"
           valueDenominator={5}
-          showDueAt
+          //showDueAt
           footerMessage="Click a student for their assignment breakdown"
         />
       </div>
