@@ -7,7 +7,7 @@ import ItemName from './ItemName';
 import ItemValue from './ItemValue';
 
 import '../../style.css';
-import './style.css'
+import './style.css';
 
 class ItemRow extends Component {
   /**
@@ -18,7 +18,7 @@ class ItemRow extends Component {
       item,
       valueDenominator,
       valueSuffix,
-      showDueAt
+      showDueAt,
     } = this.props;
 
     const {
@@ -49,7 +49,7 @@ class ItemRow extends Component {
     return (
       <div className="itemrow-container">
         <div
-          className={"itemrow-item d-flex mt-3"}
+          className="itemrow-item d-flex mt-3"
           onClick={(event) => {
             // Only fire onClick if the button wasn't clicked
             // (don't want to double-fire onClick)
@@ -67,7 +67,7 @@ class ItemRow extends Component {
               onClick={onClick}
             />
           </div>
-            {dueAtItem}
+          {dueAtItem}
           <div className={`itemrow-value itemlist-value-column ${dueOver ? 'itemrow-overvalue' : ''}`}>
             <ItemValue
               value={value}
@@ -100,6 +100,10 @@ ItemRow.propTypes = {
   valueSuffix: PropTypes.string.isRequired,
   // If true, the dueAt column is shown
   showDueAt: PropTypes.bool,
+};
+
+ItemRow.defaultProps = {
+  showDueAt: false,
 };
 
 export default ItemRow;
