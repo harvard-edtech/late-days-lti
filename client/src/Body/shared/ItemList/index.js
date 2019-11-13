@@ -72,6 +72,27 @@ class ItemList extends Component {
       sortType,
     } = this.state;
 
+    let filteredItems;
+    let isFiltered = false;
+
+    if (searchQuery.trim() !== '') {
+      isFiltered = true;
+      const regQuery = new RegExp(searchQuery.trim(), 'i');
+      filteredItems = items.filter((item) => {
+        const {
+          name,
+          value,
+          dueAt,
+        } = item;
+
+        return (
+          regQuery.test(name)
+          || regQuery.test(value)
+          || regQuery.test(dueAt)
+        );
+      });
+    }
+
     /* ------------------- Create Search Bar Elem ------------------- */
     const searchBarElem = (
       hideSearchBar
@@ -112,11 +133,13 @@ class ItemList extends Component {
     );
 
     /* --------------------- Create Item Rows Elem --------------------- */
+    const itemsDisplayed = (isFiltered ? filteredItems : items);
+
     const itemRowsElem = (
       (items.length > 0)
         ? (
           <ItemRows
-            items={items}
+            items={itemsDisplayed}
             valueDenominator={valueDenominator}
             valueSuffix={valueSuffix}
             sortType={sortType}
