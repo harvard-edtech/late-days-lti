@@ -1,12 +1,15 @@
 /* Styling for general item */
 .itemrow-item {
-  height: 60px;
+  /* Item height grows with element size inside */
+  height: 100%;
+  min-height: 60px;
 }
 
 /* Styling for the item name */
 .itemrow-name {
   /* Coloring for name column */ 
   background-color: gray;
+  color: white;
 
   /* Center Text Vertically */
   display: flex;
@@ -16,9 +19,13 @@
   /* Round box corners */
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* Styling for the item row */
+/* Styling for the item value */
 .itemrow-value  {
   /* Coloring for value column */ 
   background-color: lightgray;
@@ -35,6 +42,7 @@
   border-bottom-right-radius: 5px;
 }
 
+/* Styling for the item due at */
 .itemrow-dueAt {
   /* Coloring for dueAt column */ 
   background-color: #585858;
@@ -52,7 +60,10 @@
   background-color: brown;
 }
 
-/* Sets different color for value if used too many tokens */
+.itemrow-overdueat {
+  background-color: darkred;
+}
+
 .itemrow-overvalue {
   background-color: lightcoral;
 }

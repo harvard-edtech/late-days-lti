@@ -35,7 +35,7 @@ class ItemRow extends Component {
     const dueAtItem = (
       showDueAt
         ? (
-          <div className="itemrow-dueAt itemlist-due-column">
+          <div className={`itemrow-dueAt itemlist-due-column ${dueOver ? 'itemrow-overdueat' : ''}`}>
             <ItemDue
               dueAt={dueAt}
             />
@@ -61,7 +61,7 @@ class ItemRow extends Component {
             cursor: onClick ? 'pointer' : undefined,
           }}
         >
-          <div className={`itemrow-name flex-grow-1 ${dueOver ? 'itemrow-overname' : ''}`}>
+          <div className={`itemrow-name itemlist-name-column flex-grow-1 ${dueOver ? 'itemrow-overname' : ''}`}>
             <ItemName
               name={name}
               onClick={onClick}

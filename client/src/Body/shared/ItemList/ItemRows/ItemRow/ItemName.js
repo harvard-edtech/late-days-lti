@@ -13,7 +13,7 @@ class ItemName extends Component {
       return (
         <button
           type="button"
-          className="btn btn-stripped btn-lg font-weight-bold"
+          className="btn btn-stripped text-light btn-lg font-weight-bold d-inline-block"
           id="itemname-button"
           aria-label={`click to open ${name}`}
           onClick={onClick}

@@ -31,7 +31,7 @@ class ItemListColumnHeaders extends Component {
     } = this.props;
 
     const nameHead = (
-      <div className="itemlistcolumnheaders-namecontainer flex-grow-1">
+      <div className="itemlistcolumnheaders-namecontainer itemlist-name-column flex-grow-1">
         <ItemNameHeader
           text={nameHeader}
           sortType={sortType}

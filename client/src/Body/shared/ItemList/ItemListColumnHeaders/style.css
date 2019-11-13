@@ -1,3 +1,7 @@
 .itemlistcolumnheaders-container {
   /*border-bottom: 2px solid gray; */
 }
+
+.itemlistcolumnheaders-namecontainer {
+  padding-right: 10px;
+}

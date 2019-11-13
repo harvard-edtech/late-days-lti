@@ -111,18 +111,26 @@ class ItemList extends Component {
         : null
     );
 
+    /* --------------------- Create Item Rows Elem --------------------- */
+    const itemRowsElem = (
+      (items.length > 0)
+        ? (
+          <ItemRows
+            items={items}
+            valueDenominator={valueDenominator}
+            valueSuffix={valueSuffix}
+            sortType={sortType}
+            showDueAt={showDueAt}
+          />
+        )
+        : 'No items have been given.'
+    );
     /* ----------------------- Render ItemList ---------------------- */
     return (
       <div className="itemlist-container m-3">
         {searchBarElem}
         {headerElem}
-        <ItemRows
-          items={items}
-          valueDenominator={valueDenominator}
-          valueSuffix={valueSuffix}
-          sortType={sortType}
-        />
-
+        {itemRowsElem}
         {footerElem}
       </div>
     );
