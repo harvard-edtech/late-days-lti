@@ -72,6 +72,7 @@ class ItemList extends Component {
       sortType,
     } = this.state;
 
+    /* ----------------- Filter Items Based on Search Query ----------------- */
     let filteredItems;
     let isFiltered = false;
 

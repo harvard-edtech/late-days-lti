@@ -38,14 +38,14 @@ const byName = (a, b) => {
   }
   return 0;
 };
-
+// TODO: Sort maybe by highest ratio?
 const byValue = (a, b) => {
   const aValue = a.value;
   const bValue = b.value;
-  if (aValue < bValue) {
+  if (aValue > bValue) {
     return -1;
   }
-  if (aValue > bValue) {
+  if (aValue < bValue) {
     return 1;
   }
   return 0;

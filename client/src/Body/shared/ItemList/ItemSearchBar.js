@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+// Import styles
+import './ItemSearchBar.css';
+
 class ItemSearchBar extends Component {
   /**
    * Render ItemSearchBar
