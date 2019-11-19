@@ -1,0 +1,44 @@
+.loadingspinner-blip-1,
+.loadingspinner-blip-2,
+.loadingspinner-blip-3,
+.loadingspinner-blip-4 {
+  font-size: 25px;
+  opacity: 0.6;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.loadingspinner-blip-1 {
+  animation: ripple 2s infinite;
+}
+
+.loadingspinner-blip-2 {
+  animation: ripple 2s infinite;
+  -webkit-animation-delay: 0.1s;
+}
+
+.loadingspinner-blip-3 {
+  animation: ripple 2s infinite;
+  animation-delay: 0.2s;
+}
+
+.loadingspinner-blip-4 {
+  animation: ripple 2s infinite;
+  animation-delay: 0.3s;
+}
+
+/* Small gray splash */
+@keyframes ripple {
+  0%  {
+    transform: scale(1.0);
+  }
+  10% {
+    transform: scale(1.5);
+  }
+  30% {
+    transform: scale(1.0);
+  }
+  100% {
+
+  }
+}
