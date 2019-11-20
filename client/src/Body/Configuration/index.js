@@ -4,14 +4,28 @@ import PropTypes from 'prop-types';
 import AssignmentGroups from './AssignmentGroups';
 import Rules from './Rules';
 
+// Import styles
+import './Configuration.css';
+
 class Configuration extends Component {
   /**
    * Render Configuration
    */
   render() {
+
+    const {
+      gracePeriodMin,
+      maxLateDaysPerSemester,
+      maxLateDaysPerAssignment,
+      assignmentGroupIdsToCount,
+    } = this.props;
     return (
-      <div>
-        Configuration has not been created yet
+      <div className="configuration-container">
+        <Rules
+          gracePeriodMin={gracePeriodMin}
+          maxLateDaysPerAssignment={maxLateDaysPerAssignment}
+          maxLateDaysPerSemester={maxLateDaysPerSemester}
+        />
       </div>
     );
   }

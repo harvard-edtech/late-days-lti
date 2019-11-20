@@ -7,10 +7,37 @@ class Rules extends Component {
    * Render CancelButton
    */
   render() {
-    
+    const {
+      gracePeriodMin,
+      maxLateDaysPerSemester,
+      maxLateDaysPerAssignment,
+    } = this.props;
     return (
-      <div>
-        Rules has not been created yet
+      <div className="rules-container">
+        <div className="rules-graceperiod">
+          <Rule
+            userInput={gracePeriodMin}
+            ruleHeader="Grace Period"
+            ruleDescription="We need a description here"
+            ruleType="Mins"
+          />
+        </div>
+        <div className="rules-maxSemester">
+          <Rule
+            userInput={maxLateDaysPerSemester}
+            ruleHeader="Max Late Days Per Semester"
+            ruleDescription="We need a description here"
+            ruleType="Days"
+          />
+        </div>
+        <div className="rules-maxAssignment">
+          <Rule
+            userInput={maxLateDaysPerAssignment}
+            ruleHeader="Max Late Days Per Assignment"
+            ruleDescription="We need a description here"
+            ruleType="Days"
+          />
+        </div>
       </div>
     );
   }
@@ -22,6 +49,5 @@ Rules.propTypes = {
   maxLateDaysPerSemester: PropTypes.number.isRequired,
   maxLateDaysPerAssignment: PropTypes.number.isRequired,
 };
-
 
 export default Rules;

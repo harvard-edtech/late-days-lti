@@ -112,8 +112,7 @@ class App extends Component {
     if (!configuration || Object.keys(configuration).length === 0) {
       try {
         const { customParams } = launchInfo;
-        // TODO: once caccl is updated, switch to "metadata" instead of "custom_metadata"
-        const metadataString = customParams.custom_metadata;
+        const metadataString = customParams.metadata;
         configuration = JSON.parse(metadataString);
       } catch (err) {
         configuration = {};
@@ -209,7 +208,7 @@ class App extends Component {
       assignmentGroupIdsToCount,
     } = configuration;
 
-    if (!configurationSet && !launchInfo.isLearner) {
+    if (!configurationSet && launchInfo.isLearner) {
       return (
         <SetupErrorMessage />
       );
