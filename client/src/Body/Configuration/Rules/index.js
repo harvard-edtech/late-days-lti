@@ -18,6 +18,9 @@ class Rules extends Component {
 
 
 Rules.propTypes = {
+  gracePeriodMin: PropTypes.number.isRequired,
+  maxLateDaysPerSemester: PropTypes.number.isRequired,
+  maxLateDaysPerAssignment: PropTypes.number.isRequired,
 };
 
 

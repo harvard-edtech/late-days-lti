@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+
 class SetupErrorMessage extends Component {
   /**
    * Render SetupErrorMessage
    */
   render() {
-    
     return (
-      <div>
-        SetupErrorMessage has not been created yet
+      <div className="setuperrormessage-container text-center">
+        <h1>Please Come Back Later</h1>
+        <h3>Your instructor hasn't set up late days yet.</h3>
       </div>
     );
   }

@@ -7,12 +7,15 @@ import React, { Component } from 'react';
 // Import other components
 import ItemList from './shared/ItemList';
 import LoadingSpinner from './shared/LoadingSpinner';
+import SetupErrorMessage from './Body/NotSetUp/SetupErrorMessage';
+import Configuration from './Body/Configuration';
 
 // Import styles
 import './App.css';
 
 // Import metadataId
 import metadataId from './METADATA_ID';
+import { config } from '@fortawesome/fontawesome-svg-core';
 
 // Initialize caccl
 const { api, getStatus } = initCACCL();
@@ -32,6 +35,8 @@ class App extends Component {
       errorMessage: null,
       // The current app configuration object
       configuration: null,
+      // If ture, the app's configurations are set properly
+      configurationSet: false,
       // The launchInfo object from the LTI launch
       launchInfo: null,
     };
@@ -60,6 +65,9 @@ class App extends Component {
           errorMessage: 'We don\'t have access to Canvas. Please re-launch the app.',
         });
       }
+
+      // Save the launch info
+      ({ launchInfo } = status);
     } catch (err) {
       return this.setState({
         errorMessage: `Error while requesting state from server: ${err.message}`,
@@ -112,10 +120,47 @@ class App extends Component {
       }
     }
 
-    // TODO: add step validating the configuration (make sure all values are there and each value is of the right type and that there is at least one assignment group checked)
-    // NOTE: grace period must be 0 or positive integer (not float)
-    // NOTE: late days per sem/assignment integer, positive
-    // NOTE: at least one assignment group
+
+    // TODO: Remove later
+    // Test data for the information below
+    // configuration = {
+    //   gracePeriodMin: 4,
+    //   maxLateDaysPerAssignment: 2,
+    //   maxLateDaysPerSemester: 3,
+    //   assignmentGroupIdsToCount: ['Homework'],
+    // };
+
+    // Deconstruct configuration
+    const {
+      gracePeriodMin,
+      maxLateDaysPerSemester,
+      maxLateDaysPerAssignment,
+      assignmentGroupIdsToCount,
+    } = configuration;
+
+    // Checks gracePeriodMin exists and is a positive integer
+    // Checks maxLateDaysPerAssignment exists and is a positive integer > 0
+    // Checks maxLateDaysPerSemester exists, is a positive integer, and is
+    // greater or equal to maxLateDaysPerAssignment
+    // Checks assignmentGroupIdsToCount exists and has at least one checked
+    if (
+      gracePeriodMin
+      && gracePeriodMin >= 0
+      && Number.isInteger(gracePeriodMin)
+      && maxLateDaysPerAssignment
+      && maxLateDaysPerAssignment > 0
+      && Number.isInteger(maxLateDaysPerAssignment)
+      && maxLateDaysPerSemester
+      && maxLateDaysPerSemester > 0
+      && maxLateDaysPerSemester >= maxLateDaysPerAssignment
+      && Number.isInteger(maxLateDaysPerSemester)
+      && assignmentGroupIdsToCount
+      && assignmentGroupIdsToCount.length >= 1
+    ) {
+      this.setState({
+        configurationSet: true,
+      });
+    }
 
     // Store state
     this.setState({
@@ -133,6 +178,8 @@ class App extends Component {
       configuration,
       loading,
       errorMessage,
+      configurationSet,
+      launchInfo,
     } = this.state;
 
     // Error message
@@ -154,6 +201,29 @@ class App extends Component {
       );
     }
 
+    // Deconstruct configuration
+    const {
+      gracePeriodMin,
+      maxLateDaysPerSemester,
+      maxLateDaysPerAssignment,
+      assignmentGroupIdsToCount,
+    } = configuration;
+
+    if (!configurationSet && !launchInfo.isLearner) {
+      return (
+        <SetupErrorMessage />
+      );
+    }
+    if (!configurationSet) {
+      return (
+        <Configuration
+          gracePeriodMin={gracePeriodMin}
+          maxLateDaysPerSemester={maxLateDaysPerSemester}
+          maxLateDaysPerAssignment={maxLateDaysPerAssignment}
+          assignmentGroupIdsToCount={assignmentGroupIdsToCount}
+        />
+      );
+    }
 
     const testDateOne = new Date('November 8 2019 05:35:32');
     const testDateTwo = new Date('November 7 2019 05:35:32');

@@ -17,7 +17,12 @@ class Configuration extends Component {
   }
 }
 
-Configuration.propTypes = {};
+Configuration.propTypes = {
+  gracePeriodMin: PropTypes.number.isRequired,
+  maxLateDaysPerSemester: PropTypes.number.isRequired,
+  maxLateDaysPerAssignment: PropTypes.number.isRequired,
+  assignmentGroupIdsToCount: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
 
 Configuration.defaultProps = {};
 

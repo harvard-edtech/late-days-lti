@@ -21,6 +21,9 @@ class Rule extends Component {
 
 
 Rule.propTypes = {
+  ruleHeader: PropTypes.string.isRequired,
+  ruleDescription: PropTypes.string.isRequired,
+  ruleMeasure: PropTypes.string.isRequired,
 };
 
 
