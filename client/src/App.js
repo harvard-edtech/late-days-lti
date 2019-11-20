@@ -68,6 +68,7 @@ class App extends Component {
 
       // Save the launch info
       ({ launchInfo } = status);
+      console.log(launchInfo);
     } catch (err) {
       return this.setState({
         errorMessage: `Error while requesting state from server: ${err.message}`,
@@ -180,7 +181,6 @@ class App extends Component {
       configurationSet,
       launchInfo,
     } = this.state;
-    const { courseId } = launchInfo;
 
     // Error message
     if (errorMessage) {
@@ -208,6 +208,7 @@ class App extends Component {
       maxLateDaysPerAssignment,
       assignmentGroupIdsToCount,
     } = configuration;
+    const { courseId } = launchInfo;
 
     if (!configurationSet && launchInfo.isLearner) {
       return (
