@@ -18,7 +18,19 @@ class AssignmentGroups extends Component {
   }
 }
 
-AssignmentGroups.propTypes = {};
+AssignmentGroups.propTypes = {
+  // The list of assignment groups to let the user choose from
+  assignmentGroups: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+  })).isRequired,
+  // Currently checked assignment group ids
+  currentAssignmentGroupIdsToCount:
+    PropTypes.arrayOf(PropTypes.number).isRequired,
+  // Handler for when assignment group checkboxes are changed
+  onChange: PropTypes.func.isRequired,
+  // ^ call with two arguments: (id, isBeingAdded)
+};
 
 AssignmentGroups.defaultProps = {};
 

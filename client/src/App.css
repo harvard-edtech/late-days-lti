@@ -3,3 +3,8 @@
   padding: 0 !important;
   margin: 0 !important;
 }
+
+/* Container with max width */
+.content-container {
+  max-width: 800px;
+}

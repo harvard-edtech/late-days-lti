@@ -15,7 +15,6 @@ import './App.css';
 
 // Import metadataId
 import metadataId from './METADATA_ID';
-import { config } from '@fortawesome/fontawesome-svg-core';
 
 // Initialize caccl
 const { api, getStatus } = initCACCL();
@@ -39,6 +38,7 @@ class App extends Component {
       configurationSet: false,
       // The launchInfo object from the LTI launch
       launchInfo: null,
+      // TODO: add assignmentGroups to state and load them in componentDidMount
     };
   }
 
@@ -119,6 +119,7 @@ class App extends Component {
       }
     }
 
+    // TODO: load assignmentGroups
 
     // TODO: Remove later
     // Test data for the information below
@@ -137,33 +138,32 @@ class App extends Component {
       assignmentGroupIdsToCount,
     } = configuration;
 
-    // Checks gracePeriodMin exists and is a positive integer
-    // Checks maxLateDaysPerAssignment exists and is a positive integer > 0
-    // Checks maxLateDaysPerSemester exists, is a positive integer, and is
-    // greater or equal to maxLateDaysPerAssignment
-    // Checks assignmentGroupIdsToCount exists and has at least one checked
-    if (
+    // Make sure configuration is valid
+    const configurationSet = (
+      // Make sure all options exist
       gracePeriodMin
-      && gracePeriodMin >= 0
-      && Number.isInteger(gracePeriodMin)
       && maxLateDaysPerAssignment
-      && maxLateDaysPerAssignment > 0
-      && Number.isInteger(maxLateDaysPerAssignment)
       && maxLateDaysPerSemester
-      && maxLateDaysPerSemester > 0
-      && maxLateDaysPerSemester >= maxLateDaysPerAssignment
-      && Number.isInteger(maxLateDaysPerSemester)
       && assignmentGroupIdsToCount
+      // Make sure they have the right types
+      && Number.isInteger(gracePeriodMin)
+      && Number.isInteger(maxLateDaysPerAssignment)
+      && Number.isInteger(maxLateDaysPerSemester)
+      && Array.isArray(assignmentGroupIdsToCount)
+      // Make sure the numbers are in the proper range
+      && gracePeriodMin >= 0
+      && maxLateDaysPerAssignment > 0
+      && maxLateDaysPerSemester > 0
+      // Make sure caps make sense
+      && maxLateDaysPerSemester >= maxLateDaysPerAssignment
+      // Make sure there is at least one assignment group selected
       && assignmentGroupIdsToCount.length >= 1
-    ) {
-      this.setState({
-        configurationSet: true,
-      });
-    }
+    );
 
     // Store state
     this.setState({
       configuration,
+      configurationSet,
       loading: false,
     });
   }
@@ -180,6 +180,7 @@ class App extends Component {
       configurationSet,
       launchInfo,
     } = this.state;
+    const { courseId } = launchInfo;
 
     // Error message
     if (errorMessage) {
@@ -216,10 +217,15 @@ class App extends Component {
     if (!configurationSet) {
       return (
         <Configuration
-          gracePeriodMin={gracePeriodMin}
-          maxLateDaysPerSemester={maxLateDaysPerSemester}
-          maxLateDaysPerAssignment={maxLateDaysPerAssignment}
-          assignmentGroupIdsToCount={assignmentGroupIdsToCount}
+          initialGracePeriodMin={gracePeriodMin}
+          initialMaxLateDaysPerSemester={maxLateDaysPerSemester}
+          initialMaxLateDaysPerAssignment={maxLateDaysPerAssignment}
+          initialAssignmentGroupIdsToCount={assignmentGroupIdsToCount}
+          assignmentGroups={[]}
+          courseId={courseId}
+          onNewMetadata={(newMetadata) => {
+            alert('Need to do something with new config!');
+          }}
         />
       );
     }
