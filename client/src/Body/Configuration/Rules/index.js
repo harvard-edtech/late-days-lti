@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Rule from './Rule';
 class Rules extends Component {
   /**
-   * Render CancelButton
+   * Render Rules
    */
   render() {
     const {
@@ -21,7 +21,7 @@ class Rules extends Component {
           Rules
         </h3>
         <div className="alert alert-light text-dark mb-0">
-          <div className="rules-graceperiod">
+          <div className="rules-graceperiod pb-4">
             <Rule
               userInput={gracePeriodMin}
               ruleHeader="Grace Period"
@@ -30,7 +30,7 @@ class Rules extends Component {
               onRuleChange={onGracePeriodChanged}
             />
           </div>
-          <div className="rules-maxSemester">
+          <div className="rules-maxSemester pb-4">
             <Rule
               userInput={maxLateDaysPerSemester}
               ruleHeader="Max Late Days Per Semester"
@@ -39,7 +39,7 @@ class Rules extends Component {
               onRuleChange={onMaxLateDaysPerSemesterChanged}
             />
           </div>
-          <div className="rules-maxAssignment">
+          <div className="rules-maxAssignment pb-1">
             <Rule
               userInput={maxLateDaysPerAssignment}
               ruleHeader="Max Late Days Per Assignment"
