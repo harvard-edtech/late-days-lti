@@ -8,16 +8,37 @@ class AssignmentGroupList extends Component {
    * Render AssignmentGroupList
    */
   render() {
+    const {
+      assignmentGroups,
+    } = this.props;
+
+    let counter = 0;
+    const assignmentGroupsRender = assignmentGroups.map((group) => {
+      counter += 1;
+      return (
+        <div key={`${group.name}-${counter}`}>
+          <div className="assignmentgrouplist-elem">
+            <AssignmentGroupItem
+              name={group.name}
+            />
+          </div>
+        </div>
+      );
+    });
     return (
       <div>
-        AssignmentGroupList has not been created yet
+        {assignmentGroupsRender}
       </div>
     );
   }
 }
 
-AssignmentGroupList.propTypes = {};
-
-AssignmentGroupList.defaultProps = {};
+AssignmentGroupList.propTypes = {
+  // The list of assignment groups to let the user choose from
+  assignmentGroups: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+  })).isRequired,
+};
 
 export default AssignmentGroupList;

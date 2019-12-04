@@ -10,9 +10,30 @@ class AssignmentGroups extends Component {
    * Render AssignmentGroups
    */
   render() {
+    const {
+      assignmentGroups,
+      currentAssignmentGroupIdsToCount,
+      onChange,
+    } = this.props;
+
     return (
-      <div>
-        AssignmentGroups has not been created yet
+      <div className="assignmentgroups-container alert alert-info pl-3 pr-3 pb-3 pt-1 mt-2">
+        <h3 className="assignmentgroup-header">
+          Assignment Groups
+        </h3>
+        <div className="alert alert-light text-dark mb-0">
+          <h4 className="assignmentgroup-maindescription">
+            Count Late Days for Assignments in these Assignment Groups:
+          </h4>
+          <h6 className="assignmentgroup-subdescription">
+            (Assignment must have due dates for students to use late days)
+          </h6>
+          <div className="assignmentgroup-items">
+            <AssignmentGroupList
+              assignmentGroups={assignmentGroups}
+            />
+          </div>
+        </div>
       </div>
     );
   }

@@ -222,7 +222,7 @@ class App extends Component {
           initialMaxLateDaysPerSemester={maxLateDaysPerSemester}
           initialMaxLateDaysPerAssignment={maxLateDaysPerAssignment}
           initialAssignmentGroupIdsToCount={assignmentGroupIdsToCount}
-          assignmentGroups={[]}
+          assignmentGroups={[{ id: 1, name: 'Homework' }, { id: 2, name: 'Tests' }]}
           courseId={courseId}
           onNewMetadata={(newMetadata) => {
             alert('Need to do something with new config!');

@@ -37,17 +37,44 @@ class Configuration extends Component {
       saving: false,
       // Validation error to show in a modal
       validationErrorText: null,
-      // TODO: add comments
+      // Current grace period from form
       currentGracePeriodMin: String(initialGracePeriodMin),
+      // Current max late days per semester from form
       currentMaxLateDaysPerSemester: String(initialMaxLateDaysPerSemester),
+      // current max late days per assignment from form
       currentMaxLateDaysPerAssignment: String(initialMaxLateDaysPerAssignment),
+      // current assignment groups checked
       currentAssignmentGroupIdsToCount: initialAssignmentGroupIdsToCount,
     };
   }
 
   attemptSave() {
-    // TODO: validate the current values. If they're invalid, show an error
-    // in a modal (set validationErrorText to something)
+    this.saving = (
+      // Make sure all options exists
+      this.currentGracePeriodMin
+      && this.currentMaxLateDaysPerAssignment
+      && this.currentMaxLateDaysPerSemester
+      && this.currentAssignmentGroupIdsToCount
+      // Make sure they have the right types
+      && typeof (this.currentGracePeriodMin) === 'string'
+      && typeof (this.currentMaxLateDaysPerAssignment) === 'string'
+      && typeof (this.currentMaxLateDaysPerSemester) === 'string'
+      && Array.isArray(this.initialAssignmentGroupIdsToCount)
+      // Make sure numbers are in the proper range
+      && Number(this.currentGracePeriodMin) >= 0
+      && Number(this.currentMaxLateDaysPerSemester) > 0
+      && Number(this.currentMaxLateDaysPerAssignment) > 0
+      // Make sure caps make sense
+      && this.currentMaxLateDaysPerSemester >= this.currentMaxLateDaysPerAssignment
+      // Make sure there is at least one assignment group selected
+      && this.currentAssignmentGroupIdsToCount.length >= 1
+    );
+
+    if (!this.saving) {
+      this.setState({
+        validationErrorText: 'Your input is incorrect, please look over the form and fix any errors.',
+      });
+    }
   }
 
   /**
