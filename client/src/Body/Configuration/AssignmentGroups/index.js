@@ -31,6 +31,8 @@ class AssignmentGroups extends Component {
           <div className="assignmentgroup-items">
             <AssignmentGroupList
               assignmentGroups={assignmentGroups}
+              onChange={onChange}
+              currentAssignmentGroupIdsToCount={currentAssignmentGroupIdsToCount}
             />
           </div>
         </div>

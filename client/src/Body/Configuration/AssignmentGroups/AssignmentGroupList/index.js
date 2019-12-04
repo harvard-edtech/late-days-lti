@@ -10,6 +10,8 @@ class AssignmentGroupList extends Component {
   render() {
     const {
       assignmentGroups,
+      onChange,
+      currentAssignmentGroupIdsToCount,
     } = this.props;
 
     let counter = 0;
@@ -20,6 +22,9 @@ class AssignmentGroupList extends Component {
           <div className="assignmentgrouplist-elem">
             <AssignmentGroupItem
               name={group.name}
+              id={group.id}
+              onChange={onChange}
+              currentAssignmentGroupIdsToCount={currentAssignmentGroupIdsToCount}
             />
           </div>
         </div>
@@ -39,6 +44,12 @@ AssignmentGroupList.propTypes = {
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
   })).isRequired,
+  // Currently checked assignment group ids
+  currentAssignmentGroupIdsToCount:
+    PropTypes.arrayOf(PropTypes.number).isRequired,
+  // Handler for when assignment group checkboxes are changed
+  onChange: PropTypes.func.isRequired,
+  // ^ call with two arguments: (id, isBeingAdded)
 };
 
 export default AssignmentGroupList;
