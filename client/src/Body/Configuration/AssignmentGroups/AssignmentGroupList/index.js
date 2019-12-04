@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 
 import AssignmentGroupItem from './AssignmentGroupItem';
 
+// import style
+import './style.css';
+
 class AssignmentGroupList extends Component {
   /**
    * Render AssignmentGroupList
@@ -31,7 +34,7 @@ class AssignmentGroupList extends Component {
       );
     });
     return (
-      <div>
+      <div className="assignmentgrouplist-container">
         {assignmentGroupsRender}
       </div>
     );
