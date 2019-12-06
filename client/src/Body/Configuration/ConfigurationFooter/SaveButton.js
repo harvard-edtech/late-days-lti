@@ -6,19 +6,19 @@ class SaveButton extends Component {
    */
   render() {
     const {
-      onClick,
+      onSaveClicked,
     } = this.props;
 
     return (
-      <div>
-        SaveButton has not been created yet
+      <div className="savebutton-container">
+        <button type="button" className="btn btn-success btn-lg">Success</button>
       </div>
     );
   }
 }
 
 SaveButton.propTypes = {
-  onClick: PropTypes.func.isRequired,
+  onSaveClicked: PropTypes.func.isRequired,
 };
 
 

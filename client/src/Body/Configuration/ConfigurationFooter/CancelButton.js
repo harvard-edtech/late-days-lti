@@ -6,12 +6,12 @@ class CancelButton extends Component {
    */
   render() {
     const {
-      onClick,
+      onCancelClicked,
     } = this.props;
-    
+
     return (
-      <div>
-        CancelButton has not been created yet
+      <div className="cancelbutton-container">
+        <button type="button" className="btn btn-secondary btn-lg">Cancel</button>
       </div>
     );
   }
@@ -19,7 +19,7 @@ class CancelButton extends Component {
 
 
 CancelButton.propTypes = {
-  onClick: PropTypes.func.isRequired,
+  onCancelClicked: PropTypes.func.isRequired,
 };
 
 

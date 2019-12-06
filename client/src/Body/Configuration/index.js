@@ -9,6 +9,7 @@ import AssignmentGroups from './AssignmentGroups';
 import Rules from './Rules';
 import LoadingSpinner from '../../shared/LoadingSpinner';
 import Modal from '../../shared/Modal';
+import ConfigurationFooter from './ConfigurationFooter';
 
 // Import constants
 import METADATA_ID from '../../METADATA_ID';
@@ -132,6 +133,16 @@ class Configuration extends Component {
           }}
           maxLateDaysPerAssignment={currentMaxLateDaysPerAssignment}
           maxLateDaysPerSemester={currentMaxLateDaysPerSemester}
+          onMaxLateDaysPerSemesterChanged={(newMaxLateDaysPerSemester) => {
+            this.setState({
+              currentMaxLateDaysPerSemester: newMaxLateDaysPerSemester,
+            });
+          }}
+          onMaxLateDaysPerAssignmentChanged={(newMaxLateDaysPerAssignment) => {
+            this.setState({
+              currentMaxLateDaysPerAssignment: newMaxLateDaysPerAssignment,
+            });
+          }}
         />
         <AssignmentGroups
           assignmentGroups={assignmentGroups}
@@ -158,6 +169,7 @@ class Configuration extends Component {
             });
           }}
         />
+        <ConfigurationFooter />
       </div>
     );
   }
@@ -177,19 +189,24 @@ Configuration.propTypes = {
   onCancel: PropTypes.func,
   // Initial number of grace period minutes
   initialGracePeriodMin: PropTypes.number,
-  // TODO: write docs
+  // The initial number of late days per semester
   initialMaxLateDaysPerSemester: PropTypes.number,
+  // The initial number of late days per assignment
   initialMaxLateDaysPerAssignment: PropTypes.number,
+  // The initial assignment group ids that are checked
   initialAssignmentGroupIdsToCount: PropTypes.arrayOf(PropTypes.number),
 };
 
 Configuration.defaultProps = {
   // By default, there is no cancel button
   onCancel: null,
-  // TODO: write docs
+  // By default, the initial grace period is 5 minutes
   initialGracePeriodMin: 5,
+  // By default, the initial max late days per semester is 6 days
   initialMaxLateDaysPerSemester: 6,
+  // By default, the initial max late days per assignment is 2 days
   initialMaxLateDaysPerAssignment: 2,
+  // By default, there are no initial assignment group ids checked
   initialAssignmentGroupIdsToCount: [],
 };
 

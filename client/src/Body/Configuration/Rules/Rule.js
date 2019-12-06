@@ -51,7 +51,7 @@ class Rule extends Component {
 
 Rule.propTypes = {
   // What the user enters into the form
-  userInput: PropTypes.number.isRequired,
+  userInput: PropTypes.string.isRequired,
   // Header of the rule (What the rule is)
   ruleHeader: PropTypes.string.isRequired,
   // Description of what the rule is
