@@ -13,8 +13,9 @@ import Configuration from './Body/Configuration';
 // Import styles
 import './App.css';
 
-// Import metadataId
-import metadataId from './METADATA_ID';
+// Import metadata_id
+// eslint-disable-next-line camelcase
+import metadata_id from './METADATA_ID';
 
 // Initialize caccl
 const { api, getStatus } = initCACCL();
@@ -69,7 +70,6 @@ class App extends Component {
 
       // Save the launch info
       ({ launchInfo } = status);
-      console.log(launchInfo);
     } catch (err) {
       return this.setState({
         errorMessage: `Error while requesting state from server: ${err.message}`,
@@ -91,17 +91,14 @@ class App extends Component {
       loading: true,
     });
     await api.course.app.updateMetadata({
+      metadata_id,
       courseId: launchInfo.courseId,
-      metadata_id: metadataId,
       metadata: newMetadata,
     });
 
-    const testing = await api.course.app.getMetadata({
-      metadata_id: metadataId,
-      courseId: launchInfo.courseId,
-    });
-    console.log(testing);
     this.setState({
+      configurationSet: true,
+      configuration: newMetadata,
       loading: false,
     });
   }
@@ -124,13 +121,14 @@ class App extends Component {
     if (!launchInfo.isLearner) {
       try {
         configuration = await api.course.app.getMetadata({
-          metadataId,
+          metadata_id,
           courseId: launchInfo.courseId,
         });
       } catch (err) {
         // Ignore this
       }
     }
+
     // > If we couldn't get metadata, try to get it out of launchInfo
     if (!configuration || Object.keys(configuration).length === 0) {
       try {
@@ -241,10 +239,6 @@ class App extends Component {
     if (!configurationSet) {
       return (
         <Configuration
-          initialGracePeriodMin={Number(gracePeriodMin)}
-          initialMaxLateDaysPerSemester={Number(maxLateDaysPerSemester)}
-          initialMaxLateDaysPerAssignment={Number(maxLateDaysPerAssignment)}
-          initialAssignmentGroupIdsToCount={assignmentGroupIdsToCount}
           assignmentGroups={assignmentGroups}
           courseId={courseId}
           onNewMetadata={(newMetadata) => {

@@ -66,46 +66,78 @@ class Configuration extends Component {
       onNewMetadata,
     } = this.props;
 
-    if (
-      // Make sure all options exists
-      currentGracePeriodMin
-      && currentMaxLateDaysPerAssignment
-      && currentMaxLateDaysPerSemester
-      && currentAssignmentGroupIdsToCount
-      // Make sure they have the right types
-      && typeof (currentGracePeriodMin) === 'string'
-      && typeof (currentMaxLateDaysPerAssignment) === 'string'
-      && typeof (currentMaxLateDaysPerSemester) === 'string'
-      && Array.isArray(currentAssignmentGroupIdsToCount)
-      // Make sure numbers are in the proper range
-      && Number(currentGracePeriodMin) >= 0
-      && Number(currentMaxLateDaysPerSemester) > 0
-      && Number(currentMaxLateDaysPerAssignment) > 0
-      // Make sure caps make sense
-      && currentMaxLateDaysPerSemester >= currentMaxLateDaysPerAssignment
-      // Make sure there is at least one assignment group selected
-      && currentAssignmentGroupIdsToCount.length >= 1
-    ) {
-      this.setState({
-        saving: true,
-      });
-
-      // Create metadata object & update caccl-api
-      const configuration = {
-        gracePeriodMin: currentGracePeriodMin,
-        maxLateDaysPerSemester: currentMaxLateDaysPerSemester,
-        maxLateDaysPerAssignment: currentMaxLateDaysPerAssignment,
-        assignmentGroupIdsToCount: currentAssignmentGroupIdsToCount,
-      };
-      onNewMetadata(configuration);
-    }
-
-    // If input does not pass verification, give error message
-    if (!this.saving) {
-      this.setState({
-        validationErrorText: 'Your input is incorrect, please look over the form and fix any errors.',
+    // Validate grace period
+    if (!currentGracePeriodMin || currentGracePeriodMin.trim().length === 0) {
+      // No grace period
+      return this.setState({
+        validationErrorText: 'Please provide a grace period. Put zero for no grace period.',
       });
     }
+    if (Number.isInteger(currentGracePeriodMin)) {
+      // No grace period
+      return this.setState({
+        validationErrorText: 'The grace period should be an integer.',
+      });
+    }
+    const gracePeriodMin = parseInt(currentGracePeriodMin, 10);
+    if (gracePeriodMin < 0) {
+      // No grace period
+      return this.setState({
+        validationErrorText: 'The grace period must be 0 or a positive number.',
+      });
+    }
+
+    // Validate max late days per assignment
+    // TODO: write validation
+    const maxLateDaysPerAssignment = parseInt(
+      currentMaxLateDaysPerAssignment,
+      10
+    );
+    // TODO: write validation
+
+    // Validate max late days per semester
+    // TODO: write validation
+    const maxLateDaysPerSemester = parseInt(
+      currentMaxLateDaysPerSemester,
+      10
+    );
+    // TODO: write validation
+
+    // Validate assignment group ids
+    // TODO: write validation
+    const assignmentGroupIdsToCount = currentAssignmentGroupIdsToCount;
+    // TODO: write validation
+
+    // TODO: remove this
+    // if (
+    //   // Make sure all options exists
+    //   currentGracePeriodMin
+    //   && currentMaxLateDaysPerAssignment
+    //   && currentMaxLateDaysPerSemester
+    //   && currentAssignmentGroupIdsToCount
+    //   // Make sure they have the right types
+    //   && typeof (currentGracePeriodMin) === 'string'
+    //   && typeof (currentMaxLateDaysPerAssignment) === 'string'
+    //   && typeof (currentMaxLateDaysPerSemester) === 'string'
+    //   && Array.isArray(currentAssignmentGroupIdsToCount)
+    //   // Make sure numbers are in the proper range
+    //   && Number(currentGracePeriodMin) >= 0
+    //   && Number(currentMaxLateDaysPerSemester) > 0
+    //   && Number(currentMaxLateDaysPerAssignment) > 0
+    //   // Make sure caps make sense
+    //   && currentMaxLateDaysPerSemester >= currentMaxLateDaysPerAssignment
+    //   // Make sure there is at least one assignment group selected
+    //   && currentAssignmentGroupIdsToCount.length >= 1
+    // );
+
+    // Create metadata object & update caccl-api
+    const configuration = {
+      gracePeriodMin,
+      maxLateDaysPerSemester,
+      maxLateDaysPerAssignment,
+      assignmentGroupIdsToCount,
+    };
+    onNewMetadata(configuration);
   }
 
   /**
