@@ -17,11 +17,21 @@ class ConfigurationFooter extends Component {
       onCancelClicked,
     } = this.props;
 
+    const cancelButton = (
+      onCancelClicked
+        ? (
+          <div className="configurationfooter-cancel">
+            <CancelButton
+              onCancelClicked={onCancelClicked}
+            />
+          </div>
+        )
+        : null
+    );
+
     return (
       <div className="configurationfooter-container">
-        <CancelButton
-          onCancelClicked={onCancelClicked}
-        />
+        {cancelButton}
         <SaveButton
           onSaveClicked={onSaveClicked}
         />
@@ -34,7 +44,12 @@ ConfigurationFooter.propTypes = {
   // Saves metadata if valid when clicked
   onSaveClicked: PropTypes.func.isRequired,
   // Reverts input fields back to original input when clicked (?)
-  onCancelClicked: PropTypes.func.isRequired,
+  onCancelClicked: PropTypes.func,
+};
+
+ConfigurationFooter.defaultProps = {
+  // By default, there is no cancel button
+  onCancelClicked: null,
 };
 
 
