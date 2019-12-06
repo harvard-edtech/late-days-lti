@@ -7,7 +7,7 @@ import React, { Component } from 'react';
 // Import other components
 import ItemList from './shared/ItemList';
 import LoadingSpinner from './shared/LoadingSpinner';
-import SetupErrorMessage from './Body/NotSetUp/SetupErrorMessage';
+import NotSetUp from './Body/NotSetUp';
 import Configuration from './Body/Configuration';
 
 // Import styles
@@ -233,7 +233,7 @@ class App extends Component {
 
     if (!configurationSet && launchInfo.isLearner) {
       return (
-        <SetupErrorMessage />
+        <NotSetUp />
       );
     }
     if (!configurationSet) {

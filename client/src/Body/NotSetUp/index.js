@@ -1,19 +1,17 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 
-import SetupErrorMessage from './SetupErrorMessage';
-class NotSetUp extends Component {
+class SetupErrorMessage extends Component {
   /**
-   * Render NotSetUp
+   * Render SetupErrorMessage
    */
   render() {
-    
     return (
-      <div>
-        NotSetUp has not been created yet
+      <div className="setuperrormessage-container text-center">
+        <h1>Please Come Back Later</h1>
+        <h3>Your instructor hasn&apos;t set up late days yet.</h3>
       </div>
     );
   }
 }
 
-export default NotSetUp;
+export default SetupErrorMessage;
