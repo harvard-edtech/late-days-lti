@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 import CancelButton from './CancelButton';
 import SaveButton from './SaveButton';
 
+// import stylesheet
+import './style.css';
+
 class ConfigurationFooter extends Component {
   /**
    * Render ConfigurationFooter

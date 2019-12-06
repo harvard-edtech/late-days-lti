@@ -10,8 +10,14 @@ class CancelButton extends Component {
     } = this.props;
 
     return (
-      <div className="cancelbutton-container">
-        <button type="button" className="btn btn-secondary btn-lg">Cancel</button>
+      <div className="cancelbutton-container pr-2">
+        <button
+          type="button"
+          className="btn btn-secondary btn-lg"
+          onClick={onCancelClicked}
+        >
+          Cancel
+        </button>
       </div>
     );
   }

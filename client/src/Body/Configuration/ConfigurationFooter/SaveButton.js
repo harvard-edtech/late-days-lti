@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+
 class SaveButton extends Component {
   /**
    * Render SaveButton
@@ -11,7 +12,13 @@ class SaveButton extends Component {
 
     return (
       <div className="savebutton-container">
-        <button type="button" className="btn btn-success btn-lg">Success</button>
+        <button
+          type="button"
+          className="btn btn-success btn-lg"
+          onClick={onSaveClicked}
+        >
+          Success
+        </button>
       </div>
     );
   }
