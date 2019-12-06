@@ -48,10 +48,12 @@ class Configuration extends Component {
       currentAssignmentGroupIdsToCount: initialAssignmentGroupIdsToCount,
     };
 
+    // Bind handlers
     this.attemptSave = this.attemptSave.bind(this);
   }
 
   attemptSave() {
+    // Deconstruct state
     const {
       currentGracePeriodMin,
       currentMaxLateDaysPerSemester,
@@ -59,6 +61,7 @@ class Configuration extends Component {
       currentAssignmentGroupIdsToCount,
     } = this.state;
 
+    // Deconstruct props
     const {
       onNewMetadata,
     } = this.props;
@@ -87,6 +90,7 @@ class Configuration extends Component {
         saving: true,
       });
 
+      // Create metadata object & update caccl-api
       const configuration = {
         gracePeriodMin: currentGracePeriodMin,
         maxLateDaysPerSemester: currentMaxLateDaysPerSemester,
@@ -96,6 +100,7 @@ class Configuration extends Component {
       onNewMetadata(configuration);
     }
 
+    // If input does not pass verification, give error message
     if (!this.saving) {
       this.setState({
         validationErrorText: 'Your input is incorrect, please look over the form and fix any errors.',
@@ -107,11 +112,14 @@ class Configuration extends Component {
    * Render Configuration
    */
   render() {
+    // Deconstruct props
     const {
       assignmentGroups,
       onNewMetadata,
       onCancel,
     } = this.props;
+
+    // Deconstruct state
     const {
       saving,
       currentGracePeriodMin,
@@ -145,6 +153,9 @@ class Configuration extends Component {
         )
         : null
     );
+
+    // TODO: Delete this next line (debug statement)
+    console.log('CURRENT: ', currentGracePeriodMin);
 
     return (
       <div className="configuration-container content-container">

@@ -7,6 +7,7 @@ class Rules extends Component {
    * Render Rules
    */
   render() {
+    // Deconstruct props
     const {
       gracePeriodMin,
       onGracePeriodChanged,
@@ -15,6 +16,7 @@ class Rules extends Component {
       maxLateDaysPerAssignment,
       onMaxLateDaysPerAssignmentChanged,
     } = this.props;
+
     return (
       <div className="rules-container alert alert-info pl-3 pr-3 pb-3 pt-1 mt-2">
         <h3 className="mb-1">
@@ -56,11 +58,17 @@ class Rules extends Component {
 
 
 Rules.propTypes = {
+  // number of grace periods given in minutes
   gracePeriodMin: PropTypes.string.isRequired,
+  // Function called when grace period input changes
   onGracePeriodChanged: PropTypes.func.isRequired,
+  // Maximum late days per semester
   maxLateDaysPerSemester: PropTypes.string.isRequired,
+  // Function called when max late days per semester changes
   onMaxLateDaysPerSemesterChanged: PropTypes.func.isRequired,
+  // Maximum late days per assignment
   maxLateDaysPerAssignment: PropTypes.string.isRequired,
+  // Function called when maximum late days per assignment changes
   onMaxLateDaysPerAssignmentChanged: PropTypes.func.isRequired,
 };
 

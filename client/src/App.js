@@ -101,8 +101,10 @@ class App extends Component {
       metadata_id: metadataId,
       courseId: launchInfo.courseId,
     });
-    console.log('HERE');
     console.log(testing);
+    this.setState({
+      loading: false,
+    });
   }
 
   /**

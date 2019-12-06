@@ -6,6 +6,7 @@ class AssignmentGroupItem extends Component {
    * Render AssignmentGroupItem
    */
   render() {
+    // Deconstruct props
     const {
       name,
       id,
@@ -13,14 +14,17 @@ class AssignmentGroupItem extends Component {
       currentAssignmentGroupIdsToCount,
     } = this.props;
 
+    const isChecked = (currentAssignmentGroupIdsToCount.indexOf(id) > -1);
+
     return (
       <div className="assignmentgroupitem-container">
         <div className="form-check">
-          <label className="form-check-label" htmlFor="exampleCheck1">
+          <label className="form-check-label" htmlFor="defaultUnchecked">
             <input
               type="checkbox"
               className="form-check-input"
               id={`checkbox-${id}`}
+              checked={isChecked}
               onChange={() => {
                 onChange(id, !(currentAssignmentGroupIdsToCount.indexOf(id) > -1));
               }}

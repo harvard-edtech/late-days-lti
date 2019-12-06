@@ -17,6 +17,7 @@ class ConfigurationFooter extends Component {
       onCancelClicked,
     } = this.props;
 
+    // Cancel button only appears when onCancelClick function given
     const cancelButton = (
       onCancelClicked
         ? (
