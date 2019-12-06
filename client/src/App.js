@@ -31,14 +31,18 @@ class App extends Component {
     this.state = {
       // If true, the app is still loading
       loading: true,
+      // If true, the current user is a student
+      isStudent: false,
       // If defined, an error has occurred and this is the error message
       errorMessage: null,
       // The current app configuration object
       configuration: null,
       // If true, the app's configurations are set properly
       configurationSet: false,
-      // The launchInfo object from the LTI launch
-      launchInfo: null,
+      // The courseId the user launched from
+      courseId: null,
+      // The custom parameters from the launch
+      customParams: null,
       // Array of assignment groups from the course
       assignmentGroups: null,
     };
@@ -76,9 +80,15 @@ class App extends Component {
       });
     }
 
+    // Process the launchInfo
+    const isStudent = launchInfo.isLearner;
+    const { courseId, customParams } = launchInfo;
+
     // Save launch info
     this.setState({
-      launchInfo,
+      courseId,
+      isStudent,
+      customParams,
     });
 
     // Load from Canvas
@@ -86,13 +96,13 @@ class App extends Component {
   }
 
   async onNewMetadata(newMetadata) {
-    const { launchInfo } = this.state;
+    const { courseId } = this.state;
     this.setState({
       loading: true,
     });
     await api.course.app.updateMetadata({
       metadata_id,
-      courseId: launchInfo.courseId,
+      courseId,
       metadata: newMetadata,
     });
 
@@ -112,17 +122,17 @@ class App extends Component {
       loading: true,
     });
 
-    // Get launchInfo from state
-    const { launchInfo } = this.state;
+    // Deconstruct state
+    const { isStudent, courseId } = this.state;
 
     // Try to get configuration
     let configuration;
     // > Try to pull from Canvas if the user is a teaching team member
-    if (!launchInfo.isLearner) {
+    if (!isStudent) {
       try {
         configuration = await api.course.app.getMetadata({
           metadata_id,
-          courseId: launchInfo.courseId,
+          courseId,
         });
       } catch (err) {
         // Ignore this
@@ -132,7 +142,7 @@ class App extends Component {
     // > If we couldn't get metadata, try to get it out of launchInfo
     if (!configuration || Object.keys(configuration).length === 0) {
       try {
-        const { customParams } = launchInfo;
+        const { customParams } = this.state;
         const metadataString = customParams.metadata;
         configuration = JSON.parse(metadataString);
       } catch (err) {
@@ -144,7 +154,7 @@ class App extends Component {
     // > Try to load assignmentGroups
     try {
       assignmentGroups = await api.course.assignmentGroup.list({
-        courseId: launchInfo.courseId,
+        courseId,
       });
     } catch (err) {
       // Ignore this
@@ -184,8 +194,8 @@ class App extends Component {
     this.setState({
       configuration,
       configurationSet,
-      loading: false,
       assignmentGroups,
+      loading: false,
     });
   }
 
@@ -199,7 +209,8 @@ class App extends Component {
       loading,
       errorMessage,
       configurationSet,
-      launchInfo,
+      isStudent,
+      courseId,
       assignmentGroups,
     } = this.state;
 
@@ -229,9 +240,8 @@ class App extends Component {
       maxLateDaysPerAssignment,
       assignmentGroupIdsToCount,
     } = configuration;
-    const { courseId } = launchInfo;
 
-    if (!configurationSet && launchInfo.isLearner) {
+    if (!configurationSet && isStudent) {
       return (
         <NotSetUp />
       );

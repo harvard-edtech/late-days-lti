@@ -21,5 +21,4 @@ GetInTouchButton.propTypes = {
   onClick: PropTypes.func.isRequired,
 };
 
-
 export default GetInTouchButton;
