@@ -59,6 +59,10 @@ class Configuration extends Component {
       currentAssignmentGroupIdsToCount,
     } = this.state;
 
+    const {
+      onNewMetadata,
+    } = this.props;
+
     if (
       // Make sure all options exists
       currentGracePeriodMin
@@ -82,6 +86,14 @@ class Configuration extends Component {
       this.setState({
         saving: true,
       });
+
+      const configuration = {
+        gracePeriodMin: currentGracePeriodMin,
+        maxLateDaysPerSemester: currentMaxLateDaysPerSemester,
+        maxLateDaysPerAssignment: currentMaxLateDaysPerAssignment,
+        assignmentGroupIdsToCount: currentAssignmentGroupIdsToCount,
+      };
+      onNewMetadata(configuration);
     }
 
     if (!this.saving) {

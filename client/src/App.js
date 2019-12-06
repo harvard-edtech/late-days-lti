@@ -34,10 +34,12 @@ class App extends Component {
       errorMessage: null,
       // The current app configuration object
       configuration: null,
-      // If ture, the app's configurations are set properly
+      // If true, the app's configurations are set properly
       configurationSet: false,
       // The launchInfo object from the LTI launch
       launchInfo: null,
+      // Array of assignment groups from the course
+      assignmentGroups: null,
       // TODO: add assignmentGroups to state and load them in componentDidMount
     };
   }
@@ -84,6 +86,25 @@ class App extends Component {
     await this.updateFromCanvas();
   }
 
+  async onNewMetadata(newMetadata) {
+    const { launchInfo } = this.state;
+    this.setState({
+      loading: true,
+    });
+    await api.course.app.updateMetadata({
+      courseId: launchInfo.courseId,
+      metadata_id: metadataId,
+      metadata: newMetadata,
+    });
+
+    const testing = await api.course.app.getMetadata({
+      metadata_id: metadataId,
+      courseId: launchInfo.courseId,
+    });
+    console.log('HERE');
+    console.log(testing);
+  }
+
   /**
    * Pull configuration and late day counts from Canvas
    */
@@ -120,16 +141,15 @@ class App extends Component {
       }
     }
 
-    // TODO: load assignmentGroups
-
-    // TODO: Remove later
-    // Test data for the information below
-    // configuration = {
-    //   gracePeriodMin: 4,
-    //   maxLateDaysPerAssignment: 2,
-    //   maxLateDaysPerSemester: 3,
-    //   assignmentGroupIdsToCount: ['Homework'],
-    // };
+    let assignmentGroups;
+    // > Try to load assignmentGroups
+    try {
+      assignmentGroups = await api.course.assignmentGroup.list({
+        courseId: launchInfo.courseId,
+      });
+    } catch (err) {
+      // Ignore this
+    }
 
     // Deconstruct configuration
     const {
@@ -166,6 +186,7 @@ class App extends Component {
       configuration,
       configurationSet,
       loading: false,
+      assignmentGroups,
     });
   }
 
@@ -180,6 +201,7 @@ class App extends Component {
       errorMessage,
       configurationSet,
       launchInfo,
+      assignmentGroups,
     } = this.state;
 
     // Error message
@@ -222,10 +244,10 @@ class App extends Component {
           initialMaxLateDaysPerSemester={maxLateDaysPerSemester}
           initialMaxLateDaysPerAssignment={maxLateDaysPerAssignment}
           initialAssignmentGroupIdsToCount={assignmentGroupIdsToCount}
-          assignmentGroups={[{ id: 1, name: 'Homework' }, { id: 2, name: 'Tests' }]}
+          assignmentGroups={assignmentGroups}
           courseId={courseId}
           onNewMetadata={(newMetadata) => {
-            alert('Need to do something with new config!');
+            this.onNewMetadata(newMetadata);
           }}
         />
       );
