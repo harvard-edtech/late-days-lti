@@ -20,6 +20,17 @@ class StudentSummary extends Component {
 }
 
 StudentSummary.propTypes = {
+  // Student's profile
+  profile: PropTypes.shape({
+    // TODO: add props here
+    id: PropTypes.number.isRequired,
+    // https://canvas.instructure.com/doc/api/users.html#Profile
+    // ^ see what you actually need in addition to id
+  }).isRequired,
+  // Max late days allowed per assignment
+  maxLateDaysPerAssignment,
+  maxLateDaysPerSemester,
+  assignments,
   // Late day data
   // assignmentId => number of late days used
   lateDaysMap: PropTypes.objectOf(PropTypes.number).isRequired,
