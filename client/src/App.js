@@ -40,7 +40,6 @@ class App extends Component {
       launchInfo: null,
       // Array of assignment groups from the course
       assignmentGroups: null,
-      // TODO: add assignmentGroups to state and load them in componentDidMount
     };
   }
 
