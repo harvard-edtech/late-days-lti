@@ -241,9 +241,9 @@ class App extends Component {
     if (!configurationSet) {
       return (
         <Configuration
-          initialGracePeriodMin={gracePeriodMin}
-          initialMaxLateDaysPerSemester={maxLateDaysPerSemester}
-          initialMaxLateDaysPerAssignment={maxLateDaysPerAssignment}
+          initialGracePeriodMin={Number(gracePeriodMin)}
+          initialMaxLateDaysPerSemester={Number(maxLateDaysPerSemester)}
+          initialMaxLateDaysPerAssignment={Number(maxLateDaysPerAssignment)}
           initialAssignmentGroupIdsToCount={assignmentGroupIdsToCount}
           assignmentGroups={assignmentGroups}
           courseId={courseId}
