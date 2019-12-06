@@ -20,6 +20,10 @@ class StudentSummary extends Component {
 }
 
 StudentSummary.propTypes = {
+  // Late day data
+  // assignmentId => number of late days used
+  lateDaysMap: PropTypes.objectOf(PropTypes.number).isRequired,
+  // If true, show the get in touch button
   showGetInTouch: PropTypes.bool.isRequired,
 };
 

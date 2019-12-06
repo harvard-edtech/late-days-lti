@@ -22,10 +22,17 @@ class InstructorDashboard extends Component {
         InstructorDashboard has not been created yet
       </div>
     );
+  }
 }
 
-
 InstructorDashboard.propTypes = {
+  // Late days used for all students
+  // studentId => assignmentId => number of late days used
+  lateDaysMapForEveryone: PropTypes.objectOf(
+    PropTypes.objectOf(
+      PropTypes.number
+    )
+  ).isRequired,
 };
 
 
