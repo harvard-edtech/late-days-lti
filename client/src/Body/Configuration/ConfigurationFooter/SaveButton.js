@@ -11,13 +11,13 @@ class SaveButton extends Component {
     } = this.props;
 
     return (
-      <div className="savebutton-container">
+      <div className="savebutton-container pl-1">
         <button
           type="button"
           className="btn btn-success btn-lg"
           onClick={onSaveClicked}
         >
-          Success
+          Save
         </button>
       </div>
     );

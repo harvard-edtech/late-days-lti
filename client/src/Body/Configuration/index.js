@@ -47,29 +47,42 @@ class Configuration extends Component {
       // current assignment groups checked
       currentAssignmentGroupIdsToCount: initialAssignmentGroupIdsToCount,
     };
+
+    this.attemptSave = this.attemptSave.bind(this);
   }
 
   attemptSave() {
-    this.saving = (
+    const {
+      currentGracePeriodMin,
+      currentMaxLateDaysPerSemester,
+      currentMaxLateDaysPerAssignment,
+      currentAssignmentGroupIdsToCount,
+    } = this.state;
+
+    if (
       // Make sure all options exists
-      this.currentGracePeriodMin
-      && this.currentMaxLateDaysPerAssignment
-      && this.currentMaxLateDaysPerSemester
-      && this.currentAssignmentGroupIdsToCount
+      currentGracePeriodMin
+      && currentMaxLateDaysPerAssignment
+      && currentMaxLateDaysPerSemester
+      && currentAssignmentGroupIdsToCount
       // Make sure they have the right types
-      && typeof (this.currentGracePeriodMin) === 'string'
-      && typeof (this.currentMaxLateDaysPerAssignment) === 'string'
-      && typeof (this.currentMaxLateDaysPerSemester) === 'string'
-      && Array.isArray(this.initialAssignmentGroupIdsToCount)
+      && typeof (currentGracePeriodMin) === 'string'
+      && typeof (currentMaxLateDaysPerAssignment) === 'string'
+      && typeof (currentMaxLateDaysPerSemester) === 'string'
+      && Array.isArray(currentAssignmentGroupIdsToCount)
       // Make sure numbers are in the proper range
-      && Number(this.currentGracePeriodMin) >= 0
-      && Number(this.currentMaxLateDaysPerSemester) > 0
-      && Number(this.currentMaxLateDaysPerAssignment) > 0
+      && Number(currentGracePeriodMin) >= 0
+      && Number(currentMaxLateDaysPerSemester) > 0
+      && Number(currentMaxLateDaysPerAssignment) > 0
       // Make sure caps make sense
-      && this.currentMaxLateDaysPerSemester >= this.currentMaxLateDaysPerAssignment
+      && currentMaxLateDaysPerSemester >= currentMaxLateDaysPerAssignment
       // Make sure there is at least one assignment group selected
-      && this.currentAssignmentGroupIdsToCount.length >= 1
-    );
+      && currentAssignmentGroupIdsToCount.length >= 1
+    ) {
+      this.setState({
+        saving: true,
+      });
+    }
 
     if (!this.saving) {
       this.setState({
@@ -169,7 +182,10 @@ class Configuration extends Component {
             });
           }}
         />
-        <ConfigurationFooter />
+        <ConfigurationFooter
+          onCancelClicked={onCancel}
+          onSaveClicked={this.attemptSave}
+        />
       </div>
     );
   }
