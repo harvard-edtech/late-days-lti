@@ -261,46 +261,50 @@ class App extends Component {
 
     const testDateOne = new Date('November 8 2019 05:35:32');
     const testDateTwo = new Date('November 7 2019 05:35:32');
+    const testDateThree = new Date('November 7 2019 05:35:32');
 
     // Render the component
     return (
       <div className="app-container">
         <StudentSummary
-          totalLateDaysUsed={4}
-          maxLateDaysPerSemester={6}
-          valueSuffix="Used"
-          showGetInTouch
           profile={{
             id: 123,
             name: 'Anita Lam',
           }}
-        />
-        <ItemList
-          items={[
+          maxLateDaysPerAssignment={2}
+          maxLateDaysPerSemester={6}
+          assignments={[
             {
-              name: 'Bert Alina',
-              value: 2,
-              onClick: () => {
-                alert('Person 1 clicked');
-              },
+              name: 'Homework 1',
+              id: 1,
               dueAt: testDateOne,
+              value: 3,
             },
             {
-              name: 'Alex Timo',
-              value: 6,
-              onClick: () => {
-                alert('Person 2 clicked');
-              },
+              name: 'Homework 2',
+              id: 2,
               dueAt: testDateTwo,
+              value: 0,
+            },
+            {
+              name: 'Homework 3',
+              id: 3,
+              dueAt: testDateThree,
+              value: 1,
             },
           ]}
+          lateDaysMap={{
+            1: 3,
+            2: 0,
+            3: 1,
+          }}
+          valueSuffix="Used"
+          showGetInTouch
+          totalLateDaysUsed={4}
           nameHeader="Full Name"
           valueHeader="Late Days Used"
           dueAtHeader="Due At"
-          valueDenominator={5}
-          valueSuffix="Used"
           showDueAt
-          footerMessage="Click a student for their assignment breakdown"
         />
       </div>
     );

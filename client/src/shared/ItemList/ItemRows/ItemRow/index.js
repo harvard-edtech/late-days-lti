@@ -49,7 +49,7 @@ class ItemRow extends Component {
     return (
       <div className="itemrow-container">
         <div
-          className="itemrow-item d-flex mt-3"
+          className="itemrow-item d-flex mt-3 mb-3"
           onClick={(event) => {
             // Only fire onClick if the button wasn't clicked
             // (don't want to double-fire onClick)

@@ -14,7 +14,7 @@ class GetInTouchButton extends Component {
     } = this.props;
 
     return (
-      <div className="getintouchbutton-container d-flex pt-2">
+      <div className="getintouchbutton-container d-flex pt-4">
         <button
           type="button"
           className="btn btn-primary btn-lg"
