@@ -17,9 +17,7 @@ class TotalLateDayProgress extends Component {
       maxLateDaysPerSemester,
       valueSuffix,
     } = this.props;
-    
-    console.log(maxLateDaysPerSemester);
-    console.log(totalLateDaysUsed);
+
     return (
       <div className="totallatedayprogress-container m-3">
         <div className="totallatedayprogress-heading font-weight-bold">

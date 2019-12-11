@@ -18,7 +18,9 @@ class AssignmentOveruseContainer extends Component {
       assignmentsToShow,
       valueSuffix,
     } = this.props;
+
     const heading = `Too many late days used in ${assignmentsToShow.length} assignment${(assignmentsToShow.length > 1) ? 's' : ''}.`;
+
     return (
       <div className="assignmentoverusecontainer-container alert alert-danger text-dark font-weight-bold m-3">
         <div className="assignmentoverusecontainer-heading">
@@ -38,7 +40,9 @@ class AssignmentOveruseContainer extends Component {
 }
 
 AssignmentOveruseContainer.propTypes = {
+  // max number of late days per assignment
   maxLateDaysPerAssignment: PropTypes.number.isRequired,
+  // array of assignments that overused late days to display
   assignmentsToShow: PropTypes.arrayOf(
     PropTypes.shape({
       // the name of assignment
@@ -47,6 +51,7 @@ AssignmentOveruseContainer.propTypes = {
       value: PropTypes.number.isRequired,
     })
   ).isRequired,
+  // String to display after the value fraction
   valueSuffix: PropTypes.string.isRequired,
 };
 

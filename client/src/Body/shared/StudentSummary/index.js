@@ -83,11 +83,13 @@ class StudentSummary extends Component {
           {header}
         </div>
         {getInTouch}
-        <TotalLateDayProgress
-          totalLateDaysUsed={totalLateDaysUsed}
-          maxLateDaysPerSemester={maxLateDaysPerSemester}
-          valueSuffix={valueSuffix}
-        />
+        <div className="studentsummary-progressbar">
+          <TotalLateDayProgress
+            totalLateDaysUsed={totalLateDaysUsed}
+            maxLateDaysPerSemester={maxLateDaysPerSemester}
+            valueSuffix={valueSuffix}
+          />
+        </div>
         {assignmentsOveruse}
         <ItemList
           items={okayAssignments}

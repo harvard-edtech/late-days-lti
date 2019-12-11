@@ -1,4 +1,5 @@
 .getintouchbutton-container {
+  /* centers button on page */
   display: flex;
   justify-content: center;
 }

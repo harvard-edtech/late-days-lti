@@ -1,19 +1,22 @@
 .totallatedayprogress-fullbar {
+  /* Set height of the progress bar */
   height: 100%;
   min-height: 60px;
 }
 .totallatedayprogress-heading {
+  /* Sets font size for header */
   font-size: x-large;
 }
 .totallatedayprogress-bar {
   /* Coloring for name column */ 
   background-color: gray;
+
+  /* Padding for bar */
   padding: 20px;
+
   /* Round box corners */
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
-
-  min-width: 200px;
 }
 
 .totallatedayprogress-info {
@@ -21,6 +24,7 @@
   background-color: lightgray;
   text-align: center;
 
+  /* Padding for the progress bar info */
   padding-left: 10px;
   padding-right: 10px;
 

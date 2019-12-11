@@ -28,6 +28,7 @@ class GetInTouchButton extends Component {
 }
 
 GetInTouchButton.propTypes = {
+  // function that emails student when clicked
   onClick: PropTypes.func.isRequired,
 };
 

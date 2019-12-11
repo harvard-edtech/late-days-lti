@@ -11,15 +11,15 @@ class ProgressInfo extends Component {
       maxLateDaysPerSemester,
       valueSuffix,
     } = this.props;
-    
 
     let concatVal = `${totalLateDaysUsed}/${maxLateDaysPerSemester}`;
+
     if (valueSuffix !== '') {
       concatVal += ` ${valueSuffix}`;
     }
 
     return (
-      <div className="itemvalue-container font-weight-bold">
+      <div className="progressinfo-container font-weight-bold">
         {concatVal}
       </div>
     );

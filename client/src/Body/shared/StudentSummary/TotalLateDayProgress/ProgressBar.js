@@ -11,10 +11,13 @@ class ProgressBar extends Component {
       maxLateDaysPerSemester,
     } = this.props;
 
+    // Calculate percentage of late day tokens used in total (0 to 100)
     const percentageUsed = (totalLateDaysUsed / maxLateDaysPerSemester) * 100;
+
     let color = 'bg-success';
     let label = '';
 
+    // If student used all their tokens, show red progress bar
     if (percentageUsed > 100) {
       color = 'bg-danger';
       label = 'USED TOO MANY!';
@@ -28,7 +31,7 @@ class ProgressBar extends Component {
           }}
         >
           <div
-            className={`progress-bar ${color}`}
+            className={`progress-bar ${color} font-weight-bold`}
             role="progressbar"
             style={{
               width: `${percentageUsed}%`,
