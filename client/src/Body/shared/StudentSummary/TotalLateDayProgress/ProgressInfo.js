@@ -19,7 +19,7 @@ class ProgressInfo extends Component {
     }
 
     return (
-      <div className="progressinfo-container font-weight-bold">
+      <div className="progressinfo-container lead font-weight-bold">
         {concatVal}
       </div>
     );

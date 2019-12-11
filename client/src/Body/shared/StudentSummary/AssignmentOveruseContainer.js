@@ -1,38 +1,84 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import ItemRows from '../../../shared/ItemList/ItemRows';
+// Import FontAwesome Icons
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 
-// Import sort types
-import SORT_TYPES from '../../../shared/ItemList/SORT_TYPES';
-
+// Import styles
 import './AssignmentOveruseContainer.css';
 
 class AssignmentOveruseContainer extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      // True if visible
+      visible: true,
+    };
+  }
+
   /**
    * Render AssignmentOveruseContainer
    */
   render() {
-    const {
-      maxLateDaysPerAssignment,
-      assignmentsToShow,
-      valueSuffix,
-    } = this.props;
+    const { assignmentsToShow } = this.props;
+    const { visible } = this.state;
 
-    const heading = `Too many late days used in ${assignmentsToShow.length} assignment${(assignmentsToShow.length > 1) ? 's' : ''}.`;
+    // Don't render if not visible
+    if (!visible) {
+      return (
+        <div />
+      );
+    }
+
+    const assignmentNames = (
+      assignmentsToShow
+        .map((assignment, i) => {
+          const comma = (
+            (i !== assignmentsToShow.length - 1 && assignmentsToShow.length > 2)
+              ? ','
+              : ''
+          );
+          const and = (i === assignmentsToShow.length - 1 ? 'and ' : '');
+          return `${and}${assignment.name}${comma}`;
+        })
+        .join(' ')
+    );
+
+    const heading = `Used too many late days on ${assignmentsToShow.length} assignment${(assignmentsToShow.length > 1) ? 's' : ''}:`;
 
     return (
-      <div className="assignmentoverusecontainer-container alert alert-danger text-dark font-weight-bold m-3">
+      <div className="assignmentoverusecontainer-container alert alert-secondary mt-3" role="alert">
+        <button
+          type="button"
+          className="close"
+          style={{
+            opacity: 1,
+          }}
+          data-dismiss="alert"
+          aria-label="close"
+          onClick={() => {
+            this.setState({
+              visible: false,
+            });
+          }}
+        >
+          <span
+            aria-hidden="true"
+          >
+            &times;
+          </span>
+        </button>
         <div className="assignmentoverusecontainer-heading">
+          <FontAwesomeIcon
+            icon={faExclamationTriangle}
+            className="mr-2"
+          />
           {heading}
         </div>
-        <div className="assignmentoverusecontainer-items alert alert-light text-dark mt-3 mr-2 ml-2">
-          <ItemRows
-            items={assignmentsToShow}
-            valueDenominator={maxLateDaysPerAssignment}
-            valueSuffix={valueSuffix}
-            sortType={SORT_TYPES.BY_NAME}
-          />
+        <div className="assignmentoverusecontainer-subheading">
+          {assignmentNames}
         </div>
       </div>
     );
@@ -40,8 +86,6 @@ class AssignmentOveruseContainer extends Component {
 }
 
 AssignmentOveruseContainer.propTypes = {
-  // max number of late days per assignment
-  maxLateDaysPerAssignment: PropTypes.number.isRequired,
   // array of assignments that overused late days to display
   assignmentsToShow: PropTypes.arrayOf(
     PropTypes.shape({
@@ -51,8 +95,6 @@ AssignmentOveruseContainer.propTypes = {
       value: PropTypes.number.isRequired,
     })
   ).isRequired,
-  // String to display after the value fraction
-  valueSuffix: PropTypes.string.isRequired,
 };
 
 

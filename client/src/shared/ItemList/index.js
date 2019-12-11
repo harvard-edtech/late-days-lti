@@ -151,7 +151,7 @@ class ItemList extends Component {
     );
     /* ----------------------- Render ItemList ---------------------- */
     return (
-      <div className="itemlist-container m-3">
+      <div className="itemlist-container">
         {searchBarElem}
         {headerElem}
         {itemRowsElem}

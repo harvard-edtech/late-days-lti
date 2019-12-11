@@ -8,3 +8,13 @@
 .content-container {
   max-width: 800px;
 }
+
+/* The default crimson color */
+.bg-crimson {
+  background: #B30000 !important;
+}
+
+/* Place around content that appears below header */
+.content-below-header {
+  margin-top: 70px;
+}

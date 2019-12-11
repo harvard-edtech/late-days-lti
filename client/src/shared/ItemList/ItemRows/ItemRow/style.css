@@ -9,9 +9,9 @@
 
 /* Styling for the item name */
 .itemrow-name {
-  /* Coloring for name column */ 
-  background-color: gray;
-  color: white;
+  /* Coloring for name column */
+  background-color: lightgray;
+  color: black;
 
   /* Center Text Vertically */
   display: flex;
@@ -29,9 +29,10 @@
 
 /* Styling for the item value */
 .itemrow-value  {
-  /* Coloring for value column */ 
-  background-color: lightgray;
+  /* Coloring for value column */
+  background-color: gray;
   text-align: center;
+  color: white;
 
   /* Center Text Vertically */
   display: flex;
@@ -46,26 +47,33 @@
 
 /* Styling for the item due at */
 .itemrow-dueAt {
-  /* Coloring for dueAt column */ 
-  background-color: #585858;
+  /* Coloring for dueAt column */
+  background-color: lightgray;
   text-align: center;
-  color: white;
+  color: black;
 
   /* Center Text Vertically */
   display: flex;
   align-items: center;
   justify-content: center;
+
+  /* Borders on left and right */
+  border-left: 1px solid white;
+  border-right: 1px solid white;
 }
 
 /* Sets different color if used too many tokens */
 .itemrow-overname {
-  background-color: brown;
+  color: white;
 }
 
 .itemrow-overdueat {
-  background-color: darkred;
+  color: white;
+  border-left: 1px solid white;
+  border-right: 1px solid white;
 }
 
 .itemrow-overvalue {
-  background-color: lightcoral;
+  background-color: darkred;
+  color: white;
 }

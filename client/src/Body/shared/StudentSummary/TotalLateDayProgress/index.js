@@ -19,7 +19,7 @@ class TotalLateDayProgress extends Component {
     } = this.props;
 
     return (
-      <div className="totallatedayprogress-container m-3">
+      <div className="totallatedayprogress-container">
         <div className="totallatedayprogress-heading font-weight-bold">
           TOTAL LATE DAYS USED:
         </div>
@@ -30,7 +30,7 @@ class TotalLateDayProgress extends Component {
               maxLateDaysPerSemester={maxLateDaysPerSemester}
             />
           </div>
-          <div className="totallatedayprogress-info font-weight-bold">
+          <div className="totallatedayprogress-info itemlist-value-column font-weight-bold">
             <ProgressInfo
               totalLateDaysUsed={totalLateDaysUsed}
               maxLateDaysPerSemester={maxLateDaysPerSemester}

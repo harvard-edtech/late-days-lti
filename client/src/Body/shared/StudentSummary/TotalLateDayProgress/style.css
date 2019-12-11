@@ -8,8 +8,8 @@
   font-size: x-large;
 }
 .totallatedayprogress-bar {
-  /* Coloring for name column */ 
-  background-color: gray;
+  /* Coloring for name column */
+  background-color: lightgray;
 
   /* Padding for bar */
   padding: 20px;
@@ -20,19 +20,15 @@
 }
 
 .totallatedayprogress-info {
-  /* Coloring for value column */ 
-  background-color: lightgray;
+  /* Coloring for value column */
+  background-color: gray;
   text-align: center;
-
-  /* Padding for the progress bar info */
-  padding-left: 10px;
-  padding-right: 10px;
+  color: white;
 
   /* Center Text Vertically */
   display: flex;
   align-items: center;
   justify-content: center;
-  /*padding-left: 20px; */
 
   /* Round box corners */
   border-top-right-radius: 5px;

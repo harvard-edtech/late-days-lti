@@ -14,32 +14,32 @@ class GetInTouchButton extends Component {
    */
   render() {
     const {
-      onClick,
+      link,
     } = this.props;
-
-    const text = 'Get in Touch';
 
     return (
       <div className="getintouchbutton-container d-flex pt-4">
-        <button
-          type="button"
-          className="btn btn-primary btn-lg"
-          onClick={onClick}
+        <a
+          className="btn btn-secondary btn-lg"
+          href={link}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="click to get in touch with the student via Canvas"
         >
           <FontAwesomeIcon
             icon={faEnvelope}
             className="mr-3"
           />
-          {text}
-        </button>
+          Get in Touch
+        </a>
       </div>
     );
   }
 }
 
 GetInTouchButton.propTypes = {
-  // function that emails student when clicked
-  onClick: PropTypes.func.isRequired,
+  // The link to follow to get in touch with the student
+  link: PropTypes.string.isRequired,
 };
 
 export default GetInTouchButton;

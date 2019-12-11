@@ -27,6 +27,8 @@ class StudentSummary extends Component {
       valueHeader,
       dueAtHeader,
       showDueAt,
+      courseId,
+      canvasHost,
     } = this.props;
 
     const header = `${profile.name}'s Late Days Used`;
@@ -36,7 +38,9 @@ class StudentSummary extends Component {
       showGetInTouch
         ? (
           <div className="studentsummary-getintouch">
-            <GetInTouchButton />
+            <GetInTouchButton
+              link={`https://${canvasHost}/conversations?context_id=${courseId}&user_id=${profile.id}&user_name=${encodeURIComponent(profile.name)}`}
+            />
           </div>
         )
         : null
@@ -44,7 +48,6 @@ class StudentSummary extends Component {
 
     // Divides assignments between overused late days and not overused
     const overAssignments = [];
-    const okayAssignments = [];
     Object.keys(lateDaysMap).forEach((id) => {
       const lateDaysUsed = lateDaysMap[id];
       assignments.forEach((assignment) => {
@@ -55,15 +58,11 @@ class StudentSummary extends Component {
               value: lateDaysMap[id],
             });
           }
-        } else {
-          console.log(lateDaysUsed, maxLateDaysPerAssignment);
-          okayAssignments.push(assignment);
         }
       });
     });
 
     console.log(overAssignments);
-    console.log(okayAssignments);
 
     // Display overuse container if there are assignments that used too many
     //  late days
@@ -82,7 +81,7 @@ class StudentSummary extends Component {
     );
 
     return (
-      <div className="studentsummary-container">
+      <div className="studentsummary-container p-3">
         <div className="studentsummary-heading font-weight-bold">
           {header}
         </div>
@@ -95,15 +94,17 @@ class StudentSummary extends Component {
           />
         </div>
         {assignmentsOveruse}
-        <ItemList
-          items={okayAssignments}
-          nameHeader={nameHeader}
-          valueHeader={valueHeader}
-          dueAtHeader={dueAtHeader}
-          valueDenominator={maxLateDaysPerAssignment}
-          valueSuffix={valueSuffix}
-          showDueAt={showDueAt}
-        />
+        <div className="mt-5">
+          <ItemList
+            items={assignments}
+            nameHeader={nameHeader}
+            valueHeader={valueHeader}
+            dueAtHeader={dueAtHeader}
+            valueDenominator={maxLateDaysPerAssignment}
+            valueSuffix={valueSuffix}
+            showDueAt={showDueAt}
+          />
+        </div>
       </div>
     );
   }
@@ -149,6 +150,10 @@ StudentSummary.propTypes = {
   dueAtHeader: PropTypes.string.isRequired,
   // Determines whether to show DueAt column
   showDueAt: PropTypes.bool.isRequired,
+  // The course id
+  courseId: PropTypes.number.isRequired,
+  // The hostname of Canvas
+  canvasHost: PropTypes.string.isRequired,
 };
 
 export default StudentSummary;

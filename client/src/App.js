@@ -10,6 +10,7 @@ import LoadingSpinner from './shared/LoadingSpinner';
 import NotSetUp from './Body/NotSetUp';
 import Configuration from './Body/Configuration';
 import StudentSummary from './Body/shared/StudentSummary';
+import Header from './Header';
 
 // Import styles
 import './App.css';
@@ -17,6 +18,19 @@ import './App.css';
 // Import metadata_id
 // eslint-disable-next-line camelcase
 import metadata_id from './METADATA_ID';
+
+// Views
+const VIEWS = {
+  // Views for TTMs:
+  TTM_HOME: 'ttm-home',
+  CONFIGURATION: 'configuration',
+  LATE_DAYS_BY_STUDENT: 'late-days-by-student',
+  LATE_DAYS_BY_ASSIGNMENT: 'late-days-by-assignment',
+  TTM_VIEW_OF_SPECIFIC_STUDENT: 'ttm-view-of-specific-student',
+  // Views for students:
+  STUDENT_HOME: 'student-home',
+  NOT_SET_UP: 'not-set-up',
+};
 
 // Initialize caccl
 const { api, getStatus } = initCACCL();
@@ -38,14 +52,22 @@ class App extends Component {
       errorMessage: null,
       // The current app configuration object
       configuration: null,
-      // If true, the app's configurations are set properly
-      configurationSet: false,
       // The courseId the user launched from
       courseId: null,
+      // The hostname of Canvas
+      canvasHost: null,
       // The custom parameters from the launch
       customParams: null,
       // Array of assignment groups from the course
       assignmentGroups: null,
+      // List of students in the course (if this is an instructor)
+      students: null,
+      // Current selected student to display
+      currentSelectedStudent: null,
+      // The current view to display
+      currentView: null,
+      // Map of late days used { canvasId => { assignmentId => num days used } }
+      lateDaysMapForEveryone: {},
     };
   }
 
@@ -82,14 +104,31 @@ class App extends Component {
     }
 
     // Process the launchInfo
+    const { canvasHost } = launchInfo;
+
+    // Process the launchInfo
     const isStudent = launchInfo.isLearner;
     const { courseId, customParams } = launchInfo;
+
+    // Load students if the current user is a teaching team member
+    let students = null;
+    if (!isStudent) {
+      try {
+        students = await api.course.listStudents({ courseId });
+      } catch (err) {
+        return this.setState({
+          errorMessage: `Error while getting the list of students in the course: ${err.message}`,
+        });
+      }
+    }
 
     // Save launch info
     this.setState({
       courseId,
+      canvasHost,
       isStudent,
       customParams,
+      students,
     });
 
     // Load from Canvas
@@ -191,11 +230,31 @@ class App extends Component {
       && assignmentGroupIdsToCount.length >= 1
     );
 
+    // TODO: load late day counts from Canvas and store them in the state
+
+    // Determine the current view
+    let currentView;
+    if (isStudent) {
+      currentView = (
+        configurationSet
+          ? VIEWS.STUDENT_HOME
+          : VIEWS.NOT_SET_UP
+      );
+    } else {
+      currentView = (
+        configurationSet
+          ? VIEWS.TTM_HOME
+          : VIEWS.CONFIGURATION
+      );
+    }
+
     // Store state
     this.setState({
       configuration,
-      configurationSet,
       assignmentGroups,
+      // currentView, // TODO: put back
+      currentView: VIEWS.TTM_VIEW_OF_SPECIFIC_STUDENT, // TODO: remove
+      currentSelectedStudent: this.state.students[0], // TODO: remove
       loading: false,
     });
   }
@@ -209,11 +268,13 @@ class App extends Component {
       configuration,
       loading,
       errorMessage,
-      configurationSet,
-      isStudent,
+      currentView,
+      currentSelectedStudent,
       courseId,
+      canvasHost,
       assignmentGroups,
     } = this.state;
+    console.log(currentView);
 
     // Error message
     if (errorMessage) {
@@ -234,21 +295,23 @@ class App extends Component {
       );
     }
 
-    // Deconstruct configuration
-    const {
-      gracePeriodMin,
-      maxLateDaysPerSemester,
-      maxLateDaysPerAssignment,
-      assignmentGroupIdsToCount,
-    } = configuration;
-
-    if (!configurationSet && isStudent) {
-      return (
+    let body;
+    let backButton;
+    if (currentView === VIEWS.NOT_SET_UP) {
+      body = (
         <NotSetUp />
       );
     }
-    if (!configurationSet) {
-      return (
+
+    if (currentView === VIEWS.CONFIGURATION) {
+      const {
+        gracePeriodMin,
+        maxLateDaysPerSemester,
+        maxLateDaysPerAssignment,
+        assignmentGroupIdsToCount,
+      } = configuration;
+
+      body = (
         <Configuration
           assignmentGroups={assignmentGroups}
           courseId={courseId}
@@ -259,30 +322,31 @@ class App extends Component {
       );
     }
 
-    if (configurationSet) {
+    if (
+      // currentView === VIEWS.STUDENT_HOME
+      // || currentView === VIEWS.TTM_VIEW_OF_SPECIFIC_STUDENT
+      true
+    ) {
       const testDateOne = new Date('November 8 2019 05:35:32');
       const testDateTwo = new Date('November 7 2019 05:35:32');
       const testDateThree = new Date('November 7 2019 05:35:32');
-      return (
+      body = (
         <StudentSummary
-          profile={{
-            id: 123,
-            name: 'Anita Lam',
-          }}
+          profile={currentSelectedStudent}
           maxLateDaysPerAssignment={2}
-          maxLateDaysPerSemester={6}
+          maxLateDaysPerSemester={4}
           assignments={[
             {
               name: 'Homework 1',
               id: 1,
               dueAt: testDateOne,
-              value: 3,
+              value: 2,
             },
             {
               name: 'Homework 2',
               id: 2,
               dueAt: testDateTwo,
-              value: 4,
+              value: 2,
             },
             {
               name: 'Homework 3',
@@ -292,8 +356,8 @@ class App extends Component {
             },
           ]}
           lateDaysMap={{
-            1: 3,
-            2: 4,
+            1: 2,
+            2: 2,
             3: 1,
           }}
           valueSuffix="Used"
@@ -301,8 +365,10 @@ class App extends Component {
           nameHeader="Full Name"
           valueHeader="Late Days Used"
           dueAtHeader="Due At"
+          courseId={courseId}
+          canvasHost={canvasHost}
           showDueAt
-          showGetInTouch={!isStudent}
+          showGetInTouch={(currentView === VIEWS.TTM_VIEW_OF_SPECIFIC_STUDENT)}
         />
       );
     }
@@ -310,7 +376,10 @@ class App extends Component {
     // Render the component
     return (
       <div className="app-container">
-        Something went wrong!
+        <Header leftButton={backButton} />
+        <div className="content-below-header">
+          {body}
+        </div>
       </div>
     );
   }

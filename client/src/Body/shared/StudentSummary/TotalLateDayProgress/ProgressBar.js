@@ -1,7 +1,30 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+// Import styles
+import './ProgressBar.css';
+
 class ProgressBar extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      // True if the progress bar should show 0 instead (used for animating)
+      zeroed: true,
+    };
+  }
+
+  /**
+   * Start the animation
+   */
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({
+        zeroed: false,
+      });
+    }, 50);
+  }
+
   /**
    * Render ProgressBar
    */
@@ -10,16 +33,21 @@ class ProgressBar extends Component {
       totalLateDaysUsed,
       maxLateDaysPerSemester,
     } = this.props;
+    const { zeroed } = this.state;
 
     // Calculate percentage of late day tokens used in total (0 to 100)
-    const percentageUsed = (totalLateDaysUsed / maxLateDaysPerSemester) * 100;
+    let percentageUsed = 0;
+    if (!zeroed) {
+      percentageUsed = (totalLateDaysUsed / maxLateDaysPerSemester) * 100;
+    }
 
-    let color = 'bg-success';
+    let color = 'bg-info';
     let label = '';
 
     // If student used all their tokens, show red progress bar
     if (percentageUsed > 100) {
-      color = 'bg-danger';
+      color = 'bg-crimson';
+      percentageUsed = 100;
       label = 'USED TOO MANY!';
     }
     return (
@@ -31,7 +59,7 @@ class ProgressBar extends Component {
           }}
         >
           <div
-            className={`progress-bar ${color} font-weight-bold`}
+            className={`progress-bar progressbar-bar ${color} font-weight-bold`}
             role="progressbar"
             style={{
               width: `${percentageUsed}%`,
