@@ -259,13 +259,11 @@ class App extends Component {
       );
     }
 
-    const testDateOne = new Date('November 8 2019 05:35:32');
-    const testDateTwo = new Date('November 7 2019 05:35:32');
-    const testDateThree = new Date('November 7 2019 05:35:32');
-
-    // Render the component
-    return (
-      <div className="app-container">
+    if (configurationSet) {
+      const testDateOne = new Date('November 8 2019 05:35:32');
+      const testDateTwo = new Date('November 7 2019 05:35:32');
+      const testDateThree = new Date('November 7 2019 05:35:32');
+      return (
         <StudentSummary
           profile={{
             id: 123,
@@ -284,7 +282,7 @@ class App extends Component {
               name: 'Homework 2',
               id: 2,
               dueAt: testDateTwo,
-              value: 0,
+              value: 4,
             },
             {
               name: 'Homework 3',
@@ -295,17 +293,24 @@ class App extends Component {
           ]}
           lateDaysMap={{
             1: 3,
-            2: 0,
+            2: 4,
             3: 1,
           }}
           valueSuffix="Used"
-          showGetInTouch
           totalLateDaysUsed={4}
           nameHeader="Full Name"
           valueHeader="Late Days Used"
           dueAtHeader="Due At"
           showDueAt
+          showGetInTouch={!isStudent}
         />
+      );
+    }
+
+    // Render the component
+    return (
+      <div className="app-container">
+        Something went wrong!
       </div>
     );
   }

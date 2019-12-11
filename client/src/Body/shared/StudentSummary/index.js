@@ -47,19 +47,23 @@ class StudentSummary extends Component {
     const okayAssignments = [];
     Object.keys(lateDaysMap).forEach((id) => {
       const lateDaysUsed = lateDaysMap[id];
-      if (lateDaysUsed > maxLateDaysPerAssignment) {
-        assignments.forEach((assignment) => {
+      assignments.forEach((assignment) => {
+        if (lateDaysUsed > maxLateDaysPerAssignment) {
           if (String(assignment.id) === id) {
             overAssignments.push({
               name: assignment.name,
               value: lateDaysMap[id],
             });
-          } else {
-            okayAssignments.push(assignment);
           }
-        });
-      }
+        } else {
+          console.log(lateDaysUsed, maxLateDaysPerAssignment);
+          okayAssignments.push(assignment);
+        }
+      });
     });
+
+    console.log(overAssignments);
+    console.log(okayAssignments);
 
     // Display overuse container if there are assignments that used too many
     //  late days
