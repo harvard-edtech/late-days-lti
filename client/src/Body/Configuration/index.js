@@ -73,62 +73,100 @@ class Configuration extends Component {
         validationErrorText: 'Please provide a grace period. Put zero for no grace period.',
       });
     }
-    if (Number.isInteger(currentGracePeriodMin)) {
-      // No grace period
+
+    const gracePeriodMin = parseInt(currentGracePeriodMin, 10);
+
+    if (!Number.isInteger(gracePeriodMin)) {
+      // grace period is not an integer
       return this.setState({
         validationErrorText: 'The grace period should be an integer.',
       });
     }
-    const gracePeriodMin = parseInt(currentGracePeriodMin, 10);
+
     if (gracePeriodMin < 0) {
-      // No grace period
+      // grace period needs to be 0 or positive
       return this.setState({
         validationErrorText: 'The grace period must be 0 or a positive number.',
       });
     }
 
     // Validate max late days per assignment
-    // TODO: write validation
+    if (!currentMaxLateDaysPerAssignment
+      || currentMaxLateDaysPerAssignment.trim().length === 0) {
+      // No max late days per assignment
+      return this.setState({
+        validationErrorText: 'Please provide a max late day per assignment.',
+      });
+    }
+
     const maxLateDaysPerAssignment = parseInt(
       currentMaxLateDaysPerAssignment,
       10
     );
-    // TODO: write validation
 
+    if (!Number.isInteger(maxLateDaysPerAssignment)) {
+      // Check max late days per assignment is an integer
+      return this.setState({
+        validationErrorText: 'The max late days per assignment should be an integer.',
+      });
+    }
+
+    if (maxLateDaysPerAssignment < 1) {
+      // max late days per assignment is positive or 1
+      return this.setState({
+        validationErrorText: 'The max late days per assignment must be greater than 0',
+      });
+    }
     // Validate max late days per semester
-    // TODO: write validation
+    if (!currentMaxLateDaysPerSemester
+      || currentMaxLateDaysPerSemester.trim().length === 0) {
+      // No max late days per semester
+      return this.setState({
+        validationErrorText: 'Please provide a max late day per semester.',
+      });
+    }
+
     const maxLateDaysPerSemester = parseInt(
       currentMaxLateDaysPerSemester,
       10
     );
-    // TODO: write validation
+
+    if (!Number.isInteger(maxLateDaysPerSemester)) {
+      // Check max late days per semester is an integer
+      return this.setState({
+        validationErrorText: 'The max late days per semester should be an integer.',
+      });
+    }
+
+    if (maxLateDaysPerSemester < 1) {
+      // max late days per semester is positive or 1
+      return this.setState({
+        validationErrorText: 'The max late days per semester must be greater than 0',
+      });
+    }
+
+    if (maxLateDaysPerSemester < maxLateDaysPerAssignment) {
+      // max late days per semester is positive or 1
+      return this.setState({
+        validationErrorText: 'The max late days per semester must be greater than max late days per assignment',
+      });
+    }
 
     // Validate assignment group ids
-    // TODO: write validation
-    const assignmentGroupIdsToCount = currentAssignmentGroupIdsToCount;
-    // TODO: write validation
+    if (!currentAssignmentGroupIdsToCount) {
+      // No assignment groups checked
+      return this.setState({
+        validationErrorText: 'Please make at least one assignment group.',
+      });
+    }
 
-    // TODO: remove this
-    // if (
-    //   // Make sure all options exists
-    //   currentGracePeriodMin
-    //   && currentMaxLateDaysPerAssignment
-    //   && currentMaxLateDaysPerSemester
-    //   && currentAssignmentGroupIdsToCount
-    //   // Make sure they have the right types
-    //   && typeof (currentGracePeriodMin) === 'string'
-    //   && typeof (currentMaxLateDaysPerAssignment) === 'string'
-    //   && typeof (currentMaxLateDaysPerSemester) === 'string'
-    //   && Array.isArray(currentAssignmentGroupIdsToCount)
-    //   // Make sure numbers are in the proper range
-    //   && Number(currentGracePeriodMin) >= 0
-    //   && Number(currentMaxLateDaysPerSemester) > 0
-    //   && Number(currentMaxLateDaysPerAssignment) > 0
-    //   // Make sure caps make sense
-    //   && currentMaxLateDaysPerSemester >= currentMaxLateDaysPerAssignment
-    //   // Make sure there is at least one assignment group selected
-    //   && currentAssignmentGroupIdsToCount.length >= 1
-    // );
+    const assignmentGroupIdsToCount = currentAssignmentGroupIdsToCount;
+
+    if (assignmentGroupIdsToCount.length < 1) {
+      return this.setState({
+        validationErrorText: 'Please check off at least one assignment group.',
+      });
+    }
 
     // Create metadata object & update caccl-api
     const configuration = {

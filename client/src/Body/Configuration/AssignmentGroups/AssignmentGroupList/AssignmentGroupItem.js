@@ -15,7 +15,6 @@ class AssignmentGroupItem extends Component {
     } = this.props;
 
     const isChecked = (currentAssignmentGroupIdsToCount.indexOf(id) > -1);
-    console.log(isChecked);
 
     return (
       <div className="assignmentgroupitem-container">
