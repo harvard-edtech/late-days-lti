@@ -9,6 +9,7 @@ import ItemList from './shared/ItemList';
 import LoadingSpinner from './shared/LoadingSpinner';
 import NotSetUp from './Body/NotSetUp';
 import Configuration from './Body/Configuration';
+import StudentSummary from './Body/shared/StudentSummary';
 
 // Import styles
 import './App.css';
@@ -263,7 +264,8 @@ class App extends Component {
 
     // Render the component
     return (
-      <div>
+      <div className="app-container">
+        <StudentSummary />
         <ItemList
           items={[
             {

@@ -10,10 +10,17 @@ class StudentSummary extends Component {
    * Render StudentSummary
    */
   render() {
-
+    const {
+      profile,
+      maxLateDaysPerAssignment,
+      maxLateDaysPerSemester,
+      assignments,
+      lateDaysMap,
+      showGetInTouch,
+    } = this.props;
     return (
       <div>
-        StudentSummary has not been created yet
+        <TotalLateDayProgress />
       </div>
     );
   }
@@ -28,9 +35,11 @@ StudentSummary.propTypes = {
     // ^ see what you actually need in addition to id
   }).isRequired,
   // Max late days allowed per assignment
-  maxLateDaysPerAssignment,
-  maxLateDaysPerSemester,
-  assignments,
+  maxLateDaysPerAssignment: PropTypes.number.isRequired,
+  maxLateDaysPerSemester: PropTypes.number.isRequired,
+  assignments: PropTypes.arrayOf(
+    PropTypes.objectOf(PropTypes.string)
+  ).isRequired,
   // Late day data
   // assignmentId => number of late days used
   lateDaysMap: PropTypes.objectOf(PropTypes.number).isRequired,
