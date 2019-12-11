@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+// Import FontAwesome Icons
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
+
 // import styles
 import './GetInTouchButton.css';
 
@@ -13,6 +17,8 @@ class GetInTouchButton extends Component {
       onClick,
     } = this.props;
 
+    const text = 'Get in Touch';
+
     return (
       <div className="getintouchbutton-container d-flex pt-4">
         <button
@@ -20,7 +26,11 @@ class GetInTouchButton extends Component {
           className="btn btn-primary btn-lg"
           onClick={onClick}
         >
-          Get in Touch
+          <FontAwesomeIcon
+            icon={faEnvelope}
+            className="mr-3"
+          />
+          {text}
         </button>
       </div>
     );
