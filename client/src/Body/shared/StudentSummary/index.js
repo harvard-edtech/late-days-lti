@@ -145,6 +145,4 @@ StudentSummary.propTypes = {
   showDueAt: PropTypes.bool.isRequired,
 };
 
-// TODO: only show get in touch button if flag is true
-
 export default StudentSummary;
