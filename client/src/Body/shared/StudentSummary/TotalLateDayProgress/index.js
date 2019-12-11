@@ -13,10 +13,13 @@ class TotalLateDayProgress extends Component {
    */
   render() {
     const {
-      value,
-      valueDenominator,
+      totalLateDaysUsed,
+      maxLateDaysPerSemester,
       valueSuffix,
     } = this.props;
+    
+    console.log(maxLateDaysPerSemester);
+    console.log(totalLateDaysUsed);
     return (
       <div className="totallatedayprogress-container m-3">
         <div className="totallatedayprogress-heading font-weight-bold">
@@ -25,14 +28,14 @@ class TotalLateDayProgress extends Component {
         <div className="totallatedayprogress-fullbar d-flex">
           <div className="totallatedayprogress-bar flex-grow-1">
             <ProgressBar
-              value={value}
-              valueDenominator={valueDenominator}
+              totalLateDaysUsed={totalLateDaysUsed}
+              maxLateDaysPerSemester={maxLateDaysPerSemester}
             />
           </div>
           <div className="totallatedayprogress-info font-weight-bold">
             <ProgressInfo
-              value={value}
-              valueDenominator={valueDenominator}
+              totalLateDaysUsed={totalLateDaysUsed}
+              maxLateDaysPerSemester={maxLateDaysPerSemester}
               valueSuffix={valueSuffix}
             />
           </div>
@@ -44,9 +47,9 @@ class TotalLateDayProgress extends Component {
 
 TotalLateDayProgress.propTypes = {
   // number of tokens used
-  value: PropTypes.number.isRequired,
+  totalLateDaysUsed: PropTypes.number.isRequired,
   // number of tokens available
-  valueDenominator: PropTypes.number.isRequired,
+  maxLateDaysPerSemester: PropTypes.number.isRequired,
   // String to display after the value fraction
   valueSuffix: PropTypes.string.isRequired,
 };

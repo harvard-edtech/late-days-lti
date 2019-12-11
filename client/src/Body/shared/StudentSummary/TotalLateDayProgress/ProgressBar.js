@@ -7,11 +7,11 @@ class ProgressBar extends Component {
    */
   render() {
     const {
-      value,
-      valueDenominator,
+      totalLateDaysUsed,
+      maxLateDaysPerSemester,
     } = this.props;
 
-    const percentageUsed = (value / valueDenominator) * 100;
+    const percentageUsed = (totalLateDaysUsed / maxLateDaysPerSemester) * 100;
     let color = 'bg-success';
     let label = '';
 
@@ -48,9 +48,9 @@ class ProgressBar extends Component {
 
 ProgressBar.propTypes = {
   // number of tokens used
-  value: PropTypes.number.isRequired,
+  totalLateDaysUsed: PropTypes.number.isRequired,
   // number of tokens available
-  valueDenominator: PropTypes.number.isRequired,
+  maxLateDaysPerSemester: PropTypes.number.isRequired,
 };
 
 

@@ -7,12 +7,13 @@ class ProgressInfo extends Component {
    */
   render() {
     const {
-      value,
-      valueDenominator,
+      totalLateDaysUsed,
+      maxLateDaysPerSemester,
       valueSuffix,
     } = this.props;
+    
 
-    let concatVal = `${value}/${valueDenominator}`;
+    let concatVal = `${totalLateDaysUsed}/${maxLateDaysPerSemester}`;
     if (valueSuffix !== '') {
       concatVal += ` ${valueSuffix}`;
     }
@@ -28,9 +29,9 @@ class ProgressInfo extends Component {
 
 ProgressInfo.propTypes = {
   // number of tokens used
-  value: PropTypes.number.isRequired,
+  totalLateDaysUsed: PropTypes.number.isRequired,
   // number of tokens available
-  valueDenominator: PropTypes.number.isRequired,
+  maxLateDaysPerSemester: PropTypes.number.isRequired,
   // String to display after the value fraction
   valueSuffix: PropTypes.string.isRequired,
 };

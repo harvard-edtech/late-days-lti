@@ -5,6 +5,9 @@ import TotalLateDayProgress from './TotalLateDayProgress';
 import AssignmentOveruseContainer from './AssignmentOveruseContainer';
 import GetInTouchButton from './GetInTouchButton';
 
+// import styles
+import './style.css';
+
 class StudentSummary extends Component {
   /**
    * Render StudentSummary
@@ -12,15 +15,32 @@ class StudentSummary extends Component {
   render() {
     const {
       profile,
-      maxLateDaysPerAssignment,
       maxLateDaysPerSemester,
-      assignments,
-      lateDaysMap,
+      totalLateDaysUsed,
+      valueSuffix,
       showGetInTouch,
     } = this.props;
+    const header = `${profile.name}'s Late Days Used`;
+    const getInTouch = (
+      showGetInTouch
+        ? (
+          <div className="studentsummary-getintouch">
+            <GetInTouchButton />
+          </div>
+        )
+        : null
+    );
     return (
-      <div>
-        <TotalLateDayProgress />
+      <div className="studentsummary-container">
+        <div className="studentsummary-heading font-weight-bold">
+          {header}
+        </div>
+        {getInTouch}
+        <TotalLateDayProgress
+          totalLateDaysUsed={totalLateDaysUsed}
+          maxLateDaysPerSemester={maxLateDaysPerSemester}
+          valueSuffix={valueSuffix}
+        />
       </div>
     );
   }
@@ -31,6 +51,7 @@ StudentSummary.propTypes = {
   profile: PropTypes.shape({
     // TODO: add props here
     id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired
     // https://canvas.instructure.com/doc/api/users.html#Profile
     // ^ see what you actually need in addition to id
   }).isRequired,
@@ -45,6 +66,8 @@ StudentSummary.propTypes = {
   lateDaysMap: PropTypes.objectOf(PropTypes.number).isRequired,
   // If true, show the get in touch button
   showGetInTouch: PropTypes.bool.isRequired,
+  totalLateDaysUsed: PropTypes.number.isRequired,
+  valueSuffix: PropTypes.string.isRequired,
 };
 
 // TODO: only show get in touch button if flag is true

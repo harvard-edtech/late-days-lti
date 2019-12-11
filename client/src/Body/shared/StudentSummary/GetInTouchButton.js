@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+
+// import styles
+import './GetInTouchButton.css';
+
 class GetInTouchButton extends Component {
   /**
    * Render GetInTouchButton
@@ -10,8 +14,14 @@ class GetInTouchButton extends Component {
     } = this.props;
 
     return (
-      <div>
-        GetInTouchButton has not been created yet
+      <div className="getintouchbutton-container d-flex pt-2">
+        <button
+          type="button"
+          className="btn btn-primary btn-lg"
+          onClick={onClick}
+        >
+          Get in Touch
+        </button>
       </div>
     );
   }

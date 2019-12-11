@@ -265,7 +265,16 @@ class App extends Component {
     // Render the component
     return (
       <div className="app-container">
-        <StudentSummary />
+        <StudentSummary
+          totalLateDaysUsed={4}
+          maxLateDaysPerSemester={6}
+          valueSuffix="Used"
+          showGetInTouch
+          profile={{
+            id: 123,
+            name: 'Anita Lam',
+          }}
+        />
         <ItemList
           items={[
             {
