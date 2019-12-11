@@ -1,0 +1,20 @@
+/* Button that has all its button characteristics stripped */
+.btn-stripped {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* Container with max width */
+.content-container {
+  max-width: 800px;
+}
+
+/* The default crimson color */
+.bg-crimson {
+  background: #B30000 !important;
+}
+
+/* Place around content that appears below header */
+.content-below-header {
+  margin-top: 70px;
+}

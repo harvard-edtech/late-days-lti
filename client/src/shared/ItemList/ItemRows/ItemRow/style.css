@@ -1,0 +1,79 @@
+/* Styling for general item */
+.itemrow-item {
+  /* Item height grows with element size inside */
+  height: 100%;
+  min-height: 60px;
+  font-size: large;
+  font-weight: bold;
+}
+
+/* Styling for the item name */
+.itemrow-name {
+  /* Coloring for name column */
+  background-color: lightgray;
+  color: black;
+
+  /* Center Text Vertically */
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+
+  /* Round box corners */
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Styling for the item value */
+.itemrow-value  {
+  /* Coloring for value column */
+  background-color: gray;
+  text-align: center;
+  color: white;
+
+  /* Center Text Vertically */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /*padding-left: 20px; */
+
+  /* Round box corners */
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+/* Styling for the item due at */
+.itemrow-dueAt {
+  /* Coloring for dueAt column */
+  background-color: lightgray;
+  text-align: center;
+  color: black;
+
+  /* Center Text Vertically */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Borders on left and right */
+  border-left: 1px solid white;
+  border-right: 1px solid white;
+}
+
+/* Sets different color if used too many tokens */
+.itemrow-overname {
+  color: white;
+}
+
+.itemrow-overdueat {
+  color: white;
+  border-left: 1px solid white;
+  border-right: 1px solid white;
+}
+
+.itemrow-overvalue {
+  background-color: darkred;
+  color: white;
+}

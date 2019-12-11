@@ -1,0 +1,19 @@
+/* Styling for the dueAt column */
+.itemlist-due-column {
+  display: inline-block;
+  min-width: 200px;
+  max-width: 200px;
+  text-align: left;
+}
+
+/* Styling for the value column */
+.itemlist-value-column {
+  display: inline-block;
+  min-width: 200px;
+  max-width: 200px;
+  text-align: left;
+}
+
+.itemlist-name-column {
+  min-width: 200px;
+}

@@ -1,0 +1,36 @@
+.totallatedayprogress-fullbar {
+  /* Set height of the progress bar */
+  height: 100%;
+  min-height: 60px;
+}
+.totallatedayprogress-heading {
+  /* Sets font size for header */
+  font-size: x-large;
+}
+.totallatedayprogress-bar {
+  /* Coloring for name column */
+  background-color: lightgray;
+
+  /* Padding for bar */
+  padding: 20px;
+
+  /* Round box corners */
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.totallatedayprogress-info {
+  /* Coloring for value column */
+  background-color: gray;
+  text-align: center;
+  color: white;
+
+  /* Center Text Vertically */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Round box corners */
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
