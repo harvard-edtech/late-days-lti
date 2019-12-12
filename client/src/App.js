@@ -48,6 +48,8 @@ class App extends Component {
       loading: true,
       // If true, the current user is a student
       isStudent: false,
+      // The id of the current user
+      userId: null,
       // If defined, an error has occurred and this is the error message
       errorMessage: null,
       // The current app configuration object
@@ -104,14 +106,14 @@ class App extends Component {
     }
 
     // Process the launchInfo
-    const { canvasHost } = launchInfo;
+    const { canvasHost, userId } = launchInfo;
 
     // Process the launchInfo
     const isStudent = launchInfo.isLearner;
     const { courseId, customParams } = launchInfo;
 
     // Load students if the current user is a teaching team member
-    let students = null;
+    let students;
     if (!isStudent) {
       try {
         students = await api.course.listStudents({ courseId });
@@ -125,6 +127,7 @@ class App extends Component {
     // Save launch info
     this.setState({
       courseId,
+      userId,
       canvasHost,
       isStudent,
       customParams,
@@ -147,7 +150,6 @@ class App extends Component {
     });
 
     this.setState({
-      configurationSet: true,
       configuration: newMetadata,
       loading: false,
     });
@@ -163,7 +165,11 @@ class App extends Component {
     });
 
     // Deconstruct state
-    const { isStudent, courseId } = this.state;
+    const {
+      isStudent,
+      courseId,
+      userId,
+    } = this.state;
 
     // Try to get configuration
     let configuration;
@@ -230,7 +236,93 @@ class App extends Component {
       && assignmentGroupIdsToCount.length >= 1
     );
 
-    // TODO: load late day counts from Canvas and store them in the state
+    // Load all submissions
+    let lateDaysMapForEveryone = null;
+    if (configurationSet) {
+      // gracePeriodMin,
+      // maxLateDaysPerSemester,
+      // maxLateDaysPerAssignment,
+      // assignmentGroupIdsToCount,
+
+      // Get all the relevant assignment lists
+      const assignmentLists = await Promise.all(
+        assignmentGroupIdsToCount
+          .map((assignmentGroupId) => {
+            return api.course.assignmentGroup.get({
+              courseId,
+              assignmentGroupId,
+              includeAssignments: true,
+            })
+              .then((assignmentGroup) => {
+                return assignmentGroup.assignments;
+              });
+          })
+      );
+
+      // Turn into one long list of assignments
+      const assignments = [].concat(...assignmentLists);
+
+      // Get submissions for each assignment (or just my submission if student)
+      const submissionPacks = await Promise.all(
+        assignments
+          .map((assignment) => {
+            const listSubs = (
+              isStudent
+                ? (
+                  api.course.assignment.getSubmission({
+                    courseId,
+                    assignmentId: assignment.id,
+                    studentId: userId,
+                    excludeUser: true,
+                  })
+                    .then((sub) => {
+                      return [sub];
+                    })
+                )
+                : (
+                  api.course.assignment.listSubmissions({
+                    courseId,
+                    assignmentId: assignment.id,
+                  })
+                )
+            );
+
+            // Turn subs into a pack with the assignmentId
+            return listSubs.then((subs) => {
+              return {
+                assignmentId: assignment.id,
+                submissions: subs,
+              };
+            });
+          })
+      );
+
+      // Post process to create the lateDaysMapForEveryone
+      lateDaysMapForEveryone = {};
+
+      submissionPacks.forEach((pack) => {
+        const { assignmentId, submissions } = pack;
+
+        // Create a map for the assignment
+        lateDaysMapForEveryone[assignmentId] = {};
+
+        // Go through each assignment and calculate late days used
+        submissions.forEach((sub) => {
+          // No late days used if not submitted or if excused
+          if (!sub.submitted_at || sub.excused) {
+            lateDaysMapForEveryone[assignmentId][sub.user_id] = 0;
+            return;
+          }
+
+          const secondsLate = sub.seconds_late || 0;
+          const minsLate = secondsLate / 60;
+          const adjustedMinsLate = Math.max(minsLate - gracePeriodMin, 0);
+          const hoursLate = adjustedMinsLate / 60;
+          const daysLate = Math.ceil(hoursLate / 24);
+          lateDaysMapForEveryone[assignmentId][sub.user_id] = daysLate;
+        });
+      });
+    }
 
     // Determine the current view
     let currentView;
@@ -247,6 +339,7 @@ class App extends Component {
           : VIEWS.CONFIGURATION
       );
     }
+    console.log(lateDaysMapForEveryone);
 
     // Store state
     this.setState({
@@ -255,6 +348,7 @@ class App extends Component {
       // currentView, // TODO: put back
       currentView: VIEWS.TTM_VIEW_OF_SPECIFIC_STUDENT, // TODO: remove
       currentSelectedStudent: this.state.students[0], // TODO: remove
+      lateDaysMapForEveryone,
       loading: false,
     });
   }
