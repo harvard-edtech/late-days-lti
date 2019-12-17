@@ -14,7 +14,7 @@ class Done extends Component {
           <div className="d-flex flex-row justify-content-center align-items-center h-100">
             <div>
               <div className="Intro-text-large font-weight-bold">
-                You are ready
+                Next: Configuration
               </div>
             </div>
           </div>

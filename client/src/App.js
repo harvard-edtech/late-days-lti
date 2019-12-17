@@ -378,7 +378,7 @@ class App extends Component {
     let currentView;
     let currentSelectedStudent;
     let showIntro = false;
-    console.log(isStudent, configurationSet, configuration);
+
     if (isStudent) {
       if (configurationSet) {
         currentView = VIEWS.STUDENT_HOME;
@@ -391,6 +391,7 @@ class App extends Component {
     } else {
       // This is the first launch
       showIntro = true;
+      configuration = null;
       currentView = VIEWS.CONFIGURATION;
     }
 
