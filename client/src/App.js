@@ -10,6 +10,7 @@ import LoadingSpinner from './shared/LoadingSpinner';
 import NotSetUp from './Body/NotSetUp';
 import Configuration from './Body/Configuration';
 import StudentSummary from './Body/shared/StudentSummary';
+import LateDaysByStudentView from './Body/LateDaysByStudentView';
 import InstructorDashboard from './Body/InstructorDashboard';
 import Header from './Header';
 
@@ -404,6 +405,7 @@ class App extends Component {
       assignmentGroups,
       lateDaysMapForEveryone,
       assignments,
+      students,
     } = this.state;
 
     // Error message
@@ -430,6 +432,34 @@ class App extends Component {
     if (currentView === VIEWS.NOT_SET_UP) {
       body = (
         <NotSetUp />
+      );
+    }
+
+    if (currentView === VIEWS.LATE_DAYS_BY_STUDENT) {
+      const { maxLateDaysPerSemester } = configuration;
+
+      backButton = {
+        contents: 'Back to Home',
+        onClick: () => {
+          this.setState({
+            currentView: VIEWS.TTM_HOME,
+          });
+        },
+      };
+
+      body = (
+        <LateDaysByStudentView
+          students={students}
+          lateDaysMapForEveryone={lateDaysMapForEveryone}
+          maxLateDaysPerSemester={maxLateDaysPerSemester}
+          onStudentClicked={(student) => {
+            // Update the view
+            this.setState({
+              currentSelectedStudent: student,
+              currentView: VIEWS.TTM_VIEW_OF_SPECIFIC_STUDENT,
+            });
+          }}
+        />
       );
     }
 
@@ -474,6 +504,17 @@ class App extends Component {
         maxLateDaysPerSemester,
         maxLateDaysPerAssignment,
       } = configuration;
+
+      if (currentView === VIEWS.TTM_VIEW_OF_SPECIFIC_STUDENT) {
+        backButton = {
+          contents: 'Back to All Students',
+          onClick: () => {
+            this.setState({
+              currentView: VIEWS.LATE_DAYS_BY_STUDENT,
+            });
+          },
+        };
+      }
 
       const assignmentObjects = assignments.map((assignment) => {
         let value = 0;
