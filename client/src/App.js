@@ -10,6 +10,7 @@ import LoadingSpinner from './shared/LoadingSpinner';
 import NotSetUp from './Body/NotSetUp';
 import Configuration from './Body/Configuration';
 import StudentSummary from './Body/shared/StudentSummary';
+import StudentUsageOnAssignment from './Body/InstructorDashboard/StudentUsageOnAssignmentView';
 import Header from './Header';
 
 // Import styles
@@ -253,7 +254,7 @@ class App extends Component {
       configuration,
       assignmentGroups,
       // currentView, // TODO: put back
-      currentView: VIEWS.TTM_VIEW_OF_SPECIFIC_STUDENT, // TODO: remove
+      currentView: VIEWS.LATE_DAYS_BY_ASSIGNMENT, // TODO: remove
       currentSelectedStudent: this.state.students[0], // TODO: remove
       loading: false,
     });
@@ -322,10 +323,45 @@ class App extends Component {
       );
     }
 
+    if (currentView === VIEWS.LATE_DAYS_BY_ASSIGNMENT) {
+      const {
+        maxLateDaysPerAssignment,
+      } = configuration;
+
+      const testDateOne = new Date('November 8 2019 05:35:32');
+      const testDateTwo = new Date('November 7 2019 05:35:32');
+      const testDateThree = new Date('November 7 2019 05:35:32');
+      body = (
+        <StudentUsageOnAssignment
+          items={[
+            {
+              name: 'Homework 1',
+              id: 1,
+              dueAt: testDateOne,
+              value: 1.5,
+            },
+            {
+              name: 'Homework 2',
+              id: 2,
+              dueAt: testDateTwo,
+              value: 1,
+            },
+            {
+              name: 'Homework 3',
+              id: 3,
+              dueAt: testDateThree,
+              value: 2,
+            },
+          ]}
+          valueDenominator={maxLateDaysPerAssignment}
+
+        />
+      );
+    }
+
     if (
-      // currentView === VIEWS.STUDENT_HOME
-      // || currentView === VIEWS.TTM_VIEW_OF_SPECIFIC_STUDENT
-      true
+      currentView === VIEWS.STUDENT_HOME
+      || currentView === VIEWS.TTM_VIEW_OF_SPECIFIC_STUDENT
     ) {
       const testDateOne = new Date('November 8 2019 05:35:32');
       const testDateTwo = new Date('November 7 2019 05:35:32');
