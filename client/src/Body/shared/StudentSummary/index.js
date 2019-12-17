@@ -154,8 +154,4 @@ StudentSummary.propTypes = {
   canvasHost: PropTypes.string.isRequired,
 };
 
-StudentSummary.defaultProps = {
-  lateDaysMapForEveryone: null,
-};
-
 export default StudentSummary;

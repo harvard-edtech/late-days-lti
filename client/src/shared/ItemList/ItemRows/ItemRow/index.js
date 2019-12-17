@@ -49,11 +49,11 @@ class ItemRow extends Component {
     return (
       <div className="itemrow-container">
         <div
-          className="itemrow-item d-flex mt-3 mb-3"
+          className={`itemrow-item d-flex mt-3 mb-3 ${onClick ? 'itemrow-hoverable' : ''}`}
           onClick={(event) => {
             // Only fire onClick if the button wasn't clicked
             // (don't want to double-fire onClick)
-            if (event.target.tagName.toLowerCase() !== 'button') {
+            if (onClick && event.target.tagName.toLowerCase() !== 'button') {
               onClick();
             }
           }}
@@ -61,7 +61,7 @@ class ItemRow extends Component {
             cursor: onClick ? 'pointer' : undefined,
           }}
         >
-          <div className={`itemrow-name itemlist-name-column flex-grow-1 ${dueOver ? 'itemrow-overname bg-crimson' : ''}`}>
+          <div className={`itemrow-name itemlist-name-column flex-grow-1 ${dueOver ? 'itemrow-overname bg-crimson' : 'itemrow-undername'}`}>
             <ItemName
               name={name}
               onClick={onClick}

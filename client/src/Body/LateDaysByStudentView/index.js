@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import ItemList from '../../../shared/ItemList';
+import ItemList from '../../shared/ItemList';
 
 import './style.css';
 
@@ -10,13 +10,27 @@ class LateDaysByStudentView extends Component {
    */
   render() {
     const {
-      items,
-      valueDenominator,
-      footerMessage,
-      valueSuffix,
-      nameHeader,
-      valueHeader,
+      students,
+      lateDaysMapForEveryone,
+      maxLateDaysPerSemester,
+      onStudentClicked,
     } = this.props;
+
+    const items = students.map((student) => {
+      const usageNumbers = Object.values(lateDaysMapForEveryone[student.id]);
+      const totalLateDaysUsed = usageNumbers.reduce((a, b) => {
+        return a + b;
+      }, 0);
+
+      return {
+        name: student.name,
+        value: totalLateDaysUsed,
+        onClick: () => {
+          onStudentClicked(student);
+        },
+      };
+    });
+
     return (
       <div className="latedaysbystudentview-container">
         <div className="latedaysbystudentview-header font-weight-bold">
@@ -24,11 +38,11 @@ class LateDaysByStudentView extends Component {
         </div>
         <ItemList
           items={items}
-          valueDenominator={valueDenominator}
-          nameHeader={nameHeader}
-          valueHeader={valueHeader}
-          valueSuffix={valueSuffix}
-          footerMessage={footerMessage}
+          valueDenominator={maxLateDaysPerSemester}
+          nameHeader="Student Name"
+          valueHeader="Total Late Days"
+          valueSuffix="Used"
+          footerMessage="Click a student for their assignment breakdown"
         />
       </div>
     );
@@ -36,29 +50,24 @@ class LateDaysByStudentView extends Component {
 }
 
 LateDaysByStudentView.propTypes = {
-  // The array of items to display
-  items: PropTypes.arrayOf(
+  // Students
+  students: PropTypes.arrayOf(
     PropTypes.shape({
-      // the name of an item
+      // the name of the student
       name: PropTypes.string.isRequired,
-      // item's value (number of tokens used)
-      value: PropTypes.number.isRequired,
-      // optional function that allows a item to be clicked for more detail
-      onClick: PropTypes.func,
-      // optional due date of item
-      dueAt: PropTypes.instanceOf(Date),
+      // the id of the student
+      id: PropTypes.number.isRequired,
     })
   ).isRequired,
-  // The denominator to show below the value
-  valueDenominator: PropTypes.number.isRequired,
-  // The header text above the item name column
-  nameHeader: PropTypes.string.isRequired,
-  // The header text above the item value column
-  valueHeader: PropTypes.string.isRequired,
-  // String to display after the value fraction
-  valueSuffix: PropTypes.string.isRequired,
-  // The message to display in the footer
-  footerMessage: PropTypes.node.isRequired,
+  // Late days usage map
+  lateDaysMapForEveryone: PropTypes.objectOf(
+    PropTypes.objectOf(PropTypes.number)
+  ).isRequired,
+  // The number of late days allowed per semester
+  maxLateDaysPerSemester: PropTypes.number.isRequired,
+  // Handler for when user clicks a student
+  // @param {object} student - the student that was clicked
+  onStudentClicked: PropTypes.func.isRequired,
 };
 
 export default LateDaysByStudentView;
