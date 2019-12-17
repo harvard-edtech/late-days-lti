@@ -23,6 +23,7 @@ class StudentSummary extends Component {
       assignments,
       maxLateDaysPerAssignment,
       lateDaysMap,
+      lateDaysMapForEveryone,
       nameHeader,
       valueHeader,
       dueAtHeader,
@@ -62,8 +63,6 @@ class StudentSummary extends Component {
       });
     });
 
-    console.log(overAssignments);
-
     // Display overuse container if there are assignments that used too many
     //  late days
     const assignmentsOveruse = (
@@ -96,7 +95,7 @@ class StudentSummary extends Component {
         {assignmentsOveruse}
         <div className="mt-5">
           <ItemList
-            items={assignments}
+            items={studentList || assignments}
             nameHeader={nameHeader}
             valueHeader={valueHeader}
             dueAtHeader={dueAtHeader}
@@ -136,6 +135,9 @@ StudentSummary.propTypes = {
   // Late day data
   // assignmentId => number of late days used
   lateDaysMap: PropTypes.objectOf(PropTypes.number).isRequired,
+  lateDaysMapForEveryone: PropTypes.objectOf(
+    PropTypes.objectOf(PropTypes.number).isRequired
+  ),
   // If true, show the get in touch button
   showGetInTouch: PropTypes.bool.isRequired,
   // Total number of late days used by student
@@ -154,6 +156,10 @@ StudentSummary.propTypes = {
   courseId: PropTypes.number.isRequired,
   // The hostname of Canvas
   canvasHost: PropTypes.string.isRequired,
+};
+
+StudentSummary.defaultProps = {
+  lateDaysMapForEveryone: null,
 };
 
 export default StudentSummary;

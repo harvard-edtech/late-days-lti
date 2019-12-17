@@ -10,6 +10,7 @@ import LoadingSpinner from './shared/LoadingSpinner';
 import NotSetUp from './Body/NotSetUp';
 import Configuration from './Body/Configuration';
 import StudentSummary from './Body/shared/StudentSummary';
+import LateDaysByStudentView from './Body/InstructorDashboard/LateDaysByStudentView';
 import Header from './Header';
 
 // Import styles
@@ -230,8 +231,15 @@ class App extends Component {
       && assignmentGroupIdsToCount.length >= 1
     );
 
+    let studentList;
     // TODO: load late day counts from Canvas and store them in the state
-
+    try {
+      studentList = await api.course.listStudents({
+        courseId,
+      });
+    } catch (err) {
+      // Ignore tis
+    }
     // Determine the current view
     let currentView;
     if (isStudent) {
@@ -318,6 +326,24 @@ class App extends Component {
           onNewMetadata={(newMetadata) => {
             this.onNewMetadata(newMetadata);
           }}
+        />
+      );
+    }
+
+    if (currentView === VIEWS.LATE_DAYS_BY_STUDENT) {
+      const {
+        gracePeriodMin,
+        maxLateDaysPerSemester,
+        maxLateDaysPerAssignment,
+        assignmentGroupIdsToCount,
+      } = configuration;
+
+      body = (
+        <LateDaysByStudentView
+          profile={currentSelectedStudent}
+          maxLateDaysPerAssignment={maxLateDaysPerAssignment}
+          maxLateDaysPerSemester={maxLateDaysPerSemester}
+          assignments={studentList}
         />
       );
     }
