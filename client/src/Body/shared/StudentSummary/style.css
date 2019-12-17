@@ -1,9 +1,3 @@
-.studentsummary-heading {
-  /* styles heading for student summary */
-  font-size: 300%;
-  text-align: center;
-}
-
 .studentsummary-assignmentoveruse {
   /* Set minimum width for the assignment overuse container */
   min-width: 600px;

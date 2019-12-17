@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-// Import caccl
-import initCACCL from 'caccl/client/cached';
-
 // Import other components
 import AssignmentGroups from './AssignmentGroups';
 import Rules from './Rules';
@@ -11,14 +8,8 @@ import LoadingSpinner from '../../shared/LoadingSpinner';
 import Modal from '../../shared/Modal';
 import ConfigurationFooter from './ConfigurationFooter';
 
-// Import constants
-import METADATA_ID from '../../METADATA_ID';
-
 // Import styles
 import './Configuration.css';
-
-// Initialize caccl
-const { api } = initCACCL();
 
 class Configuration extends Component {
   constructor(props) {
@@ -185,7 +176,6 @@ class Configuration extends Component {
     // Deconstruct props
     const {
       assignmentGroups,
-      onNewMetadata,
       onCancel,
     } = this.props;
 
@@ -223,9 +213,6 @@ class Configuration extends Component {
         )
         : null
     );
-
-    // TODO: Delete this next line (debug statement)
-    console.log('CURRENT: ', currentGracePeriodMin);
 
     return (
       <div className="configuration-container content-container">

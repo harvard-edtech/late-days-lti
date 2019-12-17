@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+// Style
+import './ProgressInfo.css';
+
 class ProgressInfo extends Component {
   /**
    * Render ProgressInfo
@@ -19,7 +22,7 @@ class ProgressInfo extends Component {
     }
 
     return (
-      <div className="progressinfo-container lead font-weight-bold">
+      <div className="progressinfo-container pt-3 text-center font-weight-bold">
         {concatVal}
       </div>
     );

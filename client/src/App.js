@@ -4,14 +4,19 @@ import initCACCL from 'caccl/client/cached';
 // Import React
 import React, { Component } from 'react';
 
+// Import fonts
+import 'typeface-fredoka-one';
+
 // Import other components
 import LoadingSpinner from './shared/LoadingSpinner';
 import NotSetUp from './Body/NotSetUp';
 import Configuration from './Body/Configuration';
 import StudentSummary from './Body/shared/StudentSummary';
 import StudentUsageOnAssignment from './Body/StudentUsageOnAssignmentView';
+import AssignmentUsageOverview from './Body/AssignmentUsageOverview';
 import LateDaysByStudentView from './Body/LateDaysByStudentView';
 import InstructorDashboard from './Body/InstructorDashboard';
+import Intro from './Body/Intro';
 import Header from './Header';
 
 // Import styles
@@ -28,7 +33,7 @@ const VIEWS = {
   CONFIGURATION: 'configuration',
   LATE_DAYS_BY_STUDENT: 'late-days-by-student',
   LATE_DAYS_BY_ASSIGNMENT: 'late-days-by-assignment',
-  TTM_VIEW_OF_SPECIFIC_STUDENT: 'ttm-view-of-specific-student',
+  STUDENT_USAGE_ON_ASSIGNMENT: 'student-usage-on-assignment',
   // Views for students:
   STUDENT_HOME: 'student-home',
   NOT_SET_UP: 'not-set-up',
@@ -54,6 +59,8 @@ class App extends Component {
       userId: null,
       // If defined, an error has occurred and this is the error message
       errorMessage: null,
+      // If true, user is going through the intro
+      showIntro: false,
       // The current app configuration object
       configuration: null,
       // The courseId the user launched from
@@ -71,6 +78,8 @@ class App extends Component {
       students: null,
       // Current selected student to display
       currentSelectedStudent: null,
+      // Current selected assignment to display
+      currentSelectedAssignment: null,
       // The current view to display
       currentView: null,
       // Map of late days used { canvasId => { assignmentId => num days used } }
@@ -161,14 +170,20 @@ class App extends Component {
     this.setState({
       loading: true,
     });
+
+    // Save metadata
     await api.course.app.updateMetadata({
       metadata_id,
       courseId,
       metadata: newMetadata,
     });
 
+    // Load from Canvas
+    await this.updateFromCanvas();
+
     this.setState({
       configuration: newMetadata,
+      currentView: VIEWS.TTM_HOME,
       loading: false,
     });
   }
@@ -362,6 +377,8 @@ class App extends Component {
     // Determine the current view
     let currentView;
     let currentSelectedStudent;
+    let showIntro = false;
+    console.log(isStudent, configurationSet, configuration);
     if (isStudent) {
       if (configurationSet) {
         currentView = VIEWS.STUDENT_HOME;
@@ -369,12 +386,12 @@ class App extends Component {
       } else {
         currentView = VIEWS.NOT_SET_UP;
       }
+    } else if (configurationSet) {
+      currentView = VIEWS.TTM_HOME;
     } else {
-      currentView = (
-        configurationSet
-          ? VIEWS.TTM_HOME
-          : VIEWS.CONFIGURATION
-      );
+      // This is the first launch
+      showIntro = true;
+      currentView = VIEWS.CONFIGURATION;
     }
 
     // Store state
@@ -382,6 +399,7 @@ class App extends Component {
       configuration,
       assignmentGroups,
       currentView,
+      showIntro,
       currentSelectedStudent,
       lateDaysMapForEveryone,
       assignments,
@@ -397,9 +415,11 @@ class App extends Component {
     const {
       configuration,
       loading,
+      showIntro,
       errorMessage,
       currentView,
       currentSelectedStudent,
+      currentSelectedAssignment,
       courseId,
       canvasHost,
       assignmentGroups,
@@ -426,6 +446,21 @@ class App extends Component {
         <LoadingSpinner />
       );
     }
+
+    // Add intro if relevant
+    const intro = (
+      showIntro
+        ? (
+          <Intro
+            onFinish={() => {
+              this.setState({
+                showIntro: false,
+              });
+            }}
+          />
+        )
+        : null
+    );
 
     let body;
     let backButton;
@@ -496,38 +531,54 @@ class App extends Component {
       );
     }
 
+    if (currentView === VIEWS.STUDENT_USAGE_ON_ASSIGNMENT) {
+      const { maxLateDaysPerAssignment } = configuration;
+
+      backButton = {
+        contents: 'Back to All Assignments',
+        onClick: () => {
+          this.setState({
+            currentSelectedAssignment: null,
+            currentView: VIEWS.LATE_DAYS_BY_ASSIGNMENT,
+          });
+        },
+      };
+
+      body = (
+        <StudentUsageOnAssignment
+          students={students}
+          assignment={currentSelectedAssignment}
+          lateDaysMapForEveryone={lateDaysMapForEveryone}
+          maxLateDaysPerAssignment={maxLateDaysPerAssignment}
+        />
+      );
+    }
+
     if (currentView === VIEWS.LATE_DAYS_BY_ASSIGNMENT) {
       const {
         maxLateDaysPerAssignment,
       } = configuration;
 
-      const testDateOne = new Date('November 8 2019 05:35:32');
-      const testDateTwo = new Date('November 7 2019 05:35:32');
-      const testDateThree = new Date('November 7 2019 05:35:32');
-      body = (
-        <StudentUsageOnAssignment
-          items={[
-            {
-              name: 'Homework 1',
-              id: 1,
-              dueAt: testDateOne,
-              value: 1.5,
-            },
-            {
-              name: 'Homework 2',
-              id: 2,
-              dueAt: testDateTwo,
-              value: 1,
-            },
-            {
-              name: 'Homework 3',
-              id: 3,
-              dueAt: testDateThree,
-              value: 2,
-            },
-          ]}
-          valueDenominator={maxLateDaysPerAssignment}
+      backButton = {
+        contents: 'Back to Home',
+        onClick: () => {
+          this.setState({
+            currentView: VIEWS.TTM_HOME,
+          });
+        },
+      };
 
+      body = (
+        <AssignmentUsageOverview
+          assignments={assignments}
+          maxLateDaysPerAssignment={maxLateDaysPerAssignment}
+          onAssignmentClicked={(assignment) => {
+            this.setState({
+              currentView: VIEWS.STUDENT_USAGE_ON_ASSIGNMENT,
+              currentSelectedAssignment: assignment,
+            });
+          }}
+          lateDaysMapForEveryone={lateDaysMapForEveryone}
         />
       );
     }
@@ -609,6 +660,11 @@ class App extends Component {
               currentView: VIEWS.LATE_DAYS_BY_ASSIGNMENT,
             });
           }}
+          onShowIntro={() => {
+            this.setState({
+              showIntro: true,
+            });
+          }}
         />
       );
     }
@@ -616,6 +672,7 @@ class App extends Component {
     // Render the component
     return (
       <div className="app-container">
+        {intro}
         <Header leftButton={backButton} />
         <div className="content-below-header">
           {body}

@@ -11,24 +11,38 @@ class StudentUsageOnAssignmentView extends Component {
    */
   render() {
     const {
-      items,
-      valueDenominator,
+      students,
+      assignment,
+      lateDaysMapForEveryone,
+      maxLateDaysPerAssignment,
     } = this.props;
+
+    const items = students.map((student) => {
+      const lateDaysUsed = (
+        lateDaysMapForEveryone[student.id][assignment.id] || 0
+      );
+
+      return {
+        name: student.name,
+        value: lateDaysUsed,
+      };
+    });
+
     return (
       <div className="studentusageonassignmentview-container">
         <div className="studentusageonassignmentview-header font-weight-bold">
-          Late Days by Assignment
+          Late Days for&nbsp;
+          <span className="font-weight-light">
+            {assignment.name}
+          </span>
         </div>
         <div className="studentusageonassignmentview-items">
           <ItemList
             items={items}
-            valueDenominator={valueDenominator}
-            nameHeader="Assignment"
-            dueAtHeader="Due At"
-            valueHeader="Average Late Days"
+            valueDenominator={maxLateDaysPerAssignment}
+            nameHeader="Student"
+            valueHeader="Late Days Used"
             valueSuffix="Used"
-            showDueAt
-            footerMessage="Click an assignment for their student breakdown"
           />
         </div>
       </div>
@@ -37,21 +51,28 @@ class StudentUsageOnAssignmentView extends Component {
 }
 
 StudentUsageOnAssignmentView.propTypes = {
-  // The array of items to display
-  items: PropTypes.arrayOf(
+  // Students
+  students: PropTypes.arrayOf(
     PropTypes.shape({
-      // the name of an item
+      // the name of the student
       name: PropTypes.string.isRequired,
-      // item's value (number of tokens used)
-      value: PropTypes.number.isRequired,
-      // optional function that allows a item to be clicked for more detail
-      onClick: PropTypes.func,
-      // optional due date of item
-      dueAt: PropTypes.instanceOf(Date),
+      // the id of the student
+      id: PropTypes.number.isRequired,
     })
   ).isRequired,
-  // The denominator to show below the value
-  valueDenominator: PropTypes.number.isRequired,
+  // The current assignment
+  assignment: PropTypes.shape({
+    // The name of the assignment
+    name: PropTypes.string.isRequired,
+    // The id of the assignment
+    id: PropTypes.number.isRequired,
+  }).isRequired,
+  // Late days usage map
+  lateDaysMapForEveryone: PropTypes.objectOf(
+    PropTypes.objectOf(PropTypes.number)
+  ).isRequired,
+  // The number of late days allowed per assignment
+  maxLateDaysPerAssignment: PropTypes.number.isRequired,
 };
 
 

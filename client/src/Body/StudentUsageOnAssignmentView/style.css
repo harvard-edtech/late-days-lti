@@ -5,6 +5,7 @@
   margin-bottom: 30px;
 }
 
-.studentusageonassignmentview-items {
-  margin: 30px;
+.studentusageonassignmentview-container {
+  padding-left: 10px;
+  padding-right: 10px;
 }

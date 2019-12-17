@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import ItemList from '../../shared/ItemList';
 
-import './style.css';
+// Import FontAwesome Icons
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHandPointer } from '@fortawesome/free-solid-svg-icons';
+
+// Import other components
+import ItemList from '../../shared/ItemList';
 
 class LateDaysByStudentView extends Component {
   /**
@@ -32,17 +36,26 @@ class LateDaysByStudentView extends Component {
     });
 
     return (
-      <div className="latedaysbystudentview-container">
-        <div className="latedaysbystudentview-header font-weight-bold">
+      <div className="latedaysbystudentview-container content-container">
+        <h1 className="latedaysbystudentview-header text-center">
           Late Days By Student
+        </h1>
+
+        <div className="text-center mb-5">
+          <div className="alert alert-info d-inline-block">
+            <FontAwesomeIcon icon={faHandPointer} className="mr-2" />
+            <strong>Click&nbsp;</strong>
+            a student to get in touch and to
+            see which assignments they used late days on
+          </div>
         </div>
+
         <ItemList
           items={items}
           valueDenominator={maxLateDaysPerSemester}
           nameHeader="Student Name"
           valueHeader="Total Late Days"
           valueSuffix="Used"
-          footerMessage="Click a student for their assignment breakdown"
         />
       </div>
     );

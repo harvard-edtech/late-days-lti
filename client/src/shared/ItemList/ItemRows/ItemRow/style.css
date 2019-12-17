@@ -28,11 +28,19 @@
 }
 
 /* Highlight on hover to indicate this is clickable */
-.itemrow-hoverable:hover .itemrow-undername {
+.itemrow-hoverable:hover .itemrow-undername,
+.itemrow-hoverable:hover .itemrow-underdueat {
   background-color: #eee !important;
 }
-.itemrow-hoverable:hover .itemrow-overname {
+.itemrow-hoverable:hover .itemrow-undervalue {
+  background-color: #999 !important;
+}
+.itemrow-hoverable:hover .itemrow-overname,
+.itemrow-hoverable:hover .itemrow-overdueat {
   background-color: #CC0000 !important;
+}
+.itemrow-hoverable:hover .itemrow-overvalue {
+  background-color: #B30000 !important;
 }
 
 /* Styling for the item value */
