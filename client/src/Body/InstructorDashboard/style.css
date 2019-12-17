@@ -1,0 +1,12 @@
+.instructordashboard-navbuttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.dashboard-btn {
+  width: 500px;
+  height: 150px;
+  font-weight: bold;
+}

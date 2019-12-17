@@ -10,6 +10,7 @@ import LoadingSpinner from './shared/LoadingSpinner';
 import NotSetUp from './Body/NotSetUp';
 import Configuration from './Body/Configuration';
 import StudentSummary from './Body/shared/StudentSummary';
+import InstructorDashboard from './Body/InstructorDashboard';
 import Header from './Header';
 
 // Import styles
@@ -69,6 +70,9 @@ class App extends Component {
       // Map of late days used { canvasId => { assignmentId => num days used } }
       lateDaysMapForEveryone: {},
     };
+
+    this.onClickAssignmentButton = this.onClickAssignmentButton.bind(this);
+    this.onClickConfigButton = this.onClickConfigButton.bind(this);
   }
 
   /**
@@ -150,6 +154,25 @@ class App extends Component {
       configurationSet: true,
       configuration: newMetadata,
       loading: false,
+    });
+  }
+
+
+  onClickAssignmentButton() {
+    this.setState({
+      currentView: VIEWS.LATE_DAYS_BY_ASSIGNMENT,
+    });
+  }
+
+  onClickConfigButton() {
+    this.setState({
+      currentView: VIEWS.CONFIGURATION,
+    });
+  }
+
+  onClickStudentUsage() {
+    this.setState({
+      currentView: VIEWS.LATE_DAYS_BY_STUDENT,
     });
   }
 
@@ -253,7 +276,7 @@ class App extends Component {
       configuration,
       assignmentGroups,
       // currentView, // TODO: put back
-      currentView: VIEWS.TTM_VIEW_OF_SPECIFIC_STUDENT, // TODO: remove
+      currentView: VIEWS.TTM_HOME, // TODO: remove
       currentSelectedStudent: this.state.students[0], // TODO: remove
       loading: false,
     });
@@ -322,10 +345,19 @@ class App extends Component {
       );
     }
 
+    if (currentView === VIEWS.TTM_HOME) {
+      body = (
+        <InstructorDashboard
+          onClickAssignmentButton={this.onClickAssignmentButton}
+          onClickConfigButton={this.onClickConfigButton}
+          onClickStudentUsage={this.onClickStudentUsage}
+        />
+      );
+    }
+
     if (
-      // currentView === VIEWS.STUDENT_HOME
-      // || currentView === VIEWS.TTM_VIEW_OF_SPECIFIC_STUDENT
-      true
+      currentView === VIEWS.STUDENT_HOME
+      || currentView === VIEWS.TTM_VIEW_OF_SPECIFIC_STUDENT
     ) {
       const testDateOne = new Date('November 8 2019 05:35:32');
       const testDateTwo = new Date('November 7 2019 05:35:32');
