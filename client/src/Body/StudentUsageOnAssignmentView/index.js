@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import ItemList from '../../../shared/ItemList';
+import ItemList from '../../shared/ItemList';
 
 // Import styles
 import './style.css';
@@ -25,7 +25,7 @@ class StudentUsageOnAssignmentView extends Component {
             valueDenominator={valueDenominator}
             nameHeader="Assignment"
             dueAtHeader="Due At"
-            valueHeader="Average Late Days Used"
+            valueHeader="Average Late Days"
             valueSuffix="Used"
             showDueAt
             footerMessage="Click an assignment for their student breakdown"

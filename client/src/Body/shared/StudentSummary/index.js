@@ -62,8 +62,6 @@ class StudentSummary extends Component {
       });
     });
 
-    console.log(overAssignments);
-
     // Display overuse container if there are assignments that used too many
     //  late days
     const assignmentsOveruse = (

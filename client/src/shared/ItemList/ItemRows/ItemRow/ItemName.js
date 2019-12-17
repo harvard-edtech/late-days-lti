@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+// Style
+import './ItemName.css';
+
 class ItemName extends Component {
   /**
    * Render ItemName
@@ -13,7 +16,7 @@ class ItemName extends Component {
       return (
         <button
           type="button"
-          className="btn btn-stripped text-light btn-lg font-weight-bold d-inline-block"
+          className="ItemName-button btn btn-stripped btn-lg"
           id="itemname-button"
           aria-label={`click to open ${name}`}
           onClick={onClick}
