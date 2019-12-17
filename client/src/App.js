@@ -10,6 +10,7 @@ import LoadingSpinner from './shared/LoadingSpinner';
 import NotSetUp from './Body/NotSetUp';
 import Configuration from './Body/Configuration';
 import StudentSummary from './Body/shared/StudentSummary';
+import InstructorDashboard from './Body/InstructorDashboard';
 import Header from './Header';
 
 // Import styles
@@ -64,7 +65,8 @@ class App extends Component {
       customParams: null,
       // Array of assignment groups from the course
       assignmentGroups: null,
-      // List of students in the course (if this is an instructor)
+      // List of students in the course. if this is an instructor, or an
+      // array of length 1 with just the current user if this user is a student
       students: null,
       // Current selected student to display
       currentSelectedStudent: null,
@@ -437,15 +439,29 @@ class App extends Component {
         maxLateDaysPerSemester,
         maxLateDaysPerAssignment,
         assignmentGroupIdsToCount,
-      } = configuration;
+      } = (configuration || {});
+
+      const onCancel = (
+        configuration
+          ? () => {
+            this.setState({
+              currentView: VIEWS.TTM_HOME,
+            });
+          }
+          : undefined
+      );
 
       body = (
         <Configuration
           assignmentGroups={assignmentGroups}
-          courseId={courseId}
           onNewMetadata={(newMetadata) => {
             this.onNewMetadata(newMetadata);
           }}
+          onCancel={onCancel}
+          initialGracePeriodMin={gracePeriodMin}
+          initialMaxLateDaysPerSemester={maxLateDaysPerSemester}
+          initialMaxLateDaysPerAssignment={maxLateDaysPerAssignment}
+          initialAssignmentGroupIdsToCount={assignmentGroupIdsToCount}
         />
       );
     }
@@ -454,10 +470,6 @@ class App extends Component {
       currentView === VIEWS.STUDENT_HOME
       || currentView === VIEWS.TTM_VIEW_OF_SPECIFIC_STUDENT
     ) {
-      const testDateOne = new Date('November 8 2019 05:35:32');
-      const testDateTwo = new Date('November 7 2019 05:35:32');
-      const testDateThree = new Date('November 7 2019 05:35:32');
-
       const {
         maxLateDaysPerSemester,
         maxLateDaysPerAssignment,
@@ -497,6 +509,29 @@ class App extends Component {
           canvasHost={canvasHost}
           showGetInTouch={(currentView === VIEWS.TTM_VIEW_OF_SPECIFIC_STUDENT)}
           showDueAt
+        />
+      );
+    }
+
+    // Instructor home
+    if (currentView === VIEWS.TTM_HOME) {
+      body = (
+        <InstructorDashboard
+          onShowConfiguration={() => {
+            this.setState({
+              currentView: VIEWS.CONFIGURATION,
+            });
+          }}
+          onShowLateDaysByStudent={() => {
+            this.setState({
+              currentView: VIEWS.LATE_DAYS_BY_STUDENT,
+            });
+          }}
+          onShowLateDaysByAssignment={() => {
+            this.setState({
+              currentView: VIEWS.LATE_DAYS_BY_ASSIGNMENT,
+            });
+          }}
         />
       );
     }

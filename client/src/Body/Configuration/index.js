@@ -290,8 +290,6 @@ Configuration.propTypes = {
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
   })).isRequired,
-  // The id of the course we launched from
-  courseId: PropTypes.number.isRequired,
   // Handler for when configuration is valid & saved (called with new metadata)
   onNewMetadata: PropTypes.func.isRequired,
   // Handler for when user cancels (if excluded, no cancel allowed)
