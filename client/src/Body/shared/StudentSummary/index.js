@@ -23,7 +23,6 @@ class StudentSummary extends Component {
       assignments,
       maxLateDaysPerAssignment,
       lateDaysMap,
-      lateDaysMapForEveryone,
       nameHeader,
       valueHeader,
       dueAtHeader,
@@ -95,7 +94,7 @@ class StudentSummary extends Component {
         {assignmentsOveruse}
         <div className="mt-5">
           <ItemList
-            items={studentList || assignments}
+            items={assignments}
             nameHeader={nameHeader}
             valueHeader={valueHeader}
             dueAtHeader={dueAtHeader}
@@ -135,9 +134,6 @@ StudentSummary.propTypes = {
   // Late day data
   // assignmentId => number of late days used
   lateDaysMap: PropTypes.objectOf(PropTypes.number).isRequired,
-  lateDaysMapForEveryone: PropTypes.objectOf(
-    PropTypes.objectOf(PropTypes.number).isRequired
-  ),
   // If true, show the get in touch button
   showGetInTouch: PropTypes.bool.isRequired,
   // Total number of late days used by student

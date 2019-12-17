@@ -231,17 +231,9 @@ class App extends Component {
       && assignmentGroupIdsToCount.length >= 1
     );
 
-    let studentList;
-    // TODO: load late day counts from Canvas and store them in the state
-    try {
-      studentList = await api.course.listStudents({
-        courseId,
-      });
-    } catch (err) {
-      // Ignore tis
-    }
     // Determine the current view
     let currentView;
+
     if (isStudent) {
       currentView = (
         configurationSet
@@ -261,7 +253,7 @@ class App extends Component {
       configuration,
       assignmentGroups,
       // currentView, // TODO: put back
-      currentView: VIEWS.TTM_VIEW_OF_SPECIFIC_STUDENT, // TODO: remove
+      currentView: VIEWS.LATE_DAYS_BY_STUDENT, // TODO: remove
       currentSelectedStudent: this.state.students[0], // TODO: remove
       loading: false,
     });
@@ -281,9 +273,9 @@ class App extends Component {
       courseId,
       canvasHost,
       assignmentGroups,
+      students,
     } = this.state;
     console.log(currentView);
-
     // Error message
     if (errorMessage) {
       return (
@@ -312,13 +304,6 @@ class App extends Component {
     }
 
     if (currentView === VIEWS.CONFIGURATION) {
-      const {
-        gracePeriodMin,
-        maxLateDaysPerSemester,
-        maxLateDaysPerAssignment,
-        assignmentGroupIdsToCount,
-      } = configuration;
-
       body = (
         <Configuration
           assignmentGroups={assignmentGroups}
@@ -330,7 +315,9 @@ class App extends Component {
       );
     }
 
-    if (currentView === VIEWS.LATE_DAYS_BY_STUDENT) {
+    if (// currentView === VIEWS.LATE_DAYS_BY_STUDENT
+      true
+    ) {
       const {
         gracePeriodMin,
         maxLateDaysPerSemester,
@@ -338,29 +325,45 @@ class App extends Component {
         assignmentGroupIdsToCount,
       } = configuration;
 
+      const studentValueMap = students.map((student) => {
+        const item = {
+          name: student.name,
+          value: 2,
+        };
+        return item;
+      });
       body = (
         <LateDaysByStudentView
-          profile={currentSelectedStudent}
-          maxLateDaysPerAssignment={maxLateDaysPerAssignment}
-          maxLateDaysPerSemester={maxLateDaysPerSemester}
-          assignments={studentList}
+          items={studentValueMap}
+          valueDenominator={maxLateDaysPerSemester}
+          nameHeader="Student Name"
+          valueHeader="Total Late Days Used"
+          valueSuffix="Used"
+          footerMessage="Click a student for their assignment breakdown"
         />
       );
     }
 
     if (
-      // currentView === VIEWS.STUDENT_HOME
-      // || currentView === VIEWS.TTM_VIEW_OF_SPECIFIC_STUDENT
-      true
+      currentView === VIEWS.STUDENT_HOME
+      || currentView === VIEWS.TTM_VIEW_OF_SPECIFIC_STUDENT
     ) {
+      const {
+        gracePeriodMin,
+        maxLateDaysPerSemester,
+        maxLateDaysPerAssignment,
+        assignmentGroupIdsToCount,
+      } = configuration;
+
+      console.log(configuration);
       const testDateOne = new Date('November 8 2019 05:35:32');
       const testDateTwo = new Date('November 7 2019 05:35:32');
       const testDateThree = new Date('November 7 2019 05:35:32');
       body = (
         <StudentSummary
           profile={currentSelectedStudent}
-          maxLateDaysPerAssignment={2}
-          maxLateDaysPerSemester={4}
+          maxLateDaysPerAssignment={maxLateDaysPerAssignment}
+          maxLateDaysPerSemester={maxLateDaysPerSemester}
           assignments={[
             {
               name: 'Homework 1',

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import StudentSummary from '../../shared/StudentSummary';
+import ItemList from '../../../shared/ItemList';
+
+import './style.css';
 
 class LateDaysByStudentView extends Component {
   /**
@@ -8,41 +10,25 @@ class LateDaysByStudentView extends Component {
    */
   render() {
     const {
-      ttmProfile,
-      maxLateDaysPerAssignment,
-      maxLateDaysPerSemester,
-      assignments,
-      lateDaysMap,
-      showGetInTouch,
-      totalLateDaysUsed,
+      items,
+      valueDenominator,
+      footerMessage,
       valueSuffix,
       nameHeader,
       valueHeader,
-      dueAtHeader,
-      showDueAt,
-      courseId,
-      canvasHost,
     } = this.props;
     return (
       <div className="latedaysbystudentview-container">
-        <div className="latedaysbystudentview-header">
+        <div className="latedaysbystudentview-header font-weight-bold">
           Late Days By Student
         </div>
-        <StudentSummary
-          profile={ttmProfile}
-          maxLateDaysPerAssignment={maxLateDaysPerAssignment}
-          maxLateDaysPerSemester={maxLateDaysPerSemester}
-          assignments={assignments}
-          lateDaysMap={lateDaysMap}
-          showGetInTouch={showGetInTouch}
-          totalLateDaysUsed={totalLateDaysUsed}
-          valueSuffix={valueSuffix}
+        <ItemList
+          items={items}
+          valueDenominator={valueDenominator}
           nameHeader={nameHeader}
           valueHeader={valueHeader}
-          dueAtHeader={dueAtHeader}
-          showDueAt={showDueAt}
-          courseId={courseId}
-          canvasHost={canvasHost}
+          valueSuffix={valueSuffix}
+          footerMessage={footerMessage}
         />
       </div>
     );
@@ -50,49 +36,29 @@ class LateDaysByStudentView extends Component {
 }
 
 LateDaysByStudentView.propTypes = {
-  // TTM's profile
-  ttmProfile: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-  }).isRequired,
-  // Max late days allowed per assignment
-  maxLateDaysPerAssignment: PropTypes.number.isRequired,
-  // Max late days allowed per semester
-  maxLateDaysPerSemester: PropTypes.number.isRequired,
-  // Array of assignments
-  assignments: PropTypes.arrayOf(
+  // The array of items to display
+  items: PropTypes.arrayOf(
     PropTypes.shape({
-      // the name of assignment
+      // the name of an item
       name: PropTypes.string.isRequired,
-      // the ID of the assignment
-      id: PropTypes.number.isRequired,
-      // the due date of the assignment,
-      dueAt: PropTypes.instanceOf(Date),
-      // The number of late days used
+      // item's value (number of tokens used)
       value: PropTypes.number.isRequired,
+      // optional function that allows a item to be clicked for more detail
+      onClick: PropTypes.func,
+      // optional due date of item
+      dueAt: PropTypes.instanceOf(Date),
     })
   ).isRequired,
-  // Late day data
-  // assignmentId => number of late days used
-  lateDaysMap: PropTypes.objectOf(PropTypes.number).isRequired,
-  // If true, show the get in touch button
-  showGetInTouch: PropTypes.bool.isRequired,
-  // Total number of late days used by student
-  totalLateDaysUsed: PropTypes.number.isRequired,
+  // The denominator to show below the value
+  valueDenominator: PropTypes.number.isRequired,
+  // The header text above the item name column
+  nameHeader: PropTypes.string.isRequired,
+  // The header text above the item value column
+  valueHeader: PropTypes.string.isRequired,
   // String to display after the value fraction
   valueSuffix: PropTypes.string.isRequired,
-  // Header for name column
-  nameHeader: PropTypes.string.isRequired,
-  // Header for value column
-  valueHeader: PropTypes.string.isRequired,
-  // Header for dueAt column
-  dueAtHeader: PropTypes.string.isRequired,
-  // Determines whether to show DueAt column
-  showDueAt: PropTypes.bool.isRequired,
-  // The course id
-  courseId: PropTypes.number.isRequired,
-  // The hostname of Canvas
-  canvasHost: PropTypes.string.isRequired,
+  // The message to display in the footer
+  footerMessage: PropTypes.node.isRequired,
 };
 
 export default LateDaysByStudentView;
