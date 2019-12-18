@@ -6,8 +6,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import './Rule.css';
-
 class Rule extends Component {
   /**
    * Render Rule
@@ -22,13 +20,13 @@ class Rule extends Component {
     } = this.props;
 
     return (
-      <div className="rule-container">
-        <div className="rule-header">
-          {`${ruleHeader}:`}
-        </div>
-        <div className="rule-description">
+      <div className="rule-container mt-2">
+        <h3 className="mb-0">
+          {ruleHeader}
+        </h3>
+        <p className="lead mb-0">
           {ruleDescription}
-        </div>
+        </p>
         <div className="input-group">
           <input
             id="rule-input"

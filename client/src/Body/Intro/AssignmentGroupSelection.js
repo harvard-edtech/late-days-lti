@@ -10,11 +10,11 @@ import PropTypes from 'prop-types';
 // Import FontAwesome Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faClock,
   faChevronRight,
+  faTasks,
 } from '@fortawesome/free-solid-svg-icons';
 
-class Description extends Component {
+class AssignmentGroupSelection extends Component {
   constructor(props) {
     super(props);
 
@@ -30,29 +30,32 @@ class Description extends Component {
 
     return (
       <div className="Intro-panel-container">
-        <div className={`Intro-panel Intro-top-5 alert alert-light ${leaving ? 'Intro-panel-leaving' : ''}`}>
+        <div className={`Intro-panel Intro-top-3 alert alert-light ${leaving ? 'Intro-panel-leaving' : ''}`}>
           <div className="d-flex flex-row justify-content-center h-100">
             <div>
               <div className="Intro-text-small">
                 <div>
-                  <strong>LateDays </strong>
-                  gives your course a new,
+                  We recommend using Canvas
+                  <strong> assignment groups</strong>
+                  .
                 </div>
                 <div>
-                  more flexible way of managing
-                  <strong> extensions</strong>
-                  ...
+                  For instance, &quot;Homeworks&quot; and
+                  &quot;Reading Quizzes&quot;
                 </div>
               </div>
 
               <div className="Intro-icon-row">
-                <FontAwesomeIcon icon={faClock} />
+                <FontAwesomeIcon icon={faTasks} />
               </div>
 
               <div className="Intro-text-small">
-                ...introducing the
-                <strong> Late Day</strong>
-                !
+                <div>
+                  You choose which assignment groups allow Late Days.
+                </div>
+                <div>
+                  (Late Days allowed on Homeworks but not Reading Quizzes)
+                </div>
               </div>
 
               <div className="Intro-continue-button-container">
@@ -86,9 +89,9 @@ class Description extends Component {
 }
 
 // List or properties and their types
-Description.propTypes = {
+AssignmentGroupSelection.propTypes = {
   // Handler to call when done with this step
   onContinue: PropTypes.func.isRequired,
 };
 
-export default Description;
+export default AssignmentGroupSelection;

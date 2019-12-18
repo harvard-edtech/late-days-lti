@@ -19,14 +19,14 @@ class AssignmentGroupItem extends Component {
     return (
       <div className="assignmentgroupitem-container">
         <div className="form-check">
-          <label className="form-check-label" htmlFor="defaultUnchecked">
+          <label className="form-check-label" htmlFor={`AssignmentGroupItem-checkbox-${id}`}>
             <input
               type="checkbox"
               className="form-check-input"
-              id={`checkbox-${id}`}
+              id={`AssignmentGroupItem-checkbox-${id}`}
               checked={isChecked}
               onChange={() => {
-                onChange(id, !(currentAssignmentGroupIdsToCount.indexOf(id) > -1));
+                onChange(id, !isChecked);
               }}
             />
             {name}

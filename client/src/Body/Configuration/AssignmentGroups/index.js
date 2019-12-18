@@ -21,17 +21,19 @@ class AssignmentGroups extends Component {
           Assignment Groups
         </h3>
         <div className="alert alert-light text-dark mb-0">
-          <h4 className="assignmentgroup-maindescription">
+          <h3 className="assignmentgroup-maindescription m-0">
             Count Late Days for Assignments in these Assignment Groups:
-          </h4>
-          <h6 className="assignmentgroup-subdescription">
-            (Assignment must have due dates for students to use late days)
-          </h6>
+          </h3>
+          <p className="assignmentgroup-subdescription lead m-0">
+            Also, we will ignore assignments that do not have a due dates.
+          </p>
           <div className="assignmentgroup-items">
             <AssignmentGroupList
               assignmentGroups={assignmentGroups}
               onChange={onChange}
-              currentAssignmentGroupIdsToCount={currentAssignmentGroupIdsToCount}
+              currentAssignmentGroupIdsToCount={
+                currentAssignmentGroupIdsToCount
+              }
             />
           </div>
         </div>

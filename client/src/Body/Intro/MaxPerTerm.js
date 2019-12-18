@@ -10,11 +10,11 @@ import PropTypes from 'prop-types';
 // Import FontAwesome Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faClock,
   faChevronRight,
+  faHandPaper,
 } from '@fortawesome/free-solid-svg-icons';
 
-class Description extends Component {
+class MaxPerTerm extends Component {
   constructor(props) {
     super(props);
 
@@ -30,29 +30,41 @@ class Description extends Component {
 
     return (
       <div className="Intro-panel-container">
-        <div className={`Intro-panel Intro-top-5 alert alert-light ${leaving ? 'Intro-panel-leaving' : ''}`}>
+        <div className={`Intro-panel Intro-top-2 alert alert-light ${leaving ? 'Intro-panel-leaving' : ''}`}>
           <div className="d-flex flex-row justify-content-center h-100">
             <div>
               <div className="Intro-text-small">
                 <div>
-                  <strong>LateDays </strong>
-                  gives your course a new,
+                  You&apos;ll need to set up two
+                  <strong> caps</strong>
+                  :
                 </div>
                 <div>
-                  more flexible way of managing
-                  <strong> extensions</strong>
-                  ...
+                  the max late days allowed
+                  <strong> per assignment</strong>
+                  ,
+                </div>
+                <div>
+                  and the total number of late days
+                  <strong> per semester</strong>
+                  .
                 </div>
               </div>
 
               <div className="Intro-icon-row">
-                <FontAwesomeIcon icon={faClock} />
+                <FontAwesomeIcon icon={faHandPaper} />
               </div>
 
               <div className="Intro-text-small">
-                ...introducing the
-                <strong> Late Day</strong>
-                !
+                <div>
+                  Students can
+                  <strong> break </strong>
+                  these rules,
+                  penalties are up to you.
+                </div>
+                <div>
+                  Students who broke rules are marked in red inside this app.
+                </div>
               </div>
 
               <div className="Intro-continue-button-container">
@@ -86,9 +98,9 @@ class Description extends Component {
 }
 
 // List or properties and their types
-Description.propTypes = {
+MaxPerTerm.propTypes = {
   // Handler to call when done with this step
   onContinue: PropTypes.func.isRequired,
 };
 
-export default Description;
+export default MaxPerTerm;

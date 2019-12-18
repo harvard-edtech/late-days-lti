@@ -10,11 +10,11 @@ import PropTypes from 'prop-types';
 // Import FontAwesome Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faClock,
   faChevronRight,
+  faStopwatch,
 } from '@fortawesome/free-solid-svg-icons';
 
-class Description extends Component {
+class GracePeriod extends Component {
   constructor(props) {
     super(props);
 
@@ -30,29 +30,22 @@ class Description extends Component {
 
     return (
       <div className="Intro-panel-container">
-        <div className={`Intro-panel Intro-top-5 alert alert-light ${leaving ? 'Intro-panel-leaving' : ''}`}>
-          <div className="d-flex flex-row justify-content-center h-100">
+        <div className={`Intro-panel alert alert-light ${leaving ? 'Intro-panel-leaving' : ''}`}>
+          <div className="d-flex flex-row justify-content-center align-items-center h-100">
             <div>
               <div className="Intro-text-small">
                 <div>
-                  <strong>LateDays </strong>
-                  gives your course a new,
+                  We support a
+                  <strong> grace period</strong>
+                  :
                 </div>
                 <div>
-                  more flexible way of managing
-                  <strong> extensions</strong>
-                  ...
+                  the number of free minutes before a Late Day is used.
                 </div>
               </div>
 
               <div className="Intro-icon-row">
-                <FontAwesomeIcon icon={faClock} />
-              </div>
-
-              <div className="Intro-text-small">
-                ...introducing the
-                <strong> Late Day</strong>
-                !
+                <FontAwesomeIcon icon={faStopwatch} />
               </div>
 
               <div className="Intro-continue-button-container">
@@ -86,9 +79,9 @@ class Description extends Component {
 }
 
 // List or properties and their types
-Description.propTypes = {
+GracePeriod.propTypes = {
   // Handler to call when done with this step
   onContinue: PropTypes.func.isRequired,
 };
 
-export default Description;
+export default GracePeriod;

@@ -11,6 +11,7 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faChevronRight,
+  faUserClock,
 } from '@fortawesome/free-solid-svg-icons';
 
 class WhatIsALateDay extends Component {
@@ -32,18 +33,27 @@ class WhatIsALateDay extends Component {
         <div className={`Intro-panel Intro-top-5 alert alert-light ${leaving ? 'Intro-panel-leaving' : ''}`}>
           <div className="d-flex flex-row justify-content-center h-100">
             <div>
-              <div className="Intro-text-large">
-                <strong>LateDays </strong>
-                gives your course a new,
-                more flexible way of managing extensions.
-              </div>
-
-              <div className="Intro-text-large">
+              <div className="Intro-text-small">
                 <div>
-                  Events are classes, labs, trips, sessions,
+                  What&apos;s a
+                  <strong> Late Day</strong>
+                  ?
                 </div>
                 <div>
-                  or anything people attend.
+                  Students can use a Late Day to submit one day late.
+                </div>
+              </div>
+
+              <div className="Intro-icon-row">
+                <FontAwesomeIcon icon={faUserClock} />
+              </div>
+
+              <div className="Intro-text-small">
+                <div>
+                  When a student submits late,
+                </div>
+                <div>
+                  they automatically use Late Days.
                 </div>
               </div>
 

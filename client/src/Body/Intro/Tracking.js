@@ -10,11 +10,11 @@ import PropTypes from 'prop-types';
 // Import FontAwesome Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faClock,
   faChevronRight,
+  faChartBar,
 } from '@fortawesome/free-solid-svg-icons';
 
-class Description extends Component {
+class Tracking extends Component {
   constructor(props) {
     super(props);
 
@@ -30,29 +30,29 @@ class Description extends Component {
 
     return (
       <div className="Intro-panel-container">
-        <div className={`Intro-panel Intro-top-5 alert alert-light ${leaving ? 'Intro-panel-leaving' : ''}`}>
+        <div className={`Intro-panel Intro-top-3 alert alert-light ${leaving ? 'Intro-panel-leaving' : ''}`}>
           <div className="d-flex flex-row justify-content-center h-100">
             <div>
               <div className="Intro-text-small">
                 <div>
-                  <strong>LateDays </strong>
-                  gives your course a new,
+                  Teaching team members can check on student
                 </div>
                 <div>
-                  more flexible way of managing
-                  <strong> extensions</strong>
-                  ...
+                  Late Day usage by launching this app.
                 </div>
               </div>
 
               <div className="Intro-icon-row">
-                <FontAwesomeIcon icon={faClock} />
+                <FontAwesomeIcon icon={faChartBar} />
               </div>
 
               <div className="Intro-text-small">
-                ...introducing the
-                <strong> Late Day</strong>
-                !
+                <div>
+                  Students can check their own Late Day
+                </div>
+                <div>
+                  usage by launching this app.
+                </div>
               </div>
 
               <div className="Intro-continue-button-container">
@@ -86,9 +86,9 @@ class Description extends Component {
 }
 
 // List or properties and their types
-Description.propTypes = {
+Tracking.propTypes = {
   // Handler to call when done with this step
   onContinue: PropTypes.func.isRequired,
 };
 
-export default Description;
+export default Tracking;

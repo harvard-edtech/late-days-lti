@@ -11,6 +11,10 @@ import PropTypes from 'prop-types';
 import Welcome from './Welcome';
 import Description from './Description';
 import WhatIsALateDay from './WhatIsALateDay';
+import MaxPerTerm from './MaxPerTerm';
+import GracePeriod from './GracePeriod';
+import AssignmentGroupSelection from './AssignmentGroupSelection';
+import Tracking from './Tracking';
 import Done from './Done';
 
 // Import style
@@ -21,6 +25,10 @@ const STEPS = [
   Welcome,
   Description,
   WhatIsALateDay,
+  MaxPerTerm,
+  GracePeriod,
+  AssignmentGroupSelection,
+  Tracking,
   Done,
 ];
 
@@ -87,11 +95,6 @@ class Intro extends Component {
 Intro.propTypes = {
   // Handler to call when user is done with intro
   onFinish: PropTypes.func.isRequired,
-};
-
-Intro.defaultProps = {
-  // By default, we don't ask the user for the hardware type
-  askForHardwareType: false,
 };
 
 export default Intro;
