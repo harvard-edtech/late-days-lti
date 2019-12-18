@@ -27,7 +27,7 @@ class Rules extends Component {
             <Rule
               userInput={gracePeriodMin}
               ruleHeader="Grace Period"
-              ruleDescription="We need a description here"
+              ruleDescription="The number of free minutes before a late day is used."
               ruleType="Mins"
               onRuleChange={onGracePeriodChanged}
             />
@@ -36,7 +36,7 @@ class Rules extends Component {
             <Rule
               userInput={maxLateDaysPerSemester}
               ruleHeader="Max Late Days Per Semester"
-              ruleDescription="We need a description here"
+              ruleDescription="The total number of late days allowed per semester."
               ruleType="Days"
               onRuleChange={onMaxLateDaysPerSemesterChanged}
             />
@@ -45,7 +45,7 @@ class Rules extends Component {
             <Rule
               userInput={maxLateDaysPerAssignment}
               ruleHeader="Max Late Days Per Assignment"
-              ruleDescription="We need a description here"
+              ruleDescription="The maximum number of late days allowed to be used on each assignment."
               ruleType="Days"
               onRuleChange={onMaxLateDaysPerAssignmentChanged}
             />

@@ -18,9 +18,9 @@ class GetInTouchButton extends Component {
     } = this.props;
 
     return (
-      <div className="getintouchbutton-container d-flex pt-4">
+      <div className="getintouchbutton-container text-center mb-5">
         <a
-          className="btn btn-secondary btn-lg"
+          className="btn btn-info btn-lg"
           href={link}
           target="_blank"
           rel="noopener noreferrer"

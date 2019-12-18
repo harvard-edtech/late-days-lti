@@ -35,7 +35,7 @@ class ItemRow extends Component {
     const dueAtItem = (
       showDueAt
         ? (
-          <div className={`itemrow-dueAt itemlist-due-column ${dueOver ? 'itemrow-overdueat bg-crimson' : ''}`}>
+          <div className={`itemrow-dueAt itemlist-due-column ${dueOver ? 'itemrow-overdueat bg-crimson' : 'itemrow-underdueat'}`}>
             <ItemDue
               dueAt={dueAt}
             />
@@ -68,7 +68,7 @@ class ItemRow extends Component {
             />
           </div>
           {dueAtItem}
-          <div className={`itemrow-value itemlist-value-column ${dueOver ? 'itemrow-overvalue' : ''}`}>
+          <div className={`itemrow-value itemlist-value-column ${dueOver ? 'itemrow-overvalue' : 'itemrow-undervalue'}`}>
             <ItemValue
               value={value}
               valueDenominator={valueDenominator}

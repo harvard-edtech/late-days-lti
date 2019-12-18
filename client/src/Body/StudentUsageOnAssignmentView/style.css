@@ -1,0 +1,11 @@
+.studentusageonassignmentview-header {
+  /* Styles heading */
+  font-size: 300%;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.studentusageonassignmentview-container {
+  padding-left: 10px;
+  padding-right: 10px;
+}

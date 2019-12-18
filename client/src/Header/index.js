@@ -58,7 +58,7 @@ class Header extends Component {
         <nav className="navbar bg-secondary text-light shadow">
           {leftButtonElem}
           <h2 className="m-0 text-center w-100">
-            Late Days
+            LateDays
           </h2>
           {rightButtonElem}
         </nav>

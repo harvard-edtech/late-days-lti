@@ -79,10 +79,10 @@ class StudentSummary extends Component {
     );
 
     return (
-      <div className="studentsummary-container p-3">
-        <div className="studentsummary-heading font-weight-bold">
+      <div className="studentsummary-container content-container">
+        <h1 className="studentsummary-heading text-center">
           {header}
-        </div>
+        </h1>
         {getInTouch}
         <div className="studentsummary-progressbar">
           <TotalLateDayProgress

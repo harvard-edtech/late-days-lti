@@ -1,0 +1,39 @@
+.Welcome-title {
+  font-family: 'Fredoka One';
+  font-size: 10vw;
+  color: white;
+
+  transition: all 0.5s;
+  position: relative;
+}
+
+.Welcome-word {
+  -webkit-animation: Welcome-fade-in 2s;
+  animation: Welcome-fade-in 2s forwards;
+  animation-timing-function: ease;
+  animation-iteration-count: 1;
+  opacity: 0;
+  display: inline-block;
+}
+
+.Welcome-word-1 {
+  animation-delay: 0.5s;
+}
+
+.Welcome-word-2 {
+  animation-delay: 1.1s;
+}
+
+.Welcome-word-3 {
+  animation-delay: 1.5s;
+}
+
+@keyframes Welcome-fade-in {
+  0% {
+    text-shadow: 0 0 10vw white;
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

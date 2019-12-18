@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 // Import other components
 import ItemListColumnHeaders from './ItemListColumnHeaders';
 import ItemRows from './ItemRows';
-import ItemFooter from './ItemFooter';
 import ItemSearchBar from './ItemSearchBar';
 
 // Import sort types
@@ -64,7 +63,6 @@ class ItemList extends Component {
       valueSuffix,
       showDueAt,
       hideSearchBar,
-      footerMessage,
     } = this.props;
 
     const {
@@ -122,17 +120,6 @@ class ItemList extends Component {
         )
     );
 
-    /* --------------------- Create Footer Elem --------------------- */
-    const footerElem = (
-      footerMessage
-        ? (
-          <ItemFooter
-            footerMessage={footerMessage}
-          />
-        )
-        : null
-    );
-
     /* --------------------- Create Item Rows Elem --------------------- */
     const itemsDisplayed = (isFiltered ? filteredItems : items);
 
@@ -155,7 +142,6 @@ class ItemList extends Component {
         {searchBarElem}
         {headerElem}
         {itemRowsElem}
-        {footerElem}
       </div>
     );
   }
@@ -191,8 +177,6 @@ ItemList.propTypes = {
   showDueAt: PropTypes.bool,
   // If true, search bar is shown
   hideSearchBar: PropTypes.bool,
-  // The message to display in the footer
-  footerMessage: PropTypes.node,
 };
 
 ItemList.defaultProps = {
@@ -210,8 +194,6 @@ ItemList.defaultProps = {
   showDueAt: false,
   // By default, search bar is shown
   hideSearchBar: false,
-  // By default, no footer is shown
-  footerMessage: null,
 };
 
 export default ItemList;
