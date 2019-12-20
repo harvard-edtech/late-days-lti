@@ -36,10 +36,11 @@ class ProgressBar extends Component {
     const { zeroed } = this.state;
 
     // Calculate percentage of late day tokens used in total (0 to 100)
-    let percentageUsed = 0;
-    if (!zeroed) {
-      percentageUsed = (totalLateDaysUsed / maxLateDaysPerSemester) * 100;
-    }
+    let percentageUsed = (
+      zeroed
+        ? 0
+        : (totalLateDaysUsed / maxLateDaysPerSemester) * 100
+    );
 
     let color = 'bg-info';
     let label = '';
@@ -50,6 +51,14 @@ class ProgressBar extends Component {
       percentageUsed = 100;
       label = 'USED TOO MANY!';
     }
+    if (percentageUsed === 0) {
+      label = (
+        <div className="text-dark font-weight-bold ml-2">
+          None used yet.
+        </div>
+      );
+    }
+
     return (
       <div className="progressbar-container">
         <div
