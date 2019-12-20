@@ -40,7 +40,14 @@ class AssignmentOveruseContainer extends Component {
               ? ','
               : ''
           );
-          const and = (i === assignmentsToShow.length - 1 ? 'and ' : '');
+          const and = (
+            (
+              i === assignmentsToShow.length - 1
+              && assignmentsToShow.length > 1
+            )
+              ? 'and '
+              : ''
+          );
           return `${and}${assignment.name}${comma}`;
         })
         .join(' ')

@@ -652,6 +652,14 @@ class App extends Component {
 
     // Instructor home
     if (currentView === VIEWS.TTM_HOME) {
+      const validIds = (configuration.assignmentGroupIdsToCount || []);
+      const includedAssignmentGroups = (
+        assignmentGroups
+          .filter((assignmentGroup) => {
+            return validIds.indexOf(assignmentGroup.id) >= 0;
+          })
+      );
+
       body = (
         <InstructorDashboard
           onShowConfiguration={() => {
@@ -674,6 +682,8 @@ class App extends Component {
               showIntro: true,
             });
           }}
+          includedAssignmentGroups={includedAssignmentGroups}
+          noAssignmentsYet={!assignments || assignments.length === 0}
         />
       );
     }
