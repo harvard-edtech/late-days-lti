@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ItemList from '../../shared/ItemList';
 
-// Import styles
-import './style.css';
-
 class StudentUsageOnAssignmentView extends Component {
   /**
    * Render StudentUsageOnAssignmentView
@@ -29,13 +26,13 @@ class StudentUsageOnAssignmentView extends Component {
     });
 
     return (
-      <div className="studentusageonassignmentview-container">
-        <div className="studentusageonassignmentview-header font-weight-bold">
+      <div className="studentusageonassignmentview-container content-container">
+        <h1 className="studentusageonassignmentview-header text-center">
           Late Days for&nbsp;
           <span className="font-weight-light">
             {assignment.name}
           </span>
-        </div>
+        </h1>
         <div className="studentusageonassignmentview-items">
           <ItemList
             items={items}
