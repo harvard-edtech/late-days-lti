@@ -9,3 +9,11 @@
   padding-left: 10px;
   padding-right: 10px;
 }
+.studentusageonassignmentview-items {
+  min-width: 600px;
+  max-width: 1000px;
+  margin: auto;
+
+  padding-left: 10px;
+  padding-right: 10px;
+}

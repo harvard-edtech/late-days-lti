@@ -35,14 +35,14 @@
 	},
 	"homepage": "https://github.com/gabeabrams/late-days-lti#readme",
 	"dependencies": {
-		"caccl": "^1.0.124",
-		"eslint": "^6.6.0"
+		"caccl": "^1.0.126",
+		"eslint": "^6.7.2"
 	},
 	"devDependencies": {
 		"eslint-config-airbnb": "^18.0.1",
-		"eslint-plugin-import": "^2.18.2",
+		"eslint-plugin-import": "^2.19.1",
 		"eslint-plugin-jsx-a11y": "^6.2.3",
-		"eslint-plugin-react": "^7.16.0",
+		"eslint-plugin-react": "^7.17.0",
 		"mocha": "^6.2.2"
 	}
 }
