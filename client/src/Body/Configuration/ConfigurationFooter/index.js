@@ -31,7 +31,7 @@ class ConfigurationFooter extends Component {
     );
 
     return (
-      <div className="configurationfooter-container">
+      <div className="configurationfooter-container mb-2">
         {cancelButton}
         <SaveButton
           onSaveClicked={onSaveClicked}

@@ -48,7 +48,10 @@ class Intro extends Component {
    * Render Intro
    */
   render() {
-    const { onFinish } = this.props;
+    const {
+      onFinish,
+      firstTime,
+    } = this.props;
     const {
       stepIndex,
       leaving,
@@ -67,6 +70,7 @@ class Intro extends Component {
           }}
         >
           <StepComponent
+            firstTime={firstTime}
             onContinue={() => {
               if (stepIndex === STEPS.length - 2) {
                 // Finish
@@ -95,6 +99,8 @@ class Intro extends Component {
 Intro.propTypes = {
   // Handler to call when user is done with intro
   onFinish: PropTypes.func.isRequired,
+  // True if this is the user's first time
+  firstTime: PropTypes.bool.isRequired,
 };
 
 export default Intro;

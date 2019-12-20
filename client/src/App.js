@@ -453,6 +453,7 @@ class App extends Component {
       showIntro
         ? (
           <Intro
+            firstTime={!configuration}
             onFinish={() => {
               this.setState({
                 showIntro: false,
