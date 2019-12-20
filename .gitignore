@@ -3,3 +3,6 @@ node_modules/
 
 # Ignore configuration files
 config/
+
+# Ignore DS_Store
+**/.DS_Store
