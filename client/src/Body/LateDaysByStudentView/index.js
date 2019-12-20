@@ -21,10 +21,18 @@ class LateDaysByStudentView extends Component {
     } = this.props;
 
     const items = students.map((student) => {
-      const usageNumbers = Object.values(lateDaysMapForEveryone[student.id]);
-      const totalLateDaysUsed = usageNumbers.reduce((a, b) => {
-        return a + b;
-      }, 0);
+      let usageNumbers;
+      let totalLateDaysUsed;
+      if (lateDaysMapForEveryone[student.id]) {
+        usageNumbers = Object.values(lateDaysMapForEveryone[student.id]);
+        totalLateDaysUsed = usageNumbers.reduce((a, b) => {
+          return a + b;
+        }, 0);
+      } else {
+        // TODO: Assumption that total late days used if no assignments are in
+        // assignment group would be 0
+        totalLateDaysUsed = 0;
+      }
 
       return {
         name: student.name,
