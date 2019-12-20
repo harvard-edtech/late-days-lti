@@ -2,4 +2,9 @@
   color: inherit !important;
   font-weight: bold !important;
   display: inline-block;
+  font-size: 110% !important;
+}
+
+.ItemName-container {
+  font-size: 110% !important;
 }

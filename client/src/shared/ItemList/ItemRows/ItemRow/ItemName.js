@@ -27,7 +27,7 @@ class ItemName extends Component {
     }
 
     return (
-      <div className="itemname-container">
+      <div className="ItemName-container">
         {name}
       </div>
     );
