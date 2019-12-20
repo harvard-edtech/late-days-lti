@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import ProgressBar from './ProgressBar.js';
-import ProgressInfo from './ProgressInfo.js';
+import ProgressBar from './ProgressBar';
+import ProgressInfo from './ProgressInfo';
 
 // import styles
 import './style.css';

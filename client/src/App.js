@@ -346,16 +346,16 @@ class App extends Component {
       // Post process to create the lateDaysMapForEveryone
       lateDaysMapForEveryone = {};
 
+      // Initialize lateDaysMapForEveryone for each student
+      students.forEach((student) => {
+        lateDaysMapForEveryone[student.id] = {};
+      });
+
       submissionPacks.forEach((pack) => {
         const { assignmentId, submissions } = pack;
 
         // Go through each assignment and calculate late days used
         submissions.forEach((sub) => {
-          // Create student map if it isn't already there
-          if (!lateDaysMapForEveryone[sub.user_id]) {
-            lateDaysMapForEveryone[sub.user_id] = {};
-          }
-
           // No late days used if not submitted or if excused
           if (!sub.submitted_at || sub.excused) {
             lateDaysMapForEveryone[sub.user_id][assignmentId] = 0;
@@ -622,15 +622,23 @@ class App extends Component {
         };
       });
 
+      // Get late day map for current student
+      const lateDaysMap = lateDaysMapForEveryone[currentSelectedStudent.id];
+
+      // Calculate total late days used
+      const totalLateDaysUsed = Object.values(lateDaysMap).reduce((a, b) => {
+        return a + b;
+      }, 0);
+
       body = (
         <StudentSummary
           profile={currentSelectedStudent}
           maxLateDaysPerAssignment={maxLateDaysPerAssignment}
           maxLateDaysPerSemester={maxLateDaysPerSemester}
           assignments={assignmentObjects}
-          lateDaysMap={lateDaysMapForEveryone[currentSelectedStudent.id]}
+          lateDaysMap={lateDaysMap}
           valueSuffix="Used"
-          totalLateDaysUsed={4}
+          totalLateDaysUsed={totalLateDaysUsed}
           nameHeader="Full Name"
           valueHeader="Late Days Used"
           dueAtHeader="Due At"
