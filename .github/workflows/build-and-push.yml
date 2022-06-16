@@ -22,7 +22,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Build + Push
-        uses: harvard-edtech/dce-ecr-action@v1.2
+        uses: harvard-edtech/dce-ecr-action@v1.3
         with:
           access_key_id:  ${{ secrets.PUSH_TO_ECR_AWS_ACCESS_KEY_ID }}
           secret_access_key: ${{ secrets.PUSH_TO_ECR_AWS_SECRET_ACCESS_KEY }}
