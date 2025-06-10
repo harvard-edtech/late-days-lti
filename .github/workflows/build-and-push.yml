@@ -4,31 +4,55 @@
 # tagged, e.g., bugfix-some-bug
 
 name: Build and Push Image to ECR
+
 on:
   push:
-    branches: [ master, stage, '*/*' ]
+    branches: [main, stage, "*/*"]
 
 env:
   REPOSITORY_NAME: hdce/late-days-lti
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build_and_push:
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
-        uses: actions/checkout@v2
-      - name: Turnstyle (no concurrent builds)
-        uses: softprops/turnstyle@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build + Push
-        uses: harvard-edtech/dce-ecr-action@v1.2
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
         with:
-          access_key_id:  ${{ secrets.PUSH_TO_ECR_AWS_ACCESS_KEY_ID }}
-          secret_access_key: ${{ secrets.PUSH_TO_ECR_AWS_SECRET_ACCESS_KEY }}
-          account_id: ${{ secrets.AWS_ACCOUNT_ID }}
-          repo: ${{ env.REPOSITORY_NAME }}
-          region: ${{ secrets.AWS_DEFAULT_REGION }}
-          tags: ${{ github.sha }}
-          add_branch_tag: true
-          slack_webhook_url: ${{ secrets.PUSH_TO_ECR_SLACK_NOTIFY_WEBHOOK_URL }}
+          aws-access-key-id: ${{ secrets.PUSH_TO_ECR_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.PUSH_TO_ECR_AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+
+      - name: Log in to Amazon ECR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_DEFAULT_REGION }}.amazonaws.com
+
+      - name: Extract branch name
+        id: extract_branch
+        run: |
+          ref="${GITHUB_REF#refs/heads/}"
+          sanitized=$(echo "$ref" | tr '/' '-')
+          echo "TAG=$sanitized" >> $GITHUB_OUTPUT
+
+      - name: Read version from package.json
+        id: get_version
+        run: |
+          VERSION=$(jq -r .version package.json)
+          echo "PACKAGE_VERSION=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_DEFAULT_REGION }}.amazonaws.com/${{ env.REPOSITORY_NAME }}:${{ steps.extract_branch.outputs.TAG }}
+            ${{ github.ref == 'refs/heads/main' && format('{0}.dkr.ecr.{1}.amazonaws.com/{2}:{3}', secrets.AWS_ACCOUNT_ID, secrets.AWS_DEFAULT_REGION, env.REPOSITORY_NAME, steps.get_version.outputs.PACKAGE_VERSION) || '' }}
